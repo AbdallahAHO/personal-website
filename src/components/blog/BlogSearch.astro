@@ -92,7 +92,7 @@ const posts = await Promise.all(
     const searchResults = document.getElementById("searchResults"); // Container for search results
     const closeSearch = document.getElementById("closeSearch"); // Button to close search modal
     // Initialize Fuse.js for fuzzy searching with posts data
-    const fuse = new Fuse(posts, {
+    const fuse = new window.Fuse(posts, {
       keys: ["title", "description"], // Fields to search within
       threshold: 0.3, // Controls search sensitivity (lower = more strict)
       includeMatches: true, // Includes matching results for highlighting

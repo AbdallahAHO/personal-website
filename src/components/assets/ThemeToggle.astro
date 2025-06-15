@@ -27,7 +27,7 @@ const { class: className = "", ...rest } = Astro.props;
 </button>
 
 <script>
-  function updateTheme(isDark) {
+  function updateTheme(isDark: boolean) {
     document.documentElement.classList.toggle("dark", isDark);
     localStorage.setItem("theme", isDark ? "dark" : "light");
 

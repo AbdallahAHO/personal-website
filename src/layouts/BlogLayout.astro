@@ -11,7 +11,7 @@ import LatestPosts from "@/components/blog/LatestPosts.astro";
 
 // Generate SEO-optimized metadata for this blog post
 const seoTitle = frontmatter.seoTitle
-  ? `${frontmatter.seoTitle} | ${SITE.NAME} Blog`
+  ? `${frontmatter.title} | ${SITE.NAME} Blog`
   : `${frontmatter.title} | ${SITE.NAME} Blog`;
 const seoDescription =
   frontmatter.seoDescription ||
@@ -40,7 +40,7 @@ const allPosts = otherPostsUnsorted.sort(
 ---
 
 <BaseLayout
-  title={`${frontmatter.title} - A blog post by ${SITE.NAME}`}
+  title={seoTitle}
   description={seoDescription}
   keywords={seoKeywords}
   image={seoImage}
@@ -131,7 +131,7 @@ const allPosts = otherPostsUnsorted.sort(
             {
               frontmatter.seoTags && frontmatter.seoTags.length > 0 && (
                 <div class="hidden">
-                  {frontmatter.seoTags.map((tag) => (
+                  {frontmatter.seoTags.map((tag: string) => (
                     <span class="text-zinc-500 dark:text-zinc-400">
                       <Text
                         tag="span"
@@ -149,7 +149,7 @@ const allPosts = otherPostsUnsorted.sort(
             <!-- Visible classy tags for users -->
             {
               frontmatter.tags &&
-                frontmatter.tags.map((tag) => (
+                frontmatter.tags.map((tag: string) => (
                   <span class="text-zinc-500 dark:text-zinc-400">
                     <Text
                       tag="a"

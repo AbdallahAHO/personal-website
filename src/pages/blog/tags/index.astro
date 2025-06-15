@@ -8,7 +8,6 @@ import { SITE } from "@/constants/site";
 const allPosts = await getCollection("blog");
 const tags = [...new Set(allPosts.flatMap((post) => post.data.tags || []))];
 const sortedTags = tags.sort((a, b) => a.localeCompare(b));
-const pageTitle = "Blog Tags Index | " + tags.length + " Tags Found";
 ---
 
 <BaseLayout
