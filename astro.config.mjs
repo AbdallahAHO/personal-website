@@ -1,7 +1,7 @@
-import { defineConfig } from 'astro/config'
-import tailwindcss from '@tailwindcss/vite'
-import sitemap from '@astrojs/sitemap'
 import mdx from '@astrojs/mdx'
+import sitemap from '@astrojs/sitemap'
+import tailwindcss from '@tailwindcss/vite'
+import { defineConfig } from 'astro/config'
 import devtoolsJson from 'vite-plugin-devtools-json'
 
 export default defineConfig({
@@ -20,5 +20,40 @@ export default defineConfig({
     drafts: true,
   },
   site: 'https://abdallahaho.com',
-  integrations: [sitemap(), mdx()],
+  integrations: [
+    sitemap({
+      customPages: [
+        'https://abdallahaho.com/',
+        'https://abdallahaho.com/about/',
+        'https://abdallahaho.com/work/',
+        'https://abdallahaho.com/blog/',
+        'https://abdallahaho.com/projects/',
+        'https://abdallahaho.com/now/',
+      ],
+      serialize(item) {
+        // Set priorities based on page importance
+        if (item.url === 'https://abdallahaho.com/') {
+          item.priority = 1.0
+        } else if (item.url.includes('/blog/') && !item.url.includes('/tags/')) {
+          item.priority = 0.8
+        } else if (
+          item.url.includes('/projects/') ||
+          item.url.includes('/about/') ||
+          item.url.includes('/work/')
+        ) {
+          item.priority = 0.7
+        } else if (item.url.includes('/blog/') || item.url.includes('/projects/')) {
+          item.priority = 0.6
+        } else {
+          item.priority = 0.5
+        }
+
+        // Add lastmod date
+        item.lastmod = new Date().toISOString()
+
+        return item
+      },
+    }),
+    mdx(),
+  ],
 })

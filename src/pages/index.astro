@@ -99,12 +99,12 @@ const allProjects = await getCollection("projects");
         {
           allProjects
             .slice(0, 2)
-            .map((post) => (
+            .map((project) => (
               <LatestPosts
-                url={"/blog/" + post.slug}
-                title={post.data.title}
-                alt={post.data.title}
-                pubDate={post.data.pubDate.toString().slice(4, 10)}
+                url={"/projects/" + project.slug}
+                title={project.data.title}
+                alt={project.data.title}
+                pubDate={project.data.pubDate.toString().slice(4, 10)}
               />
             ))
         }

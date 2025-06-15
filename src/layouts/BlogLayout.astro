@@ -5,6 +5,9 @@ import { SITE } from "@/constants/site";
 
 import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import Breadcrumb, {
+  BreadcrumbItem
+} from "@/components/fundations/elements/Breadcrumb.astro";
 
 import { getCollection } from "astro:content";
 import LatestPosts from "@/components/blog/LatestPosts.astro";
@@ -27,6 +30,18 @@ const seoKeywords = [
   (frontmatter.seoTitle || frontmatter.title).split(" ").slice(0, 3).join(" ") // First 3 words of SEO title
 ];
 const seoImage = frontmatter.image?.url || SITE.OG_IMAGE;
+
+// Generate breadcrumb items
+const breadcrumbItems: BreadcrumbItem[] = [
+  { name: "Home", href: "/" },
+  { name: "Blog", href: "/blog/" }
+];
+
+// Add current post (no href for current page)
+breadcrumbItems.push({
+  name: frontmatter.title,
+  href: undefined // No href for the current page
+});
 
 const otherPostsUnsorted = await getCollection("blog", (post) => {
   return post.data.title !== frontmatter.title;
@@ -51,6 +66,8 @@ const allPosts = otherPostsUnsorted.sort(
 >
   <section id="post-header">
     <Wrapper variant="standard" class="pt-24 pb-12">
+      <!-- Breadcrumb Navigation -->
+      <Breadcrumb items={breadcrumbItems} class="mb-6" />
       <!-- Hidden SEO-optimized title for search engines -->
       {
         frontmatter.seoTitle && frontmatter.seoTitle !== frontmatter.title && (
@@ -100,7 +117,11 @@ const allPosts = otherPostsUnsorted.sort(
           <img
             class="object-cover aspect-[16/9] rounded-xl mt-8 lg:mt-12"
             src={frontmatter.image.url}
-            alt={frontmatter.image.url}
+            alt={
+              frontmatter.image.alt ||
+              `${frontmatter.title} - Blog post featured image`
+            }
+            loading="lazy"
           />
         )
       }

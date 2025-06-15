@@ -22,11 +22,11 @@ const navLinks = [
 	},
 	{
 		text: "Projects",
-		href: "/projects/home",
+		href: "/projects/",
 	},
 	{
 		text: "Blog",
-		href: "/blog/home",
+		href: "/blog/",
 	},
 	{
 		text: "Now",
@@ -57,14 +57,19 @@ const navLinksByColumn = [
             size="medium"
             variant="secondary"
             aria-expanded="false"
+            aria-controls="mobile-menu"
+            aria-haspopup="menu"
+            aria-label="Toggle navigation menu"
             @click="open = !open"
             :class="{ 'text-zinc-900 dark:text-white': !open, 'text-zinc-500 dark:text-zinc-400': open }"
           >
             Menu
           </Button>
           <div
+            id="mobile-menu"
             x-show="open"
             @click.away="open = false"
+            @keydown.escape="open = false"
             x-transition:enter="transition ease-out duration-200"
             x-transition:enter-start="opacity-0"
             x-transition:enter-end="opacity-100"
@@ -73,6 +78,9 @@ const navLinksByColumn = [
             x-transition:leave-end="opacity-0"
             class="fixed inset-0 z-50 bg-white/50 backdrop-blur-lg dark:bg-black/50"
             style="display: none;"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Navigation menu"
           >
             <Wrapper class="relative h-full pt-14">
               <!-- Header -->

@@ -1,3 +1,20 @@
 <!-- Inter Font: https://rsms.me/inter/ -->
 <link rel="preconnect" href="https://rsms.me/" />
-<link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+<link
+  rel="preload"
+  href="https://rsms.me/inter/inter.css"
+  as="style"
+  onload="this.onload=null;this.rel='stylesheet'"
+/>
+<noscript
+  ><link rel="stylesheet" href="https://rsms.me/inter/inter.css" /></noscript
+>
+<style>
+  /* Font display optimization */
+  @supports (font-variation-settings: normal) {
+    :root {
+      font-family: InterVariable, sans-serif;
+      font-display: swap;
+    }
+  }
+</style>
