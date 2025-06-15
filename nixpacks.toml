@@ -28,10 +28,6 @@ cmds = [
   "pnpm exec astro build"
 ]
 
-[start]
-# Serve the built static files
-cmd = "pnpm preview --host 0.0.0.0 --port $PORT"
-
 [staticAssets]
 # Astro builds to dist/ directory
 dir = "dist"

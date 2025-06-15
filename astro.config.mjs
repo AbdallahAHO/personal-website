@@ -13,7 +13,7 @@ export default defineConfig({
   },
   vite: {
     plugins: [tailwindcss(), devtoolsJson({ uuid: '6722dc0b-b5b2-4d99-a7bf-0733ae915756' })],
-    server: {
+    preview: {
       cors: {
         origin: 'https://abdallahaho.com',
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
