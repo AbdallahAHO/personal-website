@@ -1,4 +1,7 @@
-import { getGitCommitHash } from '@/utils/git'
+// Git commit hash will be set at build time
+const COMMIT_HASH = process.env.GITHUB_SHA?.substring(0, 7) || 
+                   process.env.SOURCE_COMMIT?.substring(0, 7) || 
+                   'unknown'
 
 export const SITE = {
   NAME: 'Abdallah Othman',
@@ -78,6 +81,6 @@ export const SITE = {
   RSS_DESCRIPTION: 'Latest insights on Growth Engineering, AI, and Software Development',
 
   // Git info
-  COMMIT_HASH: getGitCommitHash(),
+  COMMIT_HASH,
   REPO_NAME: 'personal-website',
 }
