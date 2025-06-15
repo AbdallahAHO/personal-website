@@ -9,7 +9,6 @@ export default defineConfig({
     shikiConfig: {
       theme: 'css-variables',
       wrap: true,
-      skipInline: false,
     },
   },
   vite: {
