@@ -6,13 +6,29 @@ import devtoolsJson from 'vite-plugin-devtools-json'
 
 export default defineConfig({
   markdown: {
-    drafts: true,
     shikiConfig: {
       theme: 'css-variables',
+      wrap: true,
+      skipInline: false,
     },
   },
   vite: {
     plugins: [tailwindcss(), devtoolsJson({ uuid: '6722dc0b-b5b2-4d99-a7bf-0733ae915756' })],
+    build: {
+      rollupOptions: {
+        output: {
+          // Configure cache-friendly file names with content hashes
+          assetFileNames: (assetInfo) => {
+            if (assetInfo.name && /\.(css|js)$/.test(assetInfo.name)) {
+              return '_astro/[name].[hash][extname]'
+            }
+            return 'assets/[name].[hash][extname]'
+          },
+          chunkFileNames: '_astro/[name].[hash].js',
+          entryFileNames: '_astro/[name].[hash].js'
+        }
+      }
+    },
     preview: {
       cors: {
         origin: 'https://abdallahaho.com',
@@ -25,11 +41,6 @@ export default defineConfig({
       },
       allowedHosts: ['abdallahaho.com'],
     },
-  },
-  shikiConfig: {
-    wrap: true,
-    skipInline: false,
-    drafts: true,
   },
   site: 'https://abdallahaho.com',
   integrations: [
