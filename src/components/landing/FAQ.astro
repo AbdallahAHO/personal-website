@@ -3,36 +3,36 @@ import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 
 const faqs = [
-	{
-		question: "Who is Abdallah Othman?",
-		answer:
-			"Abdallah Othman (AbdallahAHO) is a Software Engineer and Technical Lead with over 7 years of experience. Originally from Alexandria, Egypt, he's now based in Hamburg, Germany, specializing in Growth Engineering, TypeScript, React, and AI/LLM development.",
-	},
-	{
-		question: "What does Abdallah Othman specialize in?",
-		answer:
-			"Abdallah specializes in Growth Engineering, Frontend Development with TypeScript and React, Node.js backend development, AI/LLM integration, and technical leadership of multicultural teams.",
-	},
-	{
-		question: "Where does Abdallah Othman work?",
-		answer:
-			"Abdallah currently works as a Software Engineer at Lokalise in Hamburg, Germany. He has previously worked at companies like ABOUT YOU, XING, and Postman.",
-	},
-	{
-		question: "What is Abdallah Othman's background?",
-		answer:
-			"Abdallah is originally from Alexandria, Egypt and moved to Hamburg, Germany to pursue his career in tech. He brings a unique multicultural perspective to software development and team leadership.",
-	},
-	{
-		question: "What technologies does Abdallah Othman use?",
-		answer:
-			"Abdallah's primary tech stack includes TypeScript, React, Node.js, and various AI/LLM technologies. He's also experienced with Growth Engineering tools and practices for building scalable products.",
-	},
-	{
-		question: "How can I contact Abdallah Othman?",
-		answer:
-			"You can reach Abdallah through his social media profiles: Twitter @AbdallahAHO, GitHub AbdallahAHO, or LinkedIn AbdallahAHO. He's also available for professional inquiries and collaboration opportunities.",
-	},
+  {
+    question: "Who is Abdallah Othman?",
+    answer:
+      "Abdallah Othman (AbdallahAHO) is a Software Engineer and Technical Lead with over 7 years of experience. Originally from Alexandria, Egypt, he's now based in Hamburg, Germany, specializing in Growth Engineering, TypeScript, React, and AI/LLM development."
+  },
+  {
+    question: "What does Abdallah Othman specialize in?",
+    answer:
+      "Abdallah specializes in Growth Engineering, Frontend Development with TypeScript and React, Node.js backend development, AI/LLM integration, and technical leadership of multicultural teams."
+  },
+  {
+    question: "Where does Abdallah Othman work?",
+    answer:
+      "Abdallah currently works as a Software Engineer at Lokalise in Hamburg, Germany. He has previously worked at companies like ABOUT YOU, XING, and Postman."
+  },
+  {
+    question: "What is Abdallah Othman's background?",
+    answer:
+      "Abdallah is originally from Alexandria, Egypt and moved to Hamburg, Germany to pursue his career in tech. He brings a unique multicultural perspective to software development and team leadership."
+  },
+  {
+    question: "What technologies does Abdallah Othman use?",
+    answer:
+      "Abdallah's primary tech stack includes TypeScript, React, Node.js, and various AI/LLM technologies. He's also experienced with Growth Engineering tools and practices for building scalable products."
+  },
+  {
+    question: "How can I contact Abdallah Othman?",
+    answer:
+      "You can reach Abdallah through his social media profiles: Twitter @AbdallahAHO, GitHub AbdallahAHO, or LinkedIn AbdallahAHO. He's also available for professional inquiries and collaboration opportunities."
+  }
 ];
 ---
 
@@ -48,43 +48,85 @@ const faqs = [
       </Text>
 
       <div class="space-y-6">
-        {faqs.map((faq) => (
-          <div class="border-b dark:border-white/10 border-black/10 pb-6 last:border-b-0">
-            <Text
-              tag="h3"
-              variant="textSM"
-              class="text-black dark:text-white font-medium mb-3"
-            >
-              {faq.question}
-            </Text>
-            <Text
-              tag="p"
-              variant="textSM"
-              class="dark:text-zinc-400 text-zinc-500"
-            >
-              {faq.answer}
-            </Text>
-          </div>
-        ))}
+        {
+          faqs.map((faq) => (
+            <div class="border-b dark:border-white/10 border-black/10 pb-6 last:border-b-0">
+              <Text
+                tag="h3"
+                variant="textSM"
+                class="text-black dark:text-white font-medium mb-3"
+              >
+                {faq.question}
+              </Text>
+              <Text
+                tag="p"
+                variant="textSM"
+                class="dark:text-zinc-400 text-zinc-500"
+              >
+                {faq.answer}
+              </Text>
+            </div>
+          ))
+        }
       </div>
     </div>
   </Wrapper>
 </section>
 
 <!-- FAQ Schema -->
-<script is:inline type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {faqs.map((faq, index) => `{
-      "@type": "Question",
-      "name": "${faq.question}",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "${faq.answer}"
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Who is Abdallah Othman?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Abdallah Othman (AbdallahAHO) is a Software Engineer and Technical Lead with over 7 years of experience. Originally from Alexandria, Egypt, he's now based in Hamburg, Germany, specializing in Growth Engineering, TypeScript, React, and AI/LLM development."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does Abdallah Othman specialize in?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Abdallah specializes in Growth Engineering, Frontend Development with TypeScript and React, Node.js backend development, AI/LLM integration, and technical leadership of multicultural teams."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where does Abdallah Othman work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Abdallah currently works as a Software Engineer at Lokalise in Hamburg, Germany. He has previously worked at companies like ABOUT YOU, XING, and Postman."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is Abdallah Othman's background?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Abdallah is originally from Alexandria, Egypt and moved to Hamburg, Germany to pursue his career in tech. He brings a unique multicultural perspective to software development and team leadership."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What technologies does Abdallah Othman use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Abdallah's primary tech stack includes TypeScript, React, Node.js, and various AI/LLM technologies. He's also experienced with Growth Engineering tools and practices for building scalable products."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How can I contact Abdallah Othman?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can reach Abdallah through his social media profiles: Twitter @AbdallahAHO, GitHub AbdallahAHO, or LinkedIn AbdallahAHO. He's also available for professional inquiries and collaboration opportunities."
+        }
       }
-    }`).join(',')}
-  ]
-}
+    ]
+  }
 </script>

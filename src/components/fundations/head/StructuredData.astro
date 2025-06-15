@@ -59,10 +59,28 @@ const personSchema = {
   hasOccupation: {
     "@type": "Occupation",
     name: "Software Engineer",
-    occupationLocation: {
-      "@type": "Place",
-      name: SITE.WORK_LOCATION
-    }
+    description: "Software Engineer and Technical Lead specializing in Growth Engineering, TypeScript, React, and AI development",
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": SITE.URL
+    },
+    estimatedSalary: {
+      "@type": "MonetaryAmountDistribution",
+      name: "Senior Software Engineer Salary",
+      currency: "EUR",
+      duration: "P1Y",
+      median: 75000
+    },
+    occupationLocation: [
+      {
+        "@type": "City",
+        name: "Hamburg",
+        containedInPlace: {
+          "@type": "Country",
+          name: "Germany"
+        }
+      }
+    ]
   },
   sameAs: [
     `https://twitter.com/${SITE.TWITTER_HANDLE.replace("@", "")}`,
