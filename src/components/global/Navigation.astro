@@ -8,39 +8,39 @@ import Logo from "@/components/global/Logo.astro";
 import ThemeToggle from "@/components/assets/ThemeToggle.astro";
 
 const navLinks = [
-	{
-		text: "Home",
-		href: "/",
-	},
-	{
-		text: "About",
-		href: "/about",
-	},
-	{
-		text: "Work",
-		href: "/work",
-	},
-	{
-		text: "Projects",
-		href: "/projects/",
-	},
-	{
-		text: "Blog",
-		href: "/blog/",
-	},
-	{
-		text: "Now",
-		href: "/now",
-	},
-	{
-		text: "Contact",
-		href: "mailto:abdallah.ali.hassan@gmail.com",
-	},
+  {
+    text: "Home",
+    href: "/"
+  },
+  {
+    text: "About",
+    href: "/about"
+  },
+  {
+    text: "Work",
+    href: "/work"
+  },
+  {
+    text: "Projects",
+    href: "/projects/"
+  },
+  {
+    text: "Blog",
+    href: "/blog/"
+  },
+  {
+    text: "Now",
+    href: "/now"
+  },
+  {
+    text: "Contact",
+    href: "mailto:contact@abdallahaho.com"
+  }
 ];
 // Split the navLinks array into two columns
 const navLinksByColumn = [
-	navLinks.slice(0, Math.ceil(navLinks.length / 2)), // Second column
-	navLinks.slice(Math.ceil(navLinks.length / 2)), // First column
+  navLinks.slice(0, Math.ceil(navLinks.length / 2)), // Second column
+  navLinks.slice(Math.ceil(navLinks.length / 2)) // First column
 ];
 ---
 
