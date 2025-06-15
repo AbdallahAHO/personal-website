@@ -1,0 +1,57 @@
+---
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+---
+
+<BaseLayout>
+  <section>
+    <Wrapper variant="standard" class="pt-12 lg:py-32 xl:py-54">
+      <Text
+        tag="h1"
+        variant="textBase"
+        class="text-black dark:text-white font-medium"
+      >
+        404 Page not found
+      </Text>
+    </Wrapper>
+    <Wrapper variant="standard" class="py-12">
+      <div class="border-t dark:border-white/10 border-black/10 pt-2">
+        <Text
+          tag="p"
+          variant="textSM"
+          class="2xl:text-base dark:text-zinc-400 text-zinc-500"
+        >
+          It seems you've wandered off the beaten path.
+        </Text>
+
+        <ul
+          class="mt-4 flex flex-col gap-y-2 list-disc text-black dark:text-white font-medium list-inside"
+          role="list"
+        >
+          <li>
+            <Text
+              tag="a"
+              variant="textSM"
+              href="/"
+              class="hover:text-zinc-500 dark:hover:text-zinc-400"
+              >Go back to the homepage</Text
+            >
+          </li>
+
+          <li>
+            <Text tag="span" variant="textSM">
+              <Text
+                tag="a"
+                variant="textSM"
+                class="hover:text-zinc-500 dark:hover:text-zinc-400 hover:underline"
+                href="mailto:contact@abdallahaho.com">Contact me</Text
+              >if you think this is an error.
+            </Text>
+          </li>
+        </ul>
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>

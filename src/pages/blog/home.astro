@@ -1,0 +1,85 @@
+---
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Link from "@/components/fundations/elements/Link.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Sections
+import EntriesOne from "@/components/blog/EntriesOne.astro";
+// Import the collection of all blog posts
+import { getCollection } from "astro:content";
+
+const allPosts = await getCollection("blog");
+// Collect all unique tags
+const allTags = [...new Set(allPosts.flatMap((post) => post.data.tags || []))];
+const sortedTags = allTags.sort((a, b) => a.localeCompare(b));
+---
+
+<BaseLayout>
+  <section>
+    <Wrapper variant="standard" class="pt-12 lg:py-32 xl:py-54">
+      <Text
+        tag="h1"
+        variant="textBase"
+        class="text-black dark:text-white font-medium"
+      >
+        Me and my thoughts
+      </Text>
+    </Wrapper>
+  </section>
+
+  <section>
+    <Wrapper variant="standard" class="py-12">
+      <div
+        class="flex flex-col gap-8 mt-8 mb-6 border-t dark:border-white/10 border-black/10 pt-4"
+      >
+        {
+          allPosts
+            .slice()
+            .map((post) => (
+              <EntriesOne
+                url={"/blog/" + post.slug}
+                title={post.data.title}
+                description={post.data.description}
+                alt={post.data.title}
+                pubDate={post.data.pubDate.toString().slice(0, 10)}
+                image={post.data.image?.url}
+                index={allPosts.indexOf(post) + 1}
+                key={post.slug}
+              />
+            ))
+        }
+      </div>
+
+      <div class="my-12 flex flex-wrap gap-1 pt-4">
+        <div
+          class="flex items-center mb-4 gap-1 text-black dark:text-white font-medium"
+        >
+          <Text
+            tag="span"
+            variant="textM"
+            class="text-xs text-medium font-mono"
+          >
+            Tags ({sortedTags.length})</Text
+          >
+        </div>
+        <div class="flex flex-wrap gap-2">
+          {
+            sortedTags.map((tag) => (
+              <Link
+                size="small"
+                variant="secondary"
+                title={tag}
+                aria-label={tag}
+                href={`/blog/tags/${tag}`}
+                class="text-sm"
+              >
+                {tag}
+              </Link>
+            ))
+          }
+        </div>
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>

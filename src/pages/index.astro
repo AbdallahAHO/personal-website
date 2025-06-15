@@ -1,0 +1,116 @@
+---
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Sections
+import Hero from "@/components/landing/Hero.astro";
+import FAQ from "@/components/landing/FAQ.astro";
+// Components
+import LatestPosts from "@/components/blog/LatestPosts.astro";
+// Blog contet
+import { getCollection } from "astro:content";
+const allPosts = await getCollection("blog");
+const allProjects = await getCollection("projects");
+---
+
+<BaseLayout
+  title="Abdallah Othman - Senior Software Engineer & Technical Lead"
+  description="Senior Software Engineer and Technical Lead specializing in Growth Engineering, TypeScript, React, and AI. Based in Hamburg, Germany. Originally from Alexandria, Egypt."
+>
+  <Hero />
+
+  <section>
+    <Wrapper variant="standard" class="py-12 lg:py-32 xl:pt-74 xl:pb-50">
+      <div
+        class="gap-2 sm:flex sm:items-center sm:justify-between border-t dark:border-white/10 border-black/10 pt-6"
+      >
+        {/* This section is for the latest blog posts */}
+        <Text
+          tag="h3"
+          variant="textBase"
+          class="text-black dark:text-white font-medium"
+        >
+          Latest blog posts
+        </Text>
+        <div>
+          <Text
+            tag="a"
+            variant="textSM"
+            href="/blog/home"
+            aria-label="your label"
+            title="link to your page"
+            class="text-zinc-500 hover:text-black dark:text-zinc-400 dark:hover:text-white font-medium"
+          >
+            See all posts
+            <span class="inline-block">&rarr;</span>
+          </Text>
+        </div>
+      </div>
+
+      {/* Latest posts list */}
+      <div class="mt-14 flex flex-col gap-4">
+        {
+          allPosts
+            .slice(0, 2)
+            .map((post) => (
+              <LatestPosts
+                url={"/blog/" + post.slug}
+                title={post.data.title}
+                alt={post.data.title}
+                pubDate={post.data.pubDate.toString().slice(4, 10)}
+              />
+            ))
+        }
+      </div>
+    </Wrapper>
+  </section>
+
+  <section>
+    <Wrapper variant="standard" class="py-12 lg:py-32 xl:pt-74 xl:pb-50">
+      <div
+        class="gap-2 sm:flex sm:items-center sm:justify-between border-t dark:border-white/10 border-black/10 pt-6"
+      >
+        {/* This section is for the latest blog posts */}
+        <Text
+          tag="h3"
+          variant="textBase"
+          class="text-black dark:text-white font-medium"
+        >
+          Latest Projects
+        </Text>
+        <div>
+          <Text
+            tag="a"
+            variant="textSM"
+            href="/projects/home"
+            aria-label="your label"
+            title="link to your page"
+            class="text-zinc-500 hover:text-black dark:text-zinc-400 dark:hover:text-white font-medium"
+          >
+            See all projects
+            <span class="inline-block">&rarr;</span>
+          </Text>
+        </div>
+      </div>
+
+      {/* Latest posts list */}
+      <div class="mt-14 flex flex-col gap-4">
+        {
+          allProjects
+            .slice(0, 2)
+            .map((post) => (
+              <LatestPosts
+                url={"/blog/" + post.slug}
+                title={post.data.title}
+                alt={post.data.title}
+                pubDate={post.data.pubDate.toString().slice(4, 10)}
+              />
+            ))
+        }
+      </div>
+    </Wrapper>
+  </section>
+
+  <FAQ />
+</BaseLayout>

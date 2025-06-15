@@ -1,0 +1,32 @@
+---
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { getEntry } from "astro:content";
+import InfoPagesLayout from "@/layouts/InfoPagesLayout.astro";
+
+const nowEntry = await getEntry("now", "now");
+if (!nowEntry) {
+	throw new Error(
+		"Now entry not found. Please create a now.md file in the content/now directory.",
+	);
+}
+const { Content } = await nowEntry.render();
+---
+
+<InfoPagesLayout frontmatter={nowEntry.data}>
+  <Content />
+  <div class="mt-12 pt-8 border-t border-zinc-200 dark:border-zinc-700">
+    <Text
+      tag="a"
+      variant="textSM"
+      href="https://nownownow.com/about"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="text-zinc-500 hover:text-black dark:text-zinc-400 dark:hover:text-white font-medium inline-flex items-center gap-2"
+    >
+      Learn more about Now pages →
+    </Text>
+  </div>
+</InfoPagesLayout>

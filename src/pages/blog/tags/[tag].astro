@@ -1,0 +1,67 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { getCollection } from "astro:content";
+import LatestPosts from "@/components/blog/LatestPosts.astro";
+import { SITE } from "@/constants/site";
+
+export async function getStaticPaths() {
+	const allPosts = await getCollection("blog");
+	const uniqueTags = [
+		...new Set(allPosts.flatMap((post) => post.data.tags || [])),
+	];
+
+	return uniqueTags.map((tag) => {
+		const filteredPosts = allPosts.filter((post) =>
+			post.data.tags?.includes(tag),
+		);
+		return {
+			params: { tag },
+			props: { posts: filteredPosts },
+		};
+	});
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+---
+
+<BaseLayout
+  title={`Blog posts about ${tag} from ${SITE.NAME}`}
+  description={`Posts tagged with ${tag}`}
+>
+  <section>
+    <Wrapper variant="standard" class="pt-12 lg:py-32 xl:py-54">
+      <Text
+        tag="h1"
+        variant="textBase"
+        class="text-black dark:text-white font-medium"
+      >
+        All posts tagged with "{tag}"
+      </Text>
+      <div class="mt-4">
+        <Text tag="p" variant="textSM" class="text-zinc-500 dark:text-zinc-400">
+          {posts.length}
+          {posts.length === 1 ? "post" : "posts"} found
+        </Text>
+      </div>
+    </Wrapper>
+    <Wrapper variant="standard" class="py-12">
+      <div
+        class="flex flex-col border-t dark:border-white/10 border-black/10 pt-8"
+      >
+        {
+          posts.map((post) => (
+            <LatestPosts
+              url={"/blog/" + post.slug}
+              title={post.data.title}
+              alt={post.data.title}
+              pubDate={post.data.pubDate.toString().slice(4, 10)}
+            />
+          ))
+        }
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>

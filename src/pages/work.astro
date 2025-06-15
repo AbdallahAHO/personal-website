@@ -1,0 +1,98 @@
+---
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { getCollection } from "astro:content";
+
+const allWork = await getCollection("work");
+const sortedWork = allWork.sort(
+	(a, b) =>
+		new Date(b.data.dateStart).valueOf() - new Date(a.data.dateStart).valueOf(),
+);
+
+function formatDateRange(start: string, end: string) {
+	const startDate = new Date(start);
+	const endDate = end === "Present" ? null : new Date(end);
+
+	const formatDate = (date: Date) => {
+		return date.toLocaleDateString("en-US", {
+			month: "short",
+			year: "numeric",
+		});
+	};
+
+	return `${formatDate(startDate)} - ${endDate ? formatDate(endDate) : "Present"}`;
+}
+---
+
+<BaseLayout>
+  <section>
+    <Wrapper variant="standard" class="pt-12 lg:py-32 xl:py-54">
+      <Text
+        tag="h1"
+        variant="textBase"
+        class="text-black dark:text-white font-medium mb-2"
+      >
+        Work Experience
+      </Text>
+
+      <div>
+        <Text
+          tag="a"
+          href="/Abdallah Othman - Resume.pdf"
+          variant="textXS"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors"
+        >
+          Download CV
+        </Text>
+      </div>
+    </Wrapper>
+    <Wrapper variant="standard" class="py-12">
+      <div class="border-t dark:border-white/10 border-black/10 pt-8">
+        <div class="space-y-12">
+          {
+            sortedWork.map(async (entry) => {
+              const { Content } = await entry.render();
+              return (
+                <article class="space-y-4">
+                  <div>
+                    <Text
+                      tag="h2"
+                      variant="textBase"
+                      class="text-black dark:text-white font-medium"
+                    >
+                      {entry.data.title}
+                    </Text>
+                    <Text
+                      tag="p"
+                      variant="textSM"
+                      class="text-zinc-600 dark:text-zinc-300 mt-1"
+                    >
+                      {entry.data.subtitle}
+                    </Text>
+                    <Text
+                      tag="p"
+                      variant="textSM"
+                      class="text-zinc-500 dark:text-zinc-400 mt-1"
+                    >
+                      {formatDateRange(
+                        entry.data.dateStart,
+                        entry.data.dateEnd
+                      )}
+                    </Text>
+                  </div>
+                  <div class="prose prose-sm dark:prose-invert max-w-none">
+                    <Content />
+                  </div>
+                </article>
+              );
+            })
+          }
+        </div>
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>

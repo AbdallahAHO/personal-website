@@ -1,0 +1,120 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import { SITE } from "@/constants/site";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+const { frontmatter } = Astro.props;
+
+// Generate SEO-optimized metadata for this project
+const seoTitle = frontmatter.seoTitle
+	? `${frontmatter.seoTitle} | ${SITE.NAME} Projects`
+	: `${frontmatter.title} | ${SITE.NAME} Projects`;
+const seoDescription =
+	frontmatter.seoDescription ||
+	frontmatter.description ||
+	`${frontmatter.title} - A project by ${SITE.NAME}, ${SITE.POSITION}. ${frontmatter.subtitle || ""}`;
+const seoKeywords = [
+	...SITE.KEYWORDS.slice(0, 5), // Include core personal keywords
+	...(frontmatter.seoTags || frontmatter.tags || []), // Include SEO-specific or fallback tags
+	"project",
+	"portfolio",
+	"software development",
+	"web application",
+	(frontmatter.seoTitle || frontmatter.title)
+		.split(" ")
+		.slice(0, 3)
+		.join(" "), // First 3 words of SEO title
+];
+const seoImage = frontmatter.image?.url || SITE.OG_IMAGE;
+---
+
+<BaseLayout
+  title={seoTitle}
+  description={seoDescription}
+  keywords={seoKeywords}
+  image={seoImage}
+  type="Article"
+  datePublished={frontmatter.pubDate?.toISOString()}
+  dateModified={frontmatter.pubDate?.toISOString()}
+  tags={frontmatter.seoTags || frontmatter.tags}
+>
+  <section>
+    <Wrapper variant="standard" class="pt-12 lg:py-32 xl:py-54">
+      <!-- Hidden SEO-optimized title for search engines -->
+      {
+        frontmatter.seoTitle && frontmatter.seoTitle !== frontmatter.title && (
+          <Text
+            tag="h1"
+            variant="textBase"
+            class="text-black dark:text-white font-medium hidden"
+          >
+            {frontmatter.seoTitle}
+          </Text>
+        )
+      }
+
+      <!-- Visible classy title for users -->
+      <Text
+        tag="h1"
+        variant="textBase"
+        class="text-black dark:text-white font-medium"
+      >
+        {frontmatter.title}
+      </Text>
+    </Wrapper>
+    <Wrapper variant="standard" class="py-12">
+      <div class="border-t dark:border-white/10 border-black/10 pt-2">
+        <!-- Hidden SEO-optimized description for search engines -->
+        {
+          frontmatter.seoDescription &&
+            frontmatter.seoDescription !== frontmatter.description && (
+              <Text
+                tag="p"
+                variant="textSM"
+                class="2xl:text-base mt-2 dark:text-zinc-400 text-zinc-500 hidden"
+              >
+                {frontmatter.seoDescription}
+              </Text>
+            )
+        }
+
+        <!-- Visible classy subtitle for users -->
+        <Text
+          tag="p"
+          variant="textSM"
+          class="2xl:text-base mt-2 dark:text-zinc-400 text-zinc-500"
+        >
+          {frontmatter.subtitle}
+        </Text>
+        <div class="flex items-center justify-between mt-8">
+          <Text
+            tag="h1"
+            variant="textBase"
+            class="text-black dark:text-white font-medium"
+          >
+            Launched on <time
+              datetime={frontmatter.pubDate.toString().slice(0, 10)}
+              >{frontmatter.pubDate.toString().slice(4, 15)}</time
+            >
+          </Text>
+          <Text
+            tag="a"
+            variant="textSM"
+            href={frontmatter.live}
+            title={frontmatter.title}
+            aria-label={frontmatter.title}
+            class="text-zinc-500 hover:text-black dark:text-zinc-400 dark:hover:text-white font-medium"
+          >
+            Visit &nbsp; &rarr;
+          </Text>
+        </div>
+      </div>
+      <div class="mt-8 bg-black/5 dark:bg-white/5 p-12 lg:p-20">
+        <img src={frontmatter.image.url} alt={frontmatter.image.alt} />
+      </div>
+      <Wrapper variant="prose" class="mt-8">
+        <slot />
+      </Wrapper>
+    </Wrapper>
+  </section>
+</BaseLayout>

@@ -1,0 +1,212 @@
+---
+const { frontmatter } = Astro.props;
+import BaseLayout from "./BaseLayout.astro";
+import { SITE } from "@/constants/site";
+
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+
+import { getCollection } from "astro:content";
+import LatestPosts from "@/components/blog/LatestPosts.astro";
+
+// Generate SEO-optimized metadata for this blog post
+const seoTitle = frontmatter.seoTitle
+  ? `${frontmatter.seoTitle} | ${SITE.NAME} Blog`
+  : `${frontmatter.title} | ${SITE.NAME} Blog`;
+const seoDescription =
+  frontmatter.seoDescription ||
+  frontmatter.description ||
+  `${frontmatter.title} - A blog post by ${SITE.NAME}, ${SITE.POSITION} specializing in ${SITE.SPECIALIZATION}.`;
+
+const seoKeywords = [
+  ...SITE.KEYWORDS.slice(0, 5), // Include core personal keywords
+  ...(frontmatter.seoTags || frontmatter.tags || []), // Include SEO-specific or fallback tags
+  "blog post",
+  "tech article",
+  "software engineering",
+  (frontmatter.seoTitle || frontmatter.title).split(" ").slice(0, 3).join(" ") // First 3 words of SEO title
+];
+const seoImage = frontmatter.image?.url || SITE.OG_IMAGE;
+
+const otherPostsUnsorted = await getCollection("blog", (post) => {
+  return post.data.title !== frontmatter.title;
+});
+// This will get all blog posts except the current one
+// Sort the posts in descending order by publication date (newest to oldest)
+const allPosts = otherPostsUnsorted.sort(
+  (a, b) =>
+    new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+);
+---
+
+<BaseLayout
+  title={`${frontmatter.title} - A blog post by ${SITE.NAME}`}
+  description={seoDescription}
+  keywords={seoKeywords}
+  image={seoImage}
+  type="BlogPosting"
+  datePublished={frontmatter.pubDate?.toISOString()}
+  dateModified={frontmatter.pubDate?.toISOString()}
+  tags={frontmatter.seoTags || frontmatter.tags}
+>
+  <section id="post-header">
+    <Wrapper variant="standard" class="pt-24 pb-12">
+      <!-- Hidden SEO-optimized title for search engines -->
+      {
+        frontmatter.seoTitle && frontmatter.seoTitle !== frontmatter.title && (
+          <Text
+            tag="h1"
+            variant="displaySM"
+            class="text-black dark:text-white font-medium hidden"
+          >
+            {frontmatter.seoTitle}
+          </Text>
+        )
+      }
+
+      <!-- Visible classy title for users -->
+      <Text
+        tag="h1"
+        variant="displaySM"
+        class="text-black dark:text-white font-medium"
+      >
+        {frontmatter.title}
+      </Text>
+      <!-- Hidden SEO-optimized description for search engines -->
+      {
+        frontmatter.seoDescription &&
+          frontmatter.seoDescription !== frontmatter.description && (
+            <Text
+              tag="p"
+              variant="displayXS"
+              class="text-zinc-500 text-balance mt-4 dark:text-zinc-400 hidden"
+            >
+              {frontmatter.seoDescription}
+            </Text>
+          )
+      }
+
+      <!-- Visible classy description for users -->
+      <Text
+        tag="p"
+        variant="displayXS"
+        class="text-zinc-500 text-balance mt-4 dark:text-zinc-400"
+      >
+        {frontmatter.description}
+      </Text>
+
+      {
+        frontmatter?.image && (
+          <img
+            class="object-cover aspect-[16/9] rounded-xl mt-8 lg:mt-12"
+            src={frontmatter.image.url}
+            alt={frontmatter.image.url}
+          />
+        )
+      }
+    </Wrapper>
+  </section>
+
+  <section id="post-content">
+    <Wrapper variant="standard" class="py-6 lg:py-12 xl:py-16">
+      <Wrapper variant="prose">
+        <slot />
+      </Wrapper>
+
+      <div class="mt-12 lg:mt-14 xl:mt-16">
+        <div
+          class="flex gap-4 flex-col md:flex-row items-center justify-between"
+        >
+          <div class="flex items-center">
+            <div class="flex flex-col text-zinc-500 dark:text-zinc-400">
+              <time datetime={frontmatter.pubDate.toString().slice(0, 10)}>
+                <Text tag="span" variant="textXS" class="font-medium font-mono"
+                  >Written on {frontmatter.pubDate.toString().slice(0, 10)}
+                </Text>
+              </time>
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center gap-2 mt-4 md:mt-0">
+            <!-- Hidden SEO tags for search engines -->
+            {
+              frontmatter.seoTags && frontmatter.seoTags.length > 0 && (
+                <div class="hidden">
+                  {frontmatter.seoTags.map((tag) => (
+                    <span class="text-zinc-500 dark:text-zinc-400">
+                      <Text
+                        tag="span"
+                        variant="textXS"
+                        class="font-medium font-mono"
+                      >
+                        {tag}
+                      </Text>
+                    </span>
+                  ))}
+                </div>
+              )
+            }
+
+            <!-- Visible classy tags for users -->
+            {
+              frontmatter.tags &&
+                frontmatter.tags.map((tag) => (
+                  <span class="text-zinc-500 dark:text-zinc-400">
+                    <Text
+                      tag="a"
+                      variant="textXS"
+                      title={tag}
+                      aria-label={tag}
+                      href={`/blog/tags/${tag}`}
+                      class="hover:text-black hover:underline dark:text-zinc-400 dark:hover:text-white font-medium font-mono"
+                    >
+                      {tag}
+                    </Text>
+                  </span>
+                ))
+            }
+          </div>
+        </div>
+      </div>
+    </Wrapper>
+  </section>
+
+  <section
+    id="latest-posts"
+    class="border-t dark:border-white/10 border-black/10"
+  >
+    <Wrapper variant="standard" class="py-12 pt-12">
+      <div class="gap-2 sm:flex sm:items-center sm:justify-between">
+        <Text
+          tag="h3"
+          variant="textBase"
+          class="text-black dark:text-white font-medium"
+        >
+          Read also
+        </Text>
+        <Text
+          tag="a"
+          variant="textSM"
+          href="/blog/home"
+          aria-label="your label"
+          title="link to your page"
+          class="text-zinc-500 hover:text-black dark:text-zinc-400 dark:hover:text-white font-medium"
+        >
+          See all posts
+          <span class="inline-block">&rarr;</span>
+        </Text>
+      </div>
+      <div class="mt-8 flex flex-col">
+        {
+          allPosts.map((post) => (
+            <LatestPosts
+              url={"/blog/" + post.slug}
+              title={post.data.title}
+              alt={post.data.title}
+              pubDate={post.data.pubDate.toString().slice(4, 10)}
+            />
+          ))
+        }
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>

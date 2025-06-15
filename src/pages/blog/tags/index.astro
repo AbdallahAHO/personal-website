@@ -1,0 +1,54 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { SITE } from "@/constants/site";
+
+const allPosts = await getCollection("blog");
+const tags = [...new Set(allPosts.flatMap((post) => post.data.tags || []))];
+const sortedTags = tags.sort((a, b) => a.localeCompare(b));
+const pageTitle = "Blog Tags Index | " + tags.length + " Tags Found";
+---
+
+<BaseLayout
+  title={`Posts by Tag of ${SITE.NAME} blog`}
+  description="Explore all blog tags"
+>
+  <section>
+    <Wrapper variant="standard" class="pt-12 lg:py-32 xl:py-54">
+      <Text
+        tag="h1"
+        variant="textBase"
+        class="text-black dark:text-white font-medium"
+      >
+        All Posts by Tags
+      </Text>
+      <div class="mt-4">
+        <Text tag="p" variant="textSM" class="text-zinc-500 dark:text-zinc-400">
+          {tags.length}
+          {" "}
+          {tags.length === 1 ? "tag" : "tags"} found
+        </Text>
+      </div>
+    </Wrapper>
+    <Wrapper variant="standard" class="py-12">
+      <div
+        class="flex flex-wrap gap-2 mt-8 border-t dark:border-white/10 border-black/10 pt-8"
+      >
+        {
+          sortedTags.map((tag) => (
+            <Text
+              tag="a"
+              variant="textSM"
+              href={`/blog/tags/${tag}`}
+              class="px-3 py-2 bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors font-medium"
+            >
+              {tag}
+            </Text>
+          ))
+        }
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>
