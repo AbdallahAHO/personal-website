@@ -1,20 +1,14 @@
 [variables]
 # Node.js version - using LTS version compatible with Astro 5.x
 NODE_VERSION = "20"
-# PNPM version - using latest stable
-PNPM_VERSION = "9"
 # Build optimization
 NODE_ENV = "production"
 # Astro specific optimizations
 ASTRO_TELEMETRY_DISABLED = "1"
 
 [phases.setup]
-# Install Node.js and PNPM
+# Install Node.js and use system PNPM to avoid corepack signature issues
 nixPkgs = ["nodejs_20", "pnpm"]
-cmds = [
-    "corepack enable",
-    "corepack prepare pnpm@9 --activate"
-]
 
 [phases.install]
 # Cache PNPM store for faster builds
