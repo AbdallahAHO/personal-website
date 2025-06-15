@@ -11,20 +11,21 @@ ASTRO_TELEMETRY_DISABLED = "1"
 nixPkgs = ["nodejs_20", "pnpm"]
 
 [phases.install]
-# Cache PNPM store for faster builds
 dependsOn = ["setup"]
+# Cache PNPM store for faster builds
 cacheDirectories = [".pnpm-store", "node_modules"]
 cmds = [
-    "pnpm config set store-dir .pnpm-store",
-    "pnpm install --frozen-lockfile --prefer-offline"
+  "pnpm config set store-dir .pnpm-store",
+  "pnpm install --frozen-lockfile --prefer-offline"
 ]
 
 [phases.build]
-# Build the site
 dependsOn = ["install"]
+# Cache Astro artifacts for incremental builds
 cacheDirectories = ["dist", ".astro"]
 cmds = [
-    "pnpm build"
+  # use pnpm exec to ensure the local Astro CLI is in PATH
+  "pnpm exec astro build"
 ]
 
 [start]
