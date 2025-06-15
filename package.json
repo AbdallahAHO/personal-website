@@ -8,7 +8,16 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "dev:network": "astro dev --host",
+    "preview:network": "astro preview --host",
+    "astro": "astro",
+    "format": "biome format --write .",
+    "lint": "biome lint .",
+    "check": "biome check --write .",
+    "check:unsafe": "biome check --apply-unsafe .",
+    "clean": "rm -rf node_modules dist .astro",
+    "reinstall": "pnpm clean && pnpm install",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
