@@ -1,0 +1,53 @@
+---
+import Seo from "@/components/fundations/head/Seo.astro";
+import Meta from "@/components/fundations/head/Meta.astro";
+import Fonts from "@/components/fundations/head/Fonts.astro";
+import Favicons from "@/components/fundations/head/Favicons.astro";
+import AlpineJS from "@/components/fundations/scripts/AlpineJS.astro";
+import FuseJS from "@/components/fundations/scripts/FuseJS.astro";
+import ToggleLocalStorage from "@/components/fundations/scripts/ToggleLocalStorage.astro";
+import Posthog from "./Posthog.astro";
+import StructuredData from "@/components/fundations/head/StructuredData.astro";
+import { SITE } from "@/constants/site";
+
+interface Props {
+	title?: string;
+	description?: string;
+	image?: string;
+	type?: "Person" | "WebSite" | "Article" | "BlogPosting";
+	keywords?: string[];
+	datePublished?: string;
+	dateModified?: string;
+	tags?: string[];
+}
+
+const {
+	title = SITE.TITLE,
+	description = SITE.DESCRIPTION,
+	image = SITE.OG_IMAGE,
+	type = "Person",
+	keywords = SITE.KEYWORDS,
+	datePublished,
+	dateModified,
+	tags,
+} = Astro.props;
+---
+
+<Seo title={title} description={description} image={image} type={type} />
+<Meta title={title} description={description} keywords={keywords} />
+<Fonts />
+<Favicons />
+<StructuredData
+  type={type}
+  title={title}
+  description={description}
+  image={image}
+  keywords={keywords}
+  datePublished={datePublished}
+  dateModified={dateModified}
+  tags={tags}
+/>
+<FuseJS />
+<AlpineJS />
+<ToggleLocalStorage />
+<Posthog />

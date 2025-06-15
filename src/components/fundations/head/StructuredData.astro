@@ -1,0 +1,204 @@
+---
+import { SITE } from "@/constants/site";
+
+interface Props {
+	type?: "Person" | "WebSite" | "Article" | "BlogPosting";
+	title?: string;
+	description?: string;
+	image?: string;
+	datePublished?: string;
+	dateModified?: string;
+	articleSection?: string;
+	keywords?: string[];
+	tags?: string[];
+	author?: string;
+}
+
+const {
+	type = "Person",
+	title = SITE.TITLE,
+	description = SITE.DESCRIPTION,
+	image = SITE.OG_IMAGE,
+	datePublished,
+	dateModified,
+	articleSection,
+	keywords = SITE.KEYWORDS,
+	tags,
+	author = SITE.AUTHOR,
+} = Astro.props;
+
+const baseUrl = SITE.URL;
+const fullImageUrl = new URL(image, baseUrl).toString();
+
+// Person Schema (default)
+const personSchema = {
+	"@context": "https://schema.org",
+	"@type": "Person",
+	name: SITE.NAME,
+	alternateName: "AbdallahAHO",
+	jobTitle: SITE.POSITION,
+	description: SITE.DESCRIPTION,
+	url: SITE.URL,
+	image: fullImageUrl,
+	worksFor: {
+		"@type": "Organization",
+		name: SITE.CURRENT_COMPANY,
+	},
+	address: {
+		"@type": "PostalAddress",
+		addressLocality: "Hamburg",
+		addressRegion: "Hamburg",
+		addressCountry: "DE",
+	},
+	birthPlace: {
+		"@type": "Place",
+		name: SITE.BIRTH_PLACE,
+	},
+	nationality: SITE.NATIONALITY,
+	knowsLanguage: ["English", "Arabic", "German"],
+	alumniOf: "Alexandria University",
+	hasOccupation: {
+		"@type": "Occupation",
+		name: "Software Engineer",
+		occupationLocation: {
+			"@type": "Place",
+			name: SITE.WORK_LOCATION,
+		},
+	},
+	sameAs: [
+		`https://twitter.com/${SITE.TWITTER_HANDLE.replace("@", "")}`,
+		`https://github.com/${SITE.GITHUB_USERNAME}`,
+		`https://linkedin.com/in/${SITE.LINKEDIN_USERNAME}`,
+		SITE.URL,
+	],
+};
+
+// Website Schema
+const websiteSchema = {
+	"@context": "https://schema.org",
+	"@type": "WebSite",
+	name: SITE.NAME,
+	alternateName: "AbdallahAHO",
+	url: SITE.URL,
+	description: SITE.DESCRIPTION,
+	inLanguage: SITE.LANGUAGE,
+	author: {
+		"@type": "Person",
+		"@id": `${SITE.URL}#person`,
+	},
+	potentialAction: {
+		"@type": "SearchAction",
+		target: {
+			"@type": "EntryPoint",
+			urlTemplate: `${SITE.URL}/blog/search?q={search_term_string}`,
+		},
+		"query-input": "required name=search_term_string",
+	},
+};
+
+// Article Schema
+const articleSchema = {
+	"@context": "https://schema.org",
+	"@type": type === "BlogPosting" ? "BlogPosting" : "Article",
+	headline: title,
+	description: description,
+	image: fullImageUrl,
+	url: Astro.url.toString(),
+	datePublished: datePublished,
+	dateModified: dateModified || datePublished,
+	author: {
+		"@type": "Person",
+		name: SITE.AUTHOR,
+		url: SITE.URL,
+	},
+	publisher: {
+		"@type": "Person",
+		name: SITE.AUTHOR,
+		url: SITE.URL,
+	},
+	articleSection: articleSection,
+	keywords: keywords?.join(", "),
+	about: tags?.slice(0, 3).map((tag) => ({
+		"@type": "Thing",
+		name: tag,
+	})),
+	inLanguage: SITE.LANGUAGE,
+	mainEntityOfPage: {
+		"@type": "WebPage",
+		"@id": Astro.url.toString(),
+	},
+};
+
+// Professional Service Schema
+const professionalServiceSchema = {
+	"@context": "https://schema.org",
+	"@type": "ProfessionalService",
+	name: "Abdallah Othman - Software Engineering Services",
+	description:
+		"Senior Software Engineer and Technical Lead specializing in Growth Engineering, TypeScript, React, and AI development",
+	provider: {
+		"@type": "Person",
+		"@id": `${SITE.URL}#person`,
+	},
+	areaServed: {
+		"@type": "Place",
+		name: "Hamburg, Germany",
+	},
+	availableLanguage: ["English", "Arabic", "German"],
+	serviceType: [
+		"Software Development",
+		"Technical Leadership",
+		"Growth Engineering",
+		"AI/LLM Integration",
+	],
+	url: SITE.URL,
+};
+
+let schema: any;
+switch (type) {
+	case "WebSite":
+		schema = websiteSchema;
+		break;
+	case "Article":
+	case "BlogPosting":
+		schema = articleSchema;
+		break;
+	default:
+		schema = personSchema;
+}
+---
+
+<!-- Main Schema -->
+<script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+<!-- Person Schema (always include for personal branding) -->
+{type !== "Person" && (
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+)}
+
+<!-- Professional Service Schema (for homepage) -->
+{type === "Person" && (
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(professionalServiceSchema)} />
+)}
+
+<!-- Breadcrumb Schema for non-homepage -->
+{Astro.url.pathname !== "/" && (
+  <script is:inline type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": SITE.URL
+      },
+      {
+        "@type": "ListItem", 
+        "position": 2,
+        "name": title,
+        "item": Astro.url.toString()
+      }
+    ]
+  })} />
+)}

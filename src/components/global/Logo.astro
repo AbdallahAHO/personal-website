@@ -1,0 +1,20 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import MyLogo from "@/components/assets/Logo.astro";
+
+{
+	/* Logo component for the site, can be used in the header or footer */
+}
+const { logoClass: customClass, class: wrapperClass } = Astro.props;
+---
+
+<Text
+  href="/"
+  tag="a"
+  variant="textBase"
+  title="link to your page"
+  aria-label="your label"
+  class={`text-zinc-500 hover:text-black dark:text-zinc-400 dark:hover:text-white font-medium opacity-50 transition-opacity hover:opacity-100 flex items-center gap-2 ${wrapperClass}`}
+>
+  <MyLogo class={`w-8 h-8 ${customClass}`} />
+</Text>

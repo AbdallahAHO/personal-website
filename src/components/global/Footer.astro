@@ -1,0 +1,211 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { SITE } from "@/constants/site";
+import { getGitCommitUrl } from "@/utils/git";
+
+const siteLinks = [
+  {
+    text: "Home",
+    href: "/"
+  },
+  {
+    text: "About",
+    href: "/about"
+  },
+  {
+    text: "Work",
+    href: "/work"
+  },
+  {
+    text: "Projects",
+    href: "/projects/home"
+  },
+  {
+    text: "Blog",
+    href: "/blog/home"
+  },
+  {
+    text: "Now",
+    href: "/now"
+  }
+];
+
+const socialLinks = [
+  {
+    text: "GitHub",
+    href: "https://github.com/AbdallahAHO"
+  },
+  {
+    text: "LinkedIn",
+    href: "https://www.linkedin.com/in/AbdallahAHO"
+  },
+  {
+    text: "Twitter/X",
+    href: "https://twitter.com/AbdallahAHO"
+  },
+  {
+    text: "Email",
+    href: "mailto:abdallah.ali.hassan@gmail.com"
+  }
+];
+
+const resourceLinks = [
+  {
+    text: "Download CV",
+    href: "/Abdallah Othman - Resume.pdf"
+  },
+  {
+    text: "RSS Feed",
+    href: "/rss.xml"
+  },
+  {
+    text: "Tags",
+    href: "/blog/tags"
+  }
+];
+
+const commitUrl = getGitCommitUrl(
+  SITE.COMMIT_HASH,
+  SITE.GITHUB_USERNAME,
+  SITE.REPO_NAME
+);
+---
+
+<footer class="border-t border-zinc-200 dark:border-zinc-700 mt-auto">
+  <Wrapper variant="standard" class="py-12">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-3 lg:gap-12">
+      <!-- Site Navigation -->
+      <nav class="space-y-4">
+        <Text
+          tag="h3"
+          variant="textSM"
+          class="text-black dark:text-white font-semibold"
+        >
+          Navigation
+        </Text>
+        <ul class="space-y-2">
+          {
+            siteLinks.map((link) => (
+              <li>
+                <Text
+                  tag="a"
+                  variant="textSM"
+                  href={link.href}
+                  class="text-zinc-500 hover:text-black dark:text-zinc-400 dark:hover:text-white font-medium transition-colors"
+                >
+                  {link.text}
+                </Text>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <!-- Social Links -->
+      <nav class="space-y-4">
+        <Text
+          tag="h3"
+          variant="textSM"
+          class="text-black dark:text-white font-semibold"
+        >
+          Connect
+        </Text>
+        <ul class="space-y-2">
+          {
+            socialLinks.map((link) => (
+              <li>
+                <Text
+                  tag="a"
+                  variant="textSM"
+                  href={link.href}
+                  class="text-zinc-500 hover:text-black dark:text-zinc-400 dark:hover:text-white font-medium transition-colors"
+                  target={link.href.startsWith("http") ? "_blank" : undefined}
+                  rel={
+                    link.href.startsWith("http")
+                      ? "noopener noreferrer"
+                      : undefined
+                  }
+                >
+                  {link.text}
+                </Text>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <!-- Resources -->
+      <nav class="space-y-4">
+        <Text
+          tag="h3"
+          variant="textSM"
+          class="text-black dark:text-white font-semibold"
+        >
+          Resources
+        </Text>
+        <ul class="space-y-2">
+          {
+            resourceLinks.map((link) => (
+              <li>
+                <Text
+                  tag="a"
+                  variant="textSM"
+                  href={link.href}
+                  class="text-zinc-500 hover:text-black dark:text-zinc-400 dark:hover:text-white font-medium transition-colors"
+                  target={link.href.endsWith(".pdf") ? "_blank" : undefined}
+                  rel={
+                    link.href.endsWith(".pdf")
+                      ? "noopener noreferrer"
+                      : undefined
+                  }
+                >
+                  {link.text}
+                </Text>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="border-t border-zinc-200 dark:border-zinc-700 mt-12 pt-8">
+      <div class="flex flex-col items-center justify-between gap-4 md:flex-row">
+        <Text tag="p" variant="textSM" class="text-zinc-500 dark:text-zinc-400">
+          © {new Date().getFullYear()} Abdallah Othman
+        </Text>
+
+        <div class="flex items-center gap-1 md:items-end">
+          <Text
+            tag="p"
+            variant="textSM"
+            class="hover:text-zinc-600 dark:hover:text-zinc-300 text-xs font-mono transition-colors duration-200"
+          >
+            <Text
+              tag="p"
+              variant="textXS"
+              class="text-zinc-500 dark:text-zinc-400"
+            >
+              Served from <a
+                class="font-medium text-zinc-500 underline hover:text-black dark:text-zinc-400 dark:hover:text-white transition-colors"
+                href="/blog/self-hosting-hetzner-coolify">my desk</a
+              >
+            </Text>
+            <Text
+              tag="a"
+              href={commitUrl}
+              target="_blank"
+              variant="textXS"
+              rel="noopener noreferrer"
+              title="View source commit on GitHub"
+              class="text-zinc-500 dark:text-zinc-400"
+            >
+              (#{SITE.COMMIT_HASH})
+            </Text>
+          </Text>
+        </div>
+      </div>
+    </div>
+  </Wrapper>
+</footer>

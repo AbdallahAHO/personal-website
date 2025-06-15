@@ -1,0 +1,53 @@
+---
+const { title, url, description, pubDate, index, image } = Astro.props;
+import Text from "@/components/fundations/elements/Text.astro";
+---
+
+<a href={url} title={title} class="group">
+  <div
+    class="flex sm:flex items-center gap-8 pt-2 border-b pb-8 border-black/10 dark:border-white/10"
+  >
+    <div
+      class="mb-4 flex-shrink-0 sm:mb-0 orderlast border-1 border-black/10 dark:border-white/10 rounded-lg"
+    >
+      <img
+        src={image}
+        alt={title}
+        class="size-16 lg:size-28 object-cover rounded-lg dark:opacity-70"
+      />
+    </div>
+
+    <div>
+      <Text
+        tag="span"
+        variant="textXS"
+        class="font-medium text-zinc-500 dark:text-zinc-400 uppercase"
+      >
+        <Text
+          tag="span"
+          variant="textXS"
+          class="font-medium font-mono text-zinc-500 dark:text-zinc-400 uppercase"
+        >
+          {index < 10 ? `0${index}` : index} -
+        </Text>
+        <time datetime={pubDate}>{pubDate}</time>
+      </Text>
+
+      <Text
+        tag="h4"
+        variant="textBase"
+        class="text-black dark:text-white mt-1 font-medium group-hover:text-black/70 dark:group-hover:text-white/70"
+      >
+        {title}
+      </Text>
+
+      <Text
+        tag="p"
+        variant="textSM"
+        class="text-zinc-500 dark:text-zinc-400 mt-4"
+      >
+        {description}
+      </Text>
+    </div>
+  </div>
+</a>
