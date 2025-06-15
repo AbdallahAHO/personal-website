@@ -1,13 +1,12 @@
 // Git commit hash will be set at build time
-const COMMIT_HASH = process.env.GITHUB_SHA?.substring(0, 7) || 
-                   process.env.SOURCE_COMMIT?.substring(0, 7) || 
-                   'unknown'
+const COMMIT_HASH =
+  process.env.GITHUB_SHA?.substring(0, 7) || process.env.SOURCE_COMMIT?.substring(0, 7) || 'unknown'
 
 export const SITE = {
   NAME: 'Abdallah Othman',
-  TITLE: 'Abdallah Othman - Senior Software Engineer & Technical Lead',
+  TITLE: 'Abdallah Othman - Software Engineer & Technical Lead',
   DESCRIPTION:
-    'Senior Software Engineer and Technical Lead specializing in Growth Engineering, TypeScript, React, and AI. Based in Hamburg, Germany. Originally from Alexandria, Egypt.',
+    'Software Engineer and Technical Lead specializing in Growth Engineering, TypeScript, React, and AI. Based in Hamburg, Germany. Originally from Alexandria, Egypt.',
   URL: 'https://www.abdallahaho.com',
   AUTHOR: 'Abdallah Othman',
   KEYWORDS: [
@@ -44,8 +43,7 @@ export const SITE = {
 
   // Open Graph
   OG_IMAGE: '/images/og/abdallah-othman-og.jpg',
-  OG_IMAGE_ALT:
-    'Abdallah Othman - Senior Software Engineer specializing in Growth Engineering and AI',
+  OG_IMAGE_ALT: 'Abdallah Othman - Software Engineer specializing in Growth Engineering and AI',
   OG_IMAGE_WIDTH: '1200',
   OG_IMAGE_HEIGHT: '630',
   OG_TYPE: 'website',
@@ -58,7 +56,7 @@ export const SITE = {
 
   // Professional
   CURRENT_COMPANY: 'Lokalise',
-  POSITION: 'Senior Software Engineer',
+  POSITION: 'Software Engineer',
   EXPERIENCE_YEARS: '7+',
   SPECIALIZATION: 'Growth Engineering, Frontend Development, AI/LLM Integration',
 

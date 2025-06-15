@@ -2,9 +2,9 @@
 pubDate: 2025-06-15
 
 # SEO-optimized (for search engines)
-seoTitle: "Abdallah Othman's Personal Website - Senior Software Engineer Portfolio"
-seoDescription: "Abdallah Othman's professional portfolio showcasing Growth Engineering expertise, built with Astro.js and Tailwind CSS. Features projects, blog, and insights from a Hamburg-based Senior Software Engineer."
-seoTags: ["Abdallah Othman", "personal website", "portfolio", "Senior Software Engineer", "Hamburg", "Growth Engineering", "Astro.js", "Tailwind CSS", "web development"]
+seoTitle: "Abdallah Othman's Personal Website - Software Engineer Portfolio"
+seoDescription: "Abdallah Othman's professional portfolio showcasing Growth Engineering expertise, built with Astro.js and Tailwind CSS. Features projects, blog, and insights from a Hamburg-based Software Engineer."
+seoTags: ["Abdallah Othman", "personal website", "portfolio", "Software Engineer", "Hamburg", "Growth Engineering", "Astro.js", "Tailwind CSS", "web development"]
 
 # User-facing (elegant and classy)
 title: "Personal Website"

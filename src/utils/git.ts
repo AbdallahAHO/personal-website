@@ -4,18 +4,20 @@ export async function getGitCommitHash(): Promise<string> {
     if (process.env.GITHUB_SHA) {
       return process.env.GITHUB_SHA.substring(0, 7)
     }
-    
+
     if (process.env.SOURCE_COMMIT) {
       return process.env.SOURCE_COMMIT.substring(0, 7)
     }
 
     // Fallback to GitHub API
-    const response = await fetch('https://api.github.com/repos/AbdallahAHO/personal-website/commits/main')
-    
+    const response = await fetch(
+      'https://api.github.com/repos/AbdallahAHO/personal-website/commits/main'
+    )
+
     if (!response.ok) {
       throw new Error(`GitHub API responded with ${response.status}`)
     }
-    
+
     const data = await response.json()
     return data.sha.substring(0, 7)
   } catch (error) {

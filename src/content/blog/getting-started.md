@@ -1,7 +1,7 @@
 ---
 # SEO-optimized (for search engines)
 seoTitle: "Abdallah Othman: Egyptian Software Engineer's Journey to Hamburg's Tech Scene"
-seoDescription: "Welcome to my personal website! Learn about my journey from Alexandria, Egypt to Hamburg, Germany as a Senior Software Engineer specializing in Growth Engineering, AI, and frontend development."
+seoDescription: "Welcome to my personal website! Learn about my journey from Alexandria, Egypt to Hamburg, Germany as a Software Engineer specializing in Growth Engineering, AI, and frontend development."
 seoTags: ["Abdallah Othman", "personal", "introduction", "tech", "Hamburg", "Egypt", "Software Engineer", "Growth Engineering"]
 
 # User-facing (elegant and classy)
@@ -19,7 +19,7 @@ image: {
 
 Hey there! Welcome to my little corner of the internet—where I get to overshare about tech, life in Hamburg, and whatever else pops into my head (sprinkled with some fun).
 
-So, I'm an Egyptian Senior Software Engineer hanging out in Hamburg, Germany. Moving from Egypt to Germany has been quite the adventure—working with global teams, building cool stuff, and diving into multicultural vibes. This blog is me keeping the exploration going, experimenting, and sharing the journey with you all.
+So, I'm an Egyptian Software Engineer hanging out in Hamburg, Germany. Moving from Egypt to Germany has been quite the adventure—working with global teams, building cool stuff, and diving into multicultural vibes. This blog is me keeping the exploration going, experimenting, and sharing the journey with you all.
 
 ### Why This Blog?
 

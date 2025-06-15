@@ -1,7 +1,7 @@
 ---
 # SEO-optimized (for search engines)
 seoTitle: "Abdallah Othman's Complete Guide to Self-Hosting with Hetzner and Coolify"
-seoDescription: "Learn how Senior Software Engineer Abdallah Othman sets up efficient self-hosting with Hetzner Cloud and Coolify. Perfect for developers wanting cost-effective deployment solutions."
+seoDescription: "Learn how Software Engineer Abdallah Othman sets up efficient self-hosting with Hetzner Cloud and Coolify. Perfect for developers wanting cost-effective deployment solutions."
 seoTags: ["Abdallah Othman", "devops", "self-hosting", "homelab", "coolify", "tutorial", "Hetzner", "software engineering", "deployment", "Hamburg developer"]
 
 # User-facing (elegant and classy)
