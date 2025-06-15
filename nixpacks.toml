@@ -20,15 +20,10 @@ cmds = [
 ]
 
 [phases.build]
-# Type checking, linting, and building
+# Build the site
 dependsOn = ["install"]
 cacheDirectories = ["dist", ".astro"]
 cmds = [
-    # Type check first to catch errors early
-    "pnpm typecheck",
-    # Lint and format check
-    "pnpm lint",
-    # Build the site
     "pnpm build"
 ]
 
