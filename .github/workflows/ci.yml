@@ -30,14 +30,6 @@ jobs:
         run: |
           echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
-      - name: Setup pnpm cache
-        uses: actions/cache@v4
-        with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
@@ -65,3 +57,13 @@ jobs:
           fi
           echo "✅ Build successful: dist directory contains expected files"
           ls -la dist/
+
+      - name: Trigger Coolify Build
+        if: github.event_name == 'push'
+        run: |
+          curl -X POST "https://aaho.cloud/api/v1/deploy?uuid=gso4kws4wow0g0cckgos4kk8&force=true" \
+            -H "Authorization: Bearer ${{ secrets.COOLIFY_API_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "branch": "main"
+            }'
