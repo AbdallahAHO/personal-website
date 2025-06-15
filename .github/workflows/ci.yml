@@ -14,6 +14,7 @@ jobs:
     # make the secret available to all steps in this job
     env:
       COOLIFY_API_TOKEN: ${{ secrets.COOLIFY_API_TOKEN }}
+      COOLIFY_HOMELAB_TOKEN: ${{ secrets.COOLIFY_HOMELAB_TOKEN }}
 
     steps:
       - name: Checkout
@@ -67,5 +68,13 @@ jobs:
         run: |
           curl -X POST "https://aaho.cloud/api/v1/deploy?uuid=gso4kws4wow0g0cckgos4kk8&force=false" \
             -H "Authorization: Bearer $COOLIFY_API_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{"branch":"main"}'
+
+      - name: Trigger Coolify AAHO Build
+        if: github.event_name == 'push'
+        run: |
+          curl -X POST "https://server.aaho.cc/api/v1/deploy?uuid=q8gwg088ggokk0sws00ow04c&force=false" \
+            -H "Authorization: Bearer $COOLIFY_HOMELAB_TOKEN" \
             -H "Content-Type: application/json" \
             -d '{"branch":"main"}'
