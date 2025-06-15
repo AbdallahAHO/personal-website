@@ -33,6 +33,9 @@ const {
 } = Astro.props;
 ---
 
+<!-- Character encoding must be declared early -->
+<meta charset="utf-8" />
+
 <Seo title={title} description={description} image={image} type={type} />
 <Meta title={title} description={description} keywords={keywords} />
 
