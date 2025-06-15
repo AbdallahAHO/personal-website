@@ -13,6 +13,9 @@ export default defineConfig({
   },
   vite: {
     plugins: [tailwindcss(), devtoolsJson({ uuid: '6722dc0b-b5b2-4d99-a7bf-0733ae915756' })],
+    preview: {
+      allowedHosts: ['abdallahaho.com'],
+    },
   },
   shikiConfig: {
     wrap: true,
