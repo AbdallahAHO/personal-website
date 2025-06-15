@@ -1,5 +1,5 @@
 {
-  "background_color": "#71717a",
+  "background_color": "#fafafa",
   "display": "standalone",
   "icons": [
     {
@@ -34,7 +34,7 @@
       "type": "image/x-icon"
     }
   ],
-  "name": "",
-  "short_name": "",
-  "theme_color": "#71717a"
+  "name": "Abdallah Othman",
+  "short_name": "AAHO",
+  "theme_color": "#12161d"
 }

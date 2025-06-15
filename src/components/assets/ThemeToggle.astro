@@ -31,6 +31,12 @@ const { class: className = "", ...rest } = Astro.props;
     document.documentElement.classList.toggle("dark", isDark);
     localStorage.setItem("theme", isDark ? "dark" : "light");
 
+    // Update theme-color meta tag
+    const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+    if (themeColorMeta) {
+      themeColorMeta.setAttribute("content", isDark ? "#12161d" : "#fafafa");
+    }
+
     // Update all theme toggles
     document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
       if (button) {

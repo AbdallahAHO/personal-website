@@ -10,6 +10,12 @@
     // Apply the theme immediately
     document.documentElement.classList.toggle("dark", theme === "dark");
 
+    // Update theme-color meta tag immediately
+    const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+    if (themeColorMeta) {
+      themeColorMeta.setAttribute("content", theme === "dark" ? "#12161d" : "#fafafa");
+    }
+
     // Set the toggle state correctly based on the theme
     const toggle = document.getElementById("theme-toggle");
     if (toggle) {
