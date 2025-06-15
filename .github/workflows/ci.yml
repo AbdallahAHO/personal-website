@@ -11,6 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     name: Code Quality & Build
 
+    # make the secret available to all steps in this job
+    env:
+      COOLIFY_API_TOKEN: ${{ secrets.COOLIFY_API_TOKEN }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -62,8 +66,6 @@ jobs:
         if: github.event_name == 'push'
         run: |
           curl -X POST "https://aaho.cloud/api/v1/deploy?uuid=gso4kws4wow0g0cckgos4kk8&force=true" \
-            -H "Authorization: Bearer ${{ secrets.COOLIFY_API_TOKEN }}" \
+            -H "Authorization: Bearer $COOLIFY_API_TOKEN" \
             -H "Content-Type: application/json" \
-            -d '{
-              "branch": "main"
-            }'
+            -d '{"branch":"main"}'
