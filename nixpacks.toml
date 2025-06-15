@@ -1,0 +1,47 @@
+[variables]
+# Node.js version - using LTS version compatible with Astro 5.x
+NODE_VERSION = "20"
+# PNPM version - using latest stable
+PNPM_VERSION = "9"
+# Build optimization
+NODE_ENV = "production"
+# Astro specific optimizations
+ASTRO_TELEMETRY_DISABLED = "1"
+
+[phases.setup]
+# Install Node.js and PNPM
+nixPkgs = ["nodejs_20", "pnpm"]
+cmds = [
+    "corepack enable",
+    "corepack prepare pnpm@9 --activate"
+]
+
+[phases.install]
+# Cache PNPM store for faster builds
+dependsOn = ["setup"]
+cacheDirectories = [".pnpm-store", "node_modules"]
+cmds = [
+    "pnpm config set store-dir .pnpm-store",
+    "pnpm install --frozen-lockfile --prefer-offline"
+]
+
+[phases.build]
+# Type checking, linting, and building
+dependsOn = ["install"]
+cacheDirectories = ["dist", ".astro"]
+cmds = [
+    # Type check first to catch errors early
+    "pnpm typecheck",
+    # Lint and format check
+    "pnpm lint",
+    # Build the site
+    "pnpm build"
+]
+
+[start]
+# Serve the built static files
+cmd = "pnpm preview --host 0.0.0.0 --port $PORT"
+
+[staticAssets]
+# Astro builds to dist/ directory
+dir = "dist"
