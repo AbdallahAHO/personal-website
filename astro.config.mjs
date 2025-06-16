@@ -24,9 +24,9 @@ export default defineConfig({
             return 'assets/[name].[hash][extname]'
           },
           chunkFileNames: '_astro/[name].[hash].js',
-          entryFileNames: '_astro/[name].[hash].js'
-        }
-      }
+          entryFileNames: '_astro/[name].[hash].js',
+        },
+      },
     },
     preview: {
       cors: {
