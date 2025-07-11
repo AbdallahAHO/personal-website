@@ -1,165 +1,198 @@
 ---
 # SEO-optimized (for search engines)
-seoTitle: "Abdallah Othman's Complete Guide to Self-Hosting with Hetzner and Coolify"
-seoDescription: "Learn how Software Engineer Abdallah Othman sets up efficient self-hosting with Hetzner Cloud and Coolify. Perfect for developers wanting cost-effective deployment solutions."
-seoTags: ["Abdallah Othman", "devops", "self-hosting", "homelab", "coolify", "tutorial", "Hetzner", "software engineering", "deployment", "Hamburg developer"]
+seoTitle: "Practical Guide to Home Labs with ThinkCentre, Coolify & Cloudflare Tunnels"
+seoDescription: "Discover how built a powerful home lab using a refurbished Lenovo ThinkCentre, Coolify, and Cloudflare Tunnels. A budget-friendly guide for developers and homelab enthusiasts."
+seoTags: ["Abdallah Othman", "homelab", "self-hosting", "coolify", "cloudflare tunnels", "home server", "thinkcentre", "docker", "linux", "refurbished hardware", "hamburg developer"]
 
 # User-facing (elegant and classy)
-title: "Self-hosting with Hetzner and Coolify"
-description: "A comprehensive guide to setting up your own self-hosted server using Hetzner Cloud and Coolify."
-tags: ["devops", "self-hosting", "homelab", "tutorial"]
+title: "From Cloud to Shelf: My Self-Hosting Journey with an old PC, Coolify & Cloudflare"
+description: "How I ditched cloud hosting, built a powerful home lab, and took full control of my personal projects — all on a budget."
+tags: ["homelab", "self-hosting", "docker", "coolify"]
 
-pubDate: 2024-04-16
+pubDate: 2025-07-12
 slug: "self-hosting-hetzner-coolify"
 image: {
    url: "/images/blog/thinkpad.png",
-   alt: "Self-hosting server setup"
+   alt: "Lenovo ThinkCentre M720Q used for home server"
 }
 ---
+> A practical guide to building a home lab with a refurbished ThinkCentre M720Q, Coolify, and Cloudflare Tunnels - saving money while gaining complete control
 
-After years of using various cloud providers and PaaS solutions, I've finally settled on a setup that gives me the perfect balance of control, cost, and ease of use: Hetzner Cloud for infrastructure and Coolify for deployment and management.
+## The €150/Year Wake-Up Call
 
-### Why Self-Host?
+So I was sitting with my coffee one morning, looking at my Hetzner invoice, when it hit me. I was paying around [€150 per year for a VPS](https://www.hetzner.com/cloud) that was... fine. Just fine. But here's the thing - for the same money, I could own actual hardware that would be way more powerful.
 
-While platforms like Vercel and Netlify are fantastic for many use cases, there are several compelling reasons to consider self-hosting:
+You know that moment when you realize you've been solving the wrong problem? Yeah, that was me with cloud hosting for personal projects.
 
-1. **Cost-effectiveness**: For multiple projects, self-hosting can be significantly cheaper
-2. **Control**: Full control over your infrastructure and data
-3. **Privacy**: Your data stays on your servers
-4. **Learning**: Great way to understand infrastructure and DevOps
+## The Black Friday Hunt
 
-### Why Hetzner?
+Back in November, Black Friday rolled around, and I did what any self-respecting engineer does - I went bargain hunting on Amazon. And there it was: a [Lenovo ThinkCentre M720Q Tiny Mini PC](https://psref.lenovo.com/syspool/Sys/PDF/ThinkCentre/ThinkCentre_M720_Tiny/ThinkCentre_M720_Tiny_Spec.pdf) for €90. Originally priced around €150, this little beast came with:
 
-[Hetzner](https://www.hetzner.com/) offers some of the most competitive prices in the market while maintaining excellent quality:
+- [Intel Core i5-8500T processor](https://www.intel.com/content/www/us/en/products/sku/129941/intel-core-i58500t-processor-9m-cache-up-to-3-50-ghz/specifications.html) (6 cores!)
+- 8GB RAM (officially supports up to 32GB)
+- 128GB SSD with room for another
+- Two RAM slots for future upgrades
+- Smaller than my coffee maker
 
-- Servers starting at €4.15/month
-- Locations in Germany, Finland, and the USA
-- Great network performance
-- Simple but powerful API
-- Excellent documentation
+To be honest, I was worried it would be broken. Used electronics from Amazon? That's a gamble. But when it arrived, it was surprisingly well-maintained - cleaned up, functioning SSD, and ready to go. The refurbishment was solid.
 
-I'm currently using their CPX21 instance (4 vCPU, 8GB RAM) which costs around €10.84/month and handles multiple projects with ease.
+### The Upgrade Dance
 
-### Enter Coolify
+Here's where it gets interesting. The RAM was on sale during Black Friday - €50 for 32GB. So for a total of €140, I had a machine that would cost me years of Hetzner hosting. The math was simple: one-time €140 investment versus €150 every single year.
 
-[Coolify](https://coolify.io/) is an open-source, self-hosted Heroku/Netlify alternative that makes deploying and managing applications a breeze. It supports:
+The upgrade process? Dead simple:
+1. Pop open the case (no tools needed - Lenovo knows what they're doing)
+2. Slide in the RAM - took maybe 10 minutes
+3. Add a second SSD for redundancy
+4. Done in under 30 minutes
 
+## Setting Up: A Weekend Well Spent
+
+The whole setup took me a weekend, tops. Let me break it down:
+
+**Hardware Assembly**: Less than 2 hours
+- Unboxing and inspection: 20 minutes
+- RAM upgrade: 10 minutes
+- SSD installation: 10 minutes
+- Cable management (just Ethernet + power): 5 minutes
+
+**Software Setup**: Around 1.5 hours
+- [Ubuntu Server installation](https://ubuntu.com/tutorials/install-ubuntu-server) via USB: 30 minutes
+- Initial configuration and updates: 30 minutes
+- [Coolify](https://coolify.io/) installation with setup tunnels and all: 20 minutes
+- First containers running: 10 minutes
+
+The beauty? You only need two cables - Ethernet and power. HDMI is optional unless you're troubleshooting. I went with Ethernet over WiFi because, let's be frank, stability matters more than cable aesthetics when you're running services 24/7.
+
+## Enter Coolify: My Personal Heroku
+
+If you haven't heard of [Coolify](https://coolify.io/), think of it as your own personal Heroku. It's been a game changer for me. Here's what it handles out of the box:
+
+- [Docker](https://docs.docker.com/engine/install/) orchestration
+- Automatic SSL certificates ([Let's Encrypt](https://letsencrypt.org/getting-started/))
+- Service discovery
 - One-click deployments
-- Automatic SSL certificates
-- Docker container management
-- Database management
-- Service monitoring
-- And much more!
+- Git integration with push-to-deploy
+- Automatic security updates (they just added this!)
 
-### Setting Up Your Server
+The SSH setup? Already secured out of the box with key-based authentication. No passwords, no nonsense. And the recent update that adds automatic patching from the UI? That's peace of mind right there.
 
-Here's a step-by-step guide to getting started:
+## The Security Dilemma (And My Solution)
 
-1. **Create a Hetzner Account**
-   - Sign up at [hetzner.com](https://www.hetzner.com/)
-   - Add a payment method
-   - Create a new project
+Here's where I hit my first real challenge. My server is sitting in my home network behind my router. How do I expose services to the internet without turning my home into a hacker's playground?
 
-2. **Create a Server**
-   - Choose a location (I recommend Germany for EU users)
-   - Select an instance type (CPX21 is a good starting point)
-   - Choose Ubuntu as your OS
-   - Add your SSH key
-   - Create the server
+Port forwarding on my router? That's basically putting a "hack me" sign on ports 80 and 443. No thanks.
 
-3. **Initial Server Setup**
-   ```bash
-   # Update system packages
-   apt update && apt upgrade -y
+Enter **[Cloudflare Tunnels](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/)**. This was the game changer for me. Instead of exposing my home IP:
+- The tunnel creates a secure connection FROM my server TO Cloudflare
+- Only the services I explicitly expose are accessible
+- DDoS protection included (for free!)
+- I can kill access instantly from the Cloudflare dashboard
 
-   # Install basic utilities
-   apt install -y curl wget git ufw
+And yes, it's completely free. Cloudflare is basically subsidizing my entire security infrastructure.
 
-   # Configure firewall
-   ufw allow 22
-   ufw allow 80
-   ufw allow 443
-   ufw enable
-   ```
+### The Nuclear Option
 
-4. **Install Coolify**
-   ```bash
-   # Run the installation script
-   wget -q https://get.coolify.io -O install.sh
-   sudo bash ./install.sh
+One fun thing I did - I installed a [smart plug](https://www.ikea.com/de/de/p/tretakt-steckdose-smart-80540349/) on the server's power cord. Cost me €8, but now if someone decides to have fun with my services while I'm away from home, I can literally pull the plug from my phone. Physical security at its finest!
 
-   # Follow the prompts and save your credentials
-   ```
+## What's Actually Running After a Year?
 
-5. **Configure Domain**
-   - Point your domain to your server's IP
-   - Add A records for wildcard subdomains
-   ```
-   A     @     YOUR_SERVER_IP
-   A     *     YOUR_SERVER_IP
-   ```
+Almost a year later, here's my stack:
 
-### Deploying Your First App
+**Development Tools**:
+- **[Mailpit](https://mailpit.axllent.org/)**: Mailpit - email & SMTP testing tool with API for developers (no more console.log debugging!)
+- **[Browserless](https://www.browserless.io)**: Headless Chrome API for automation
+- **[Hoppscotch](https://hoppscotch.io/)**: Self-hosted API testing (think Postman, but mine)
+- **[OpenWebUI](https://github.com/open-webui/open-webui)**: My own ChatGPT interface
 
-Once Coolify is set up, deploying applications is straightforward:
+**Productivity Apps**:
+- **[Excalidraw](https://github.com/excalidraw/excalidraw)**: Whiteboard for architecture diagrams
+- **[Karakeep](https://karakeep.app/)**: Very smart OSS Bookmark manager (goodbye Raindrop.io subscription!)
+- **[Pi-hole](https://pi-hole.net/)**: Network-wide ad blocking (this alone is worth it)
 
-1. Connect your Git repository
-2. Choose your deployment settings
-3. Add any environment variables
-4. Click deploy!
+**Monitoring & Management**:
+- **[Portainer](https://www.portainer.io/)**: When I need to dig deeper than Coolify allows
+- **[Glances](https://github.com/nicolargo/glances)**: Think htop but with a web UI - shows CPU, RAM, and crucially, temperature
+- **[Dazzle](https://dozzle.dev/)**: Container log aggregation
+- **[Speedtest Tracker](https://github.com/alexjustesen/speedtest-tracker)**: Runs every 30 minutes, gives me charts to argue with my ISP about the quality of their service
 
-### Monitoring and Maintenance
+## The Reality Check
 
-Coolify provides built-in monitoring, but here are some additional tips:
+Let me be honest about the downsides:
 
-1. **Regular Backups**
-   ```bash
-   # Create a backup script
-   mkdir -p /root/backups
-   coolify backup create --destination /root/backups
-   ```
+### The Fan Noise
+There's a fan. It makes noise. In winter, with CPU temps under 50°C, it's a subtle hum you can barely hear. In summer, when I'm running more containers, it gets more noticeable. My solution? I moved it from my bedroom to the living room bookshelf. Problem solved.
 
-2. **Update Regularly**
-   ```bash
-   # Update Coolify
-   coolify update
+### Power Consumption
+Based on my calculations (10-15W idle, up to 35W under load), running 24/7 costs about €3/month in electricity. That's €36/year - still way cheaper than cloud hosting.
 
-   # Update system packages
-   apt update && apt upgrade -y
-   ```
+### No CPU Upgrades
+Once you buy it, that's your CPU forever. The i5-8500T has been more than enough for my needs (I'm running 20+ containers), but if you're planning to run AI workloads locally, look at newer models with better specs.
 
-3. **Monitor Resources**
-   - Use Coolify's built-in monitoring
-   - Consider adding Netdata for more detailed metrics
-   - Set up email alerts for critical events
+## Remote Management That Actually Works
 
-### Cost Breakdown
+The setup gives me multiple management layers:
+- **Coolify Dashboard**: Handles 90% of what I need
+- **SSH + Terminal**: For when I need to get surgical
+- **[Discord Webhooks](https://discord.com/developers/docs/resources/webhook)**: Notifications when containers fail or need attention
+- **Smart Plug**: The nuclear option - remote power cycling when all else fails
 
-Here's what I'm paying monthly:
+I've set up automatic notifications through Discord (it's cross-platform, works on my phone and laptop). When something goes wrong, I know about it immediately.
 
-- Hetzner CPX21: €10.84
-- Domain: ~€1
-- Total: ~€12/month
+## One Year Later: The Numbers
 
-This setup hosts:
-- Multiple Node.js applications
-- Several static sites
-- PostgreSQL databases
-- Redis instances
-- Monitoring tools
+Let's talk economics. Here's my total cost breakdown:
+- **Initial Hardware**: €140 (ThinkCentre + RAM upgrade)
+- **Electricity (1 year)**: ~€36
+- **Smart Plug**: €15
+- **Total First Year**: €191
 
-### Security Considerations
+Compare that to cloud hosting:
+- **[Hetzner CPX11](https://www.hetzner.com/cloud#pricing)** (2 vCPU, 2GB RAM): €150/year
+- **My Setup**: 6 cores, 32GB RAM, unlimited storage
 
-1. **Always use SSH keys** - disable password authentication
-2. **Keep everything updated** - both the OS and Coolify
-3. **Use strong passwords** for Coolify admin
-4. **Enable automatic backups**
-5. **Regularly check logs** for suspicious activity
+I have 16x the RAM and 3x the CPU cores for basically the same annual cost. But beyond the economics:
+- No surprise shutdowns in almost a year of 24/7 operation
+- Routine reboots every 20 days (my choice, not necessity)
+- Complete control over my data
+- No bandwidth limits or surprise bills
+- Learning experience that cloud abstracts away
 
-### Conclusion
+## Should You Do This?
 
-Self-hosting with Hetzner and Coolify has been a game-changer for my projects. It provides the perfect balance of control and convenience, all while keeping costs low. The initial setup might take a bit of time, but the long-term benefits are worth it.
+If you're running personal projects, development environments, or small services - absolutely. Here's my buying checklist based on what I've learned:
 
-Remember, while this setup works great for many use cases, it might not be suitable for everyone. Consider your specific needs, technical expertise, and maintenance capacity before making the switch.
+**Minimum Specs I'd Recommend**:
+- 8GB RAM (16GB better for Docker-heavy workloads)
+- 128GB SSD (enough for 10-20 containers easily)
+- Intel i5 6th gen or newer (for power efficiency)
+- Gigabit Ethernet port
 
-Feel free to reach out if you have questions about this setup!
+**What to Check When Buying Used**:
+- BIOS isn't locked (ask the seller specifically)
+- All mounting hardware included
+- Power adapter included (these can be proprietary and expensive)
+- Who did the refurbishment (manufacturer refurb > random shop)
+
+## The Bigger Picture
+
+Moving from cloud to home hosting taught me something important: we've become too dependent on abstractions. Yes, AWS and Hetzner solve real problems, but for personal projects? You're paying for convenience you might not need.
+
+My little ThinkCentre sitting in my bookshelf has become my playground. Want to try a new service? Deploy it in minutes. Want to experiment with networking? Go wild. Want to learn about infrastructure? No AWS bill anxiety hanging over your head.
+
+Is it perfect? No. Would I run production services on it? Also no. But for everything else? It's been transformative.
+
+## Looking Ahead
+
+So yeah, that's how I turned a Black Friday impulse buy into a year-long journey of self-hosting. My Hetzner account? Cancelled within a month. My learning? Through the roof. My coffee? Still brewing while my containers deploy.
+
+The best part? I'm no longer renting compute power - I own it. And in this age of subscription everything, that feels pretty good.
+
+What's your take on home labs? Are you still paying for cloud hosting for personal projects, or have you taken the plunge into self-hosting? I'd love to hear about your setup in the comments.
+
+## Resources & References
+
+- [Coolify](https://coolify.io) - The self-hosting platform that makes this all possible
+- [Cloudflare Tunnels Documentation](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/) - For secure access without port forwarding
+- [ThinkCentre Tiny Enthusiasts](https://www.reddit.com/r/homelab) - Where I learned most of the hardware tricks
+- [ServeTheHome Mini PC Reviews](https://www.servethehome.com/tag/lenovo/) - Detailed benchmarks and comparisons
