@@ -1,11 +1,11 @@
-import type { APIRoute, GetStaticPaths } from 'astro'
+import type { APIRoute } from 'astro'
 import { getCollection } from 'astro:content'
 import { generateOGImage } from '@/og/generate'
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export async function getStaticPaths() {
   const posts = await getCollection('blog')
   const tags = [...new Set(posts.flatMap((post) => post.data.tags || []))]
-  return tags.map((tag) => ({
+  return tags.map((tag: string) => ({
     params: { tag },
     props: { tag },
   }))
