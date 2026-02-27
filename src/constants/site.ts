@@ -42,7 +42,7 @@ export const SITE = {
   LINKEDIN_USERNAME: 'AbdallahAHO',
 
   // Open Graph
-  OG_IMAGE: '/images/og/abdallah-othman-og.jpg',
+  OG_IMAGE: '/og/default.png',
   OG_IMAGE_ALT: 'Abdallah Othman - Software Engineer specializing in Growth Engineering and AI',
   OG_IMAGE_WIDTH: '1200',
   OG_IMAGE_HEIGHT: '630',

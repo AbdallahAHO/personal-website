@@ -3,7 +3,7 @@ import BaseLayout from "./BaseLayout.astro";
 import { SITE } from "@/constants/site";
 import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
-const { frontmatter } = Astro.props;
+const { frontmatter, slug } = Astro.props;
 
 // Generate SEO-optimized metadata for this project
 const seoTitle = frontmatter.seoTitle
@@ -25,7 +25,7 @@ const seoKeywords = [
 		.slice(0, 3)
 		.join(" "), // First 3 words of SEO title
 ];
-const seoImage = frontmatter.image?.url || SITE.OG_IMAGE;
+const seoImage = `/og/projects/${slug}.png`;
 ---
 
 <BaseLayout

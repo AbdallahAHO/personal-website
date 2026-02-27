@@ -1,5 +1,5 @@
 ---
-const { frontmatter } = Astro.props;
+const { frontmatter, slug } = Astro.props;
 import BaseLayout from "./BaseLayout.astro";
 import { SITE } from "@/constants/site";
 
@@ -28,7 +28,7 @@ const seoKeywords = [
   "software engineering",
   (frontmatter.seoTitle || frontmatter.title).split(" ").slice(0, 3).join(" ") // First 3 words of SEO title
 ];
-const seoImage = frontmatter.image?.url || SITE.OG_IMAGE;
+const seoImage = `/og/blog/${slug}.png`;
 
 // Generate breadcrumb items
 const breadcrumbItems: BreadcrumbItem[] = [
