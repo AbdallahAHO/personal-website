@@ -136,6 +136,8 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           command: pages deploy dist/ --project-name=personal-website
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}
+          environmentUrl: ${{ github.ref == 'refs/heads/main' && 'https://abdallahaho.com' || null }}
 
       # Production deploys get a release tag for audit trail
       - name: Create release tag
