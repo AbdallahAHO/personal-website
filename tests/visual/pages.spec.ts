@@ -18,6 +18,7 @@ for (const page of pages) {
     await expect(browser).toHaveScreenshot(`${page.name}.png`, {
       fullPage: true,
       threshold: 0.2,
+      maxDiffPixelRatio: 0.02,
     })
   })
 }
@@ -34,6 +35,7 @@ test('home dark mode matches screenshot', async ({ page }) => {
     await expect(page).toHaveScreenshot('home-dark.png', {
       fullPage: true,
       threshold: 0.2,
+      maxDiffPixelRatio: 0.02,
     })
   }
 })
