@@ -1,0 +1,49 @@
+name: Update Visual Baselines
+
+on:
+  workflow_dispatch:
+
+jobs:
+  update-baselines:
+    runs-on: ubuntu-latest
+    name: Generate Linux Snapshots
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Build
+        run: pnpm build
+
+      - name: Generate visual baselines
+        run: pnpm test:visual:update
+
+      - name: Commit and push baselines
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add tests/visual/pages.spec.ts-snapshots/
+          if git diff --cached --quiet; then
+            echo "No snapshot changes to commit"
+          else
+            git commit -m "test: update visual baselines from Linux CI"
+            git push
+          fi
