@@ -30,6 +30,7 @@ const { posts } = Astro.props;
 <BaseLayout
   title={`Blog posts about ${tag} from ${SITE.NAME}`}
   description={`Posts tagged with ${tag}`}
+  image={`/og/blog/tags/${tag}.png`}
 >
   <section>
     <Wrapper variant="standard" class="pt-12 lg:py-32 xl:py-54">

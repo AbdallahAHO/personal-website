@@ -19,9 +19,11 @@
     "clean": "rm -rf node_modules dist .astro",
     "reinstall": "pnpm clean && pnpm install",
     "typecheck": "tsc --noEmit",
-    "test:visual": "playwright test",
-    "test:visual:ui": "playwright test --ui",
-    "test:visual:update": "playwright test --update-snapshots",
+    "test": "playwright test tests/build/",
+    "test:visual": "playwright test tests/visual/",
+    "test:visual:ui": "playwright test tests/visual/ --ui",
+    "test:visual:update": "playwright test tests/visual/ --update-snapshots",
+    "test:all": "playwright test",
     "deploy": "pnpm build && wrangler pages deploy dist/"
   },
   "dependencies": {

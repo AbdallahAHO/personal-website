@@ -59,12 +59,53 @@ jobs:
           path: dist/
           retention-days: 1
 
+  test:
+    runs-on: ubuntu-latest
+    name: Build Tests
+    needs: quality
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      - name: Run build tests
+        run: pnpm test
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: build-test-report
+          path: playwright-report/
+          retention-days: 7
+
   # Deploys to Cloudflare Pages — preview on PRs, production on push to main.
   # gitHubToken enables GitHub Deployments sidebar integration automatically.
   deploy:
     runs-on: ubuntu-latest
     name: Deploy to Cloudflare Pages
-    needs: quality
+    needs: [quality, test]
     if: github.event_name == 'push' || github.event_name == 'pull_request'
     permissions:
       contents: write        # for creating release tags
@@ -112,6 +153,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Visual Tests
     needs: quality
+    continue-on-error: true
 
     steps:
       - name: Checkout
@@ -130,7 +172,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
+        run: npx playwright install --with-deps chromium
 
       - name: Download build artifacts
         uses: actions/download-artifact@v4

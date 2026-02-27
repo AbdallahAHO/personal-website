@@ -15,7 +15,7 @@ const allTags = [...new Set(allPosts.flatMap((post) => post.data.tags || []))];
 const sortedTags = allTags.sort((a, b) => a.localeCompare(b));
 ---
 
-<BaseLayout>
+<BaseLayout image="/og/blog.png">
   <section>
     <Wrapper variant="standard" class="pt-12 lg:py-32 xl:py-54">
       <Text
