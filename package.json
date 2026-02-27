@@ -20,9 +20,7 @@
     "reinstall": "pnpm clean && pnpm install",
     "typecheck": "tsc --noEmit",
     "test": "playwright test tests/build/",
-    "test:visual": "playwright test tests/visual/",
-    "test:visual:ui": "playwright test tests/visual/ --ui",
-    "test:visual:update": "playwright test tests/visual/ --update-snapshots",
+    "test:smoke": "playwright test tests/smoke/",
     "test:all": "playwright test",
     "deploy": "pnpm build && wrangler pages deploy dist/"
   },

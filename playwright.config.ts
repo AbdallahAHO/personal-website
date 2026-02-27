@@ -17,9 +17,12 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
   ],
-  webServer: {
-    command: 'pnpm preview',
-    port: 4321,
-    reuseExistingServer: !process.env.CI,
-  },
+  // Only start preview server for build tests (smoke tests hit production directly)
+  webServer: process.env.SMOKE_URL
+    ? undefined
+    : {
+        command: 'pnpm preview',
+        port: 4321,
+        reuseExistingServer: !process.env.CI,
+      },
 })

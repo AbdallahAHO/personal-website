@@ -101,15 +101,17 @@ jobs:
           retention-days: 7
 
   # Deploys to Cloudflare Pages — preview on PRs, production on push to main.
-  # gitHubToken enables GitHub Deployments sidebar integration automatically.
   deploy:
     runs-on: ubuntu-latest
     name: Deploy to Cloudflare Pages
     needs: [quality, test]
     if: github.event_name == 'push' || github.event_name == 'pull_request'
     permissions:
-      contents: write        # for creating release tags
-      deployments: write     # for GitHub Deployments sidebar
+      contents: write
+      deployments: write
+
+    outputs:
+      url: ${{ steps.url.outputs.url }}
 
     steps:
       - name: Checkout
@@ -136,6 +138,15 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           command: pages deploy dist/ --project-name=personal-website
+
+      - name: Set deployment URL
+        id: url
+        run: |
+          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            echo "url=https://abdallahaho.com" >> "$GITHUB_OUTPUT"
+          else
+            echo "url=${{ steps.deploy.outputs.deployment-url }}" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Create GitHub deployment
         uses: actions/github-script@v7
@@ -175,11 +186,10 @@ jobs:
             --generate-notes \
             --latest
 
-  visual-tests:
+  smoke:
     runs-on: ubuntu-latest
-    name: Visual Tests
-    needs: quality
-    continue-on-error: true
+    name: Smoke Tests
+    needs: deploy
 
     steps:
       - name: Checkout
@@ -197,22 +207,15 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps chromium
+      - name: Run smoke tests against deployed site
+        env:
+          SMOKE_URL: ${{ needs.deploy.outputs.url }}
+        run: pnpm test:smoke
 
-      - name: Download build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: dist
-          path: dist/
-
-      - name: Run visual tests
-        run: pnpm test:visual
-
-      - name: Upload test results
+      - name: Upload smoke test results
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: playwright-report
+          name: smoke-test-report
           path: playwright-report/
-          retention-days: 30
+          retention-days: 7
