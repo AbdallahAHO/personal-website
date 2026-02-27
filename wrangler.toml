@@ -1,0 +1,6 @@
+# Cloudflare Pages — abdallahaho.com
+# Deploy: pnpm deploy (builds + deploys to CF Pages)
+# CI auto-deploys on push to main, preview deploys on PRs
+name = "personal-website"
+pages_build_output_dir = "dist"
+compatibility_date = "2026-02-27"

@@ -11,29 +11,18 @@ jobs:
     runs-on: ubuntu-latest
     name: Code Quality & Build
 
-    # make the secret available to all steps in this job
-    env:
-      COOLIFY_API_TOKEN: ${{ secrets.COOLIFY_API_TOKEN }}
-      COOLIFY_HOMELAB_TOKEN: ${{ secrets.COOLIFY_HOMELAB_TOKEN }}
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
-
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+          node-version: '22'
+          cache: 'pnpm'
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -53,31 +42,63 @@ jobs:
       - name: Check build output
         run: |
           if [ ! -d "dist" ]; then
-            echo "❌ Build failed: dist directory not found"
+            echo "Build failed: dist directory not found"
             exit 1
           fi
           if [ ! -f "dist/index.html" ]; then
-            echo "❌ Build failed: index.html not found"
+            echo "Build failed: index.html not found"
             exit 1
           fi
-          echo "✅ Build successful: dist directory contains expected files"
+          echo "Build successful: dist directory contains expected files"
           ls -la dist/
 
-      - name: Trigger Coolify Build
-        if: github.event_name == 'push'
-        run: |
-          curl -X POST "https://aaho.cloud/api/v1/deploy?uuid=gso4kws4wow0g0cckgos4kk8&force=false" \
-            -H "Authorization: Bearer $COOLIFY_API_TOKEN" \
-            -H "Content-Type: application/json" \
-            -d '{"branch":"main"}'
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          retention-days: 1
 
-      - name: Trigger Coolify AAHO Build
-        if: github.event_name == 'push'
+  # Deploys to Cloudflare Pages — preview on PRs, production on push to main.
+  # gitHubToken enables GitHub Deployments sidebar integration automatically.
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy to Cloudflare Pages
+    needs: quality
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
+    permissions:
+      contents: write        # for creating release tags
+      deployments: write     # for GitHub Deployments sidebar
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          command: pages deploy dist/ --project-name=personal-website
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      # Production deploys get a release tag for audit trail
+      - name: Create release tag
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          curl -X POST "https://server.aaho.cc/api/v1/deploy?uuid=q8gwg088ggokk0sws00ow04c&force=false" \
-            -H "Authorization: Bearer $COOLIFY_HOMELAB_TOKEN" \
-            -H "Content-Type: application/json" \
-            -d '{"branch":"main"}'
+          TAG="v1.0.0-deploy.$(date +%Y%m%d).${GITHUB_SHA::7}"
+          gh release create "$TAG" \
+            --title "Deploy $TAG" \
+            --generate-notes \
+            --latest
 
   visual-tests:
     runs-on: ubuntu-latest
@@ -88,15 +109,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
+          node-version: '22'
+          cache: 'pnpm'
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -104,8 +124,11 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Build site
-        run: pnpm build
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
 
       - name: Run visual tests
         run: pnpm test:visual
