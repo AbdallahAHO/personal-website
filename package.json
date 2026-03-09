@@ -49,6 +49,6 @@
     "@types/node": "^24.10.15",
     "vite": "^6.3.5",
     "vite-plugin-devtools-json": "^1.0.0",
-    "wrangler": "^4.69.0"
+    "wrangler": "^4.71.0"
   }
 }
