@@ -70,9 +70,8 @@ export default defineConfig({
           item.priority = 0.5
         }
 
-        // Add lastmod date
-        item.lastmod = new Date().toISOString()
-
+        // No lastmod: stamping build time on every URL marked the whole
+        // site as freshly modified on each deploy, which dilutes the signal.
         return item
       },
     }),
