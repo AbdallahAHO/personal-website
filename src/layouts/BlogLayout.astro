@@ -14,7 +14,7 @@ import { formatDate, toISODate } from "@/utils/date";
 
 // Generate SEO-optimized metadata for this blog post
 const seoTitle = frontmatter.seoTitle
-  ? `${frontmatter.title} | ${SITE.NAME} Blog`
+  ? `${frontmatter.seoTitle} | ${SITE.NAME} Blog`
   : `${frontmatter.title} | ${SITE.NAME} Blog`;
 const seoDescription =
   frontmatter.seoDescription ||
@@ -68,20 +68,7 @@ const allPosts = otherPostsUnsorted.sort(
     <Wrapper variant="standard" class="pt-24 pb-12">
       <!-- Breadcrumb Navigation -->
       <Breadcrumb items={breadcrumbItems} class="mb-6" />
-      <!-- Hidden SEO-optimized title for search engines -->
-      {
-        frontmatter.seoTitle && frontmatter.seoTitle !== frontmatter.title && (
-          <Text
-            tag="h1"
-            variant="displaySM"
-            class="text-black dark:text-white font-medium hidden"
-          >
-            {frontmatter.seoTitle}
-          </Text>
-        )
-      }
-
-      <!-- Visible classy title for users -->
+      <!-- Post title (single h1) -->
       <Text
         tag="h1"
         variant="displaySM"
@@ -89,21 +76,8 @@ const allPosts = otherPostsUnsorted.sort(
       >
         {frontmatter.title}
       </Text>
-      <!-- Hidden SEO-optimized description for search engines -->
-      {
-        frontmatter.seoDescription &&
-          frontmatter.seoDescription !== frontmatter.description && (
-            <Text
-              tag="p"
-              variant="displayXS"
-              class="text-zinc-500 text-balance mt-4 dark:text-zinc-400 hidden"
-            >
-              {frontmatter.seoDescription}
-            </Text>
-          )
-      }
 
-      <!-- Visible classy description for users -->
+      <!-- Post description -->
       <Text
         tag="p"
         variant="displayXS"
@@ -148,26 +122,7 @@ const allPosts = otherPostsUnsorted.sort(
             </div>
           </div>
           <div class="flex flex-wrap items-center gap-2 mt-4 md:mt-0">
-            <!-- Hidden SEO tags for search engines -->
-            {
-              frontmatter.seoTags && frontmatter.seoTags.length > 0 && (
-                <div class="hidden">
-                  {frontmatter.seoTags.map((tag: string) => (
-                    <span class="text-zinc-500 dark:text-zinc-400">
-                      <Text
-                        tag="span"
-                        variant="textXS"
-                        class="font-medium font-mono"
-                      >
-                        {tag}
-                      </Text>
-                    </span>
-                  ))}
-                </div>
-              )
-            }
-
-            <!-- Visible classy tags for users -->
+            <!-- Tags -->
             {
               frontmatter.tags &&
                 frontmatter.tags.map((tag: string) => (
@@ -207,9 +162,8 @@ const allPosts = otherPostsUnsorted.sort(
         <Text
           tag="a"
           variant="textSM"
-          href="/blog/home"
-          aria-label="your label"
-          title="link to your page"
+          href="/blog/"
+          aria-label="See all blog posts"
           class="text-zinc-500 hover:text-black dark:text-zinc-400 dark:hover:text-white font-medium"
         >
           See all posts

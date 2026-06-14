@@ -41,20 +41,7 @@ const seoImage = `/og/projects/${slug}.png`;
 >
   <section>
     <Wrapper variant="standard" class="pt-12 lg:py-32 xl:py-54">
-      <!-- Hidden SEO-optimized title for search engines -->
-      {
-        frontmatter.seoTitle && frontmatter.seoTitle !== frontmatter.title && (
-          <Text
-            tag="h1"
-            variant="textBase"
-            class="text-black dark:text-white font-medium hidden"
-          >
-            {frontmatter.seoTitle}
-          </Text>
-        )
-      }
-
-      <!-- Visible classy title for users -->
+      <!-- Project title (single h1) -->
       <Text
         tag="h1"
         variant="textBase"
@@ -65,21 +52,7 @@ const seoImage = `/og/projects/${slug}.png`;
     </Wrapper>
     <Wrapper variant="standard" class="py-12">
       <div class="border-t dark:border-white/10 border-black/10 pt-2">
-        <!-- Hidden SEO-optimized description for search engines -->
-        {
-          frontmatter.seoDescription &&
-            frontmatter.seoDescription !== frontmatter.description && (
-              <Text
-                tag="p"
-                variant="textSM"
-                class="2xl:text-base mt-2 dark:text-zinc-400 text-zinc-500 hidden"
-              >
-                {frontmatter.seoDescription}
-              </Text>
-            )
-        }
-
-        <!-- Visible classy subtitle for users -->
+        <!-- Project subtitle -->
         <Text
           tag="p"
           variant="textSM"
@@ -89,7 +62,7 @@ const seoImage = `/og/projects/${slug}.png`;
         </Text>
         <div class="flex items-center justify-between mt-8">
           <Text
-            tag="h1"
+            tag="p"
             variant="textBase"
             class="text-black dark:text-white font-medium"
           >
