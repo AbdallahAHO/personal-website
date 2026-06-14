@@ -31,7 +31,7 @@ const allProjects = (await getCollection("projects")).sort(byNewest);
       >
         {/* This section is for the latest blog posts */}
         <Text
-          tag="h1"
+          tag="h2"
           variant="textBase"
           class="text-black dark:text-white font-medium"
         >
@@ -41,9 +41,8 @@ const allProjects = (await getCollection("projects")).sort(byNewest);
           <Text
             tag="a"
             variant="textSM"
-            href="/blog/home"
-            aria-label="your label"
-            title="link to your page"
+            href="/blog/"
+            aria-label="See all blog posts"
             class="text-zinc-500 hover:text-black dark:text-zinc-400 dark:hover:text-white font-medium"
           >
             See all posts
@@ -75,9 +74,9 @@ const allProjects = (await getCollection("projects")).sort(byNewest);
       <div
         class="gap-2 sm:flex sm:items-center sm:justify-between border-t dark:border-white/10 border-black/10 pt-6"
       >
-        {/* This section is for the latest blog posts */}
+        {/* This section is for the latest projects */}
         <Text
-          tag="h1"
+          tag="h2"
           variant="textBase"
           class="text-black dark:text-white font-medium"
         >
@@ -87,9 +86,8 @@ const allProjects = (await getCollection("projects")).sort(byNewest);
           <Text
             tag="a"
             variant="textSM"
-            href="/projects/home"
-            aria-label="your label"
-            title="link to your page"
+            href="/projects/"
+            aria-label="See all projects"
             class="text-zinc-500 hover:text-black dark:text-zinc-400 dark:hover:text-white font-medium"
           >
             See all projects

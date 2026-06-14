@@ -1,19 +1,13 @@
 ---
 import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+
+const ctaLinkClass =
+  "text-zinc-500 hover:text-black dark:text-zinc-400 dark:hover:text-white font-medium";
 ---
 
 <section>
   <Wrapper variant="standard" class="pt-12 lg:py-32 xl:py-54">
-    <Text
-      tag="h1"
-      variant="textBase"
-      class="text-black dark:text-white font-medium hidden"
-    >
-      Abdallah Othman
-      <br />
-      Product Engineer
-    </Text>
     <Text
       tag="h1"
       variant="textBase"
@@ -28,7 +22,7 @@ import Wrapper from "@/components/fundations/containers/Wrapper.astro";
   <Wrapper variant="standard" class="py-12">
     <div class="border-t dark:border-white/10 border-black/10 pt-8">
       <Text
-        tag="h1"
+        tag="h2"
         variant="textBase"
         class="text-black dark:text-white font-medium"
       >
@@ -54,6 +48,25 @@ import Wrapper from "@/components/fundations/containers/Wrapper.astro";
         Claude-Code-driven workflows. Less “curious about LLMs,” more shipping
         with them.
       </Text>
+
+      <div class="mt-8 flex flex-wrap gap-x-6 gap-y-2">
+        <Text
+          tag="a"
+          variant="textSM"
+          href="/blog/self-hosting-hetzner-coolify/"
+          class={ctaLinkClass}
+        >
+          Read: self-hosting my setup <span class="inline-block">&rarr;</span>
+        </Text>
+        <Text
+          tag="a"
+          variant="textSM"
+          href="mailto:contact@abdallahaho.com"
+          class={ctaLinkClass}
+        >
+          Get in touch <span class="inline-block">&rarr;</span>
+        </Text>
+      </div>
     </div>
   </Wrapper>
 </section>
