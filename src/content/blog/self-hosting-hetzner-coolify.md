@@ -1,11 +1,11 @@
 ---
 # SEO-optimized (for search engines)
-seoTitle: "Practical Guide to Home Labs with ThinkCentre, Coolify & Cloudflare Tunnels"
-seoDescription: "Discover how built a powerful home lab using a refurbished Lenovo ThinkCentre, Coolify, and Cloudflare Tunnels. A budget-friendly guide for developers and homelab enthusiasts."
+seoTitle: "Coolify Home Lab: Self-Hosting on a Mini PC with Cloudflare Tunnels"
+seoDescription: "How I built a powerful, budget home lab with a refurbished Lenovo ThinkCentre, Coolify, and Cloudflare Tunnels — for developers and self-hosting enthusiasts."
 seoTags: ["Abdallah Othman", "homelab", "self-hosting", "coolify", "cloudflare tunnels", "home server", "thinkcentre", "docker", "linux", "refurbished hardware", "hamburg developer"]
 
 # User-facing (elegant and classy)
-title: "From Cloud to Shelf: My Self-Hosting Journey with an old PC, Coolify & Cloudflare"
+title: "From Cloud to Shelf: Self-Hosting on a €90 Mini PC"
 description: "How I ditched cloud hosting, built a powerful home lab, and took full control of my personal projects, all on a budget."
 tags: ["homelab", "self-hosting", "docker", "coolify"]
 
@@ -160,7 +160,7 @@ I have 16x the RAM and 3x the CPU cores for basically the same annual cost. But 
 
 ## Should You Do This?
 
-If you're running personal projects, development environments, or small services - absolutely. Here's my buying checklist based on what I've learned:
+If you're running [personal projects](/projects/), development environments, or small services - absolutely. Here's my buying checklist based on what I've learned:
 
 **Minimum Specs I'd Recommend**:
 - 8GB RAM (16GB better for Docker-heavy workloads)
@@ -189,6 +189,12 @@ So yeah, that's how I turned a Black Friday impulse buy into a year-long journey
 The best part? I'm no longer renting compute power - I own it. And in this age of subscription everything, that feels pretty good.
 
 What's your take on home labs? Are you still paying for cloud hosting for personal projects, or have you taken the plunge into self-hosting? I'd love to hear about your setup in the comments.
+
+## More from me
+
+- [What I'm up to now](/now/) — what I'm currently building and focused on
+- [Projects](/projects/) — things I've shipped, including [this very site](/projects/personal-website/)
+- [About me](/about/) — the path from Alexandria to Hamburg
 
 ## Resources & References
 

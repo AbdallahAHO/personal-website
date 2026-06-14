@@ -18,8 +18,8 @@ image:
   alt: "Personal website and portfolio"
 ---
 
-This site is my corner of the internet: projects, the odd blog post, and a `/now` page I try to keep honest. I rebuilt it to be fast, easy to write for, and entirely mine.
+This site is my corner of the internet: projects, the [odd blog post](/blog/), and a [`/now`](/now/) page I try to keep honest. I rebuilt it to be fast, easy to write for, and entirely mine.
 
-Under the hood it's a static [Astro](https://astro.build) site with Tailwind v4, TypeScript, and MDX for content. Open Graph images are generated per page, and the whole thing deploys to Cloudflare. No CMS, no database, just files I can edit from anywhere.
+Under the hood it's a static [Astro](https://astro.build) site with Tailwind v4, TypeScript, and MDX for content. Open Graph images are generated per page, and the whole thing deploys to Cloudflare. No CMS, no database, just files I can edit from anywhere. Most of my other projects, by contrast, run on a [mini PC home lab I self-host with Coolify](/blog/self-hosting-hetzner-coolify/).
 
 If something here is useful, or you just want to say hi, I'm at [hello@abdallahaho.com](mailto:hello@abdallahaho.com).

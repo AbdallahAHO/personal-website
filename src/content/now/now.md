@@ -1,6 +1,6 @@
 ---
 title: "Now"
-description: "What I'm currently focused on and working on."
+description: "What Abdallah Othman is focused on right now: shipping an AI product end to end, growth engineering at Lokalise, self-hosting, and settling into life in Hamburg."
 pubDate: 2026-06-14
 lastUpdated: "2026-06-14"
 ---
