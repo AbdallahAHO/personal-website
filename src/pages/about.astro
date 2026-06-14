@@ -4,23 +4,26 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 import { SITE } from "@/constants/site";
+import { yearsSince } from "@/utils/date";
+
+const years = yearsSince(SITE.CAREER_START);
 ---
 
 <BaseLayout
-  title="About Abdallah Othman - Software Engineer from Egypt to Hamburg"
-  description="Learn about Abdallah Othman's journey from Alexandria, Egypt to Hamburg, Germany as a Software Engineer specializing in Growth Engineering, TypeScript, React, and AI."
+  title="About Abdallah Othman: Product Engineer from Egypt to Hamburg"
+  description="Abdallah Othman's path from Alexandria to Hamburg: a product engineer working on growth (onboarding, pricing, activation) and AI product features with TypeScript, React, and Node."
   image="/og/about.png"
   keywords={[
     "Abdallah Othman",
     "About",
-    "Egyptian Software Engineer",
+    "Product Engineer",
+    "Growth Engineer",
     "Hamburg Germany",
     "Alexandria Egypt",
-    "Technical Lead",
-    "Software Development Career",
-    "Multicultural Teams",
-    "Growth Engineering",
-    "Frontend Development"
+    "AI agents",
+    "MCP",
+    "TypeScript React Node",
+    "Egyptian Engineer"
   ]}
 >
   <section>
@@ -47,54 +50,47 @@ import { SITE } from "@/constants/site";
           variant="textSM"
           class="2xl:text-base mt-8 mb-12 dark:text-zinc-400 text-zinc-500"
         >
-          My name is Abdallah Othman, a Software Engineer with over eight years
-          of experience in the craft of digital experiences that users genuinely
-          enjoy. Originally from Alexandria, Egypt, I've made Hamburg, Germany
-          my home—a vibrant city whose creative energy and cultural diversity
-          continuously inspire my work.
+          My name is Abdallah Othman, a product engineer based in Hamburg,
+          Germany. I’ve been building for the web for about {years} years,
+          these days as a Senior Growth Engineer at {`${SITE.CURRENT_COMPANY}`}.
+          Originally from Alexandria, Egypt; Hamburg’s been home for a while now.
           <br />
           <br />
-          My journey began from pure curiosity since I was 12, staying there in my
-          bedroom, toying around with an old Intel Pentium III XP PC, got into programming
-          and web developement picking up my older brother 1000-pages HTML 5.0 reference
-          and hacking out my way to make my first .tk website with MS Frontpage (deleting
-          few dll32 files for the sake of it).
+          It started from pure curiosity when I was 12, in my bedroom with an old
+          Intel Pentium III running XP. I picked up my older brother’s 1,000-page
+          HTML 5.0 reference and hacked my way to a first .tk website with MS
+          FrontPage, deleting a few dll32 files along the way, for the sake of it.
           <br />
           <br />
-          Few years later of hacking till I got my CompSci Degree, I had a chance
-          to build up my craft and getting paid for it, expanded through hands-on
-          roles at companies like ABOUT YOU, XING, Postman, and currently {
-            `${SITE.CURRENT_COMPANY}`
-          }. Each role has given me the privilege of working with diverse,
-          multicultural teams, enhancing my skills in communication and
-          leadership as profoundly as my technical capabilities.
+          A few years of that, and a CompSci degree later, I got to do it for a
+          living: ABOUT YOU, XING, Postman, and now {`${SITE.CURRENT_COMPANY}`}.
+          Each one put me on diverse, multicultural teams, which shaped how I
+          communicate and lead as much as how I build.
           <br />
           <br />
-          I thrive in collaborative, asynchronous, remote-first environments where
-          craftsmanship, transparency, and continuous learning form the core of our
-          culture. My primary stack includes TypeScript, React, and Node.js, and
-          my expertise in Growth Engineering allows me to build scalable products
-          and optimize user experiences effectively.
+          I work best in remote-first, async teams that care about craft and ship
+          often. My home turf is the growth side of products: onboarding,
+          activation, pricing, billing, and the experiments that show what’s
+          actually working. My stack is TypeScript, React, and Node.
           <br />
           <br />
-          Currently, I am particularly excited about exploring generative AI and
-          Large Language Models (LLMs). I'm passionate about leveraging these technologies
-          to create innovative, engaging user experiences, especially tools tailored
-          for Arabic-speaking markets and family-oriented workflows.
+          Lately, most of my building involves AI. I work with LLM agents and
+          MCP, including a few small tools just for myself, like a system that
+          turns my meetings into a searchable archive. I’m especially curious
+          about AI for Arabic-speaking markets and family-oriented workflows.
           <br />
           <br />
-          Outside of coding, you’ll often find me immersed in Hamburg’s dynamic music
-          scene, attending concerts at the Elbphilharmonie, or working on side projects
-          through my experimental platform, Escalay. The intersections of music,
-          culture, and technology fascinate me, driving much of my creative exploration.
+          Outside of code, you’ll usually find me somewhere in Hamburg’s music
+          scene (concerts at the Elbphilharmonie) or tinkering on side projects
+          through my little experiment space, Escalay. The overlap of music,
+          culture, and technology is where a lot of my curiosity lives.
           <br />
           <br />
-          This website is my digital home, an open space to share my projects, insights
-          into technology, and reflections on my journey as an Egyptian engineer
-          living in Germany. Whether you’re here for technical content or intrigued
-          by the crossroads of culture and code, welcome
+          This site is my digital home: projects, a few thoughts on tech, and
+          notes from an Egyptian engineer living in Germany. Whether you’re here
+          for the technical stuff or the crossroads of culture and code, welcome.
           <br /><br />
-          I’m glad you stopped by.
+          Glad you stopped by.
         </Text>
       </div>
     </Wrapper>

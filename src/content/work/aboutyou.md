@@ -8,6 +8,6 @@ description: "Enhanced checkout experiences and contributed to European market e
 tags: ["frontend", "e-commerce", "checkout", "payments", "multicultural"]
 ---
 
-At ABOUT YOU, my first professional role in Germany, I joined the multicultural Checkout team—comprised of members from over 15 nationalities—where I contributed to expanding the e-commerce platform across four European markets.
+ABOUT YOU was my first job in Germany. I joined the Checkout team (15+ nationalities) as we expanded the platform across four European markets.
 
-I developed and deployed custom checkout flows, integrated various payment methods, and implemented store-issued gift card functionalities. Additionally, I created a robust universal tracking solution, optimizing future development and checkout enhancements. This role provided foundational experience in e-commerce and international collaboration.
+I built and shipped custom checkout flows, integrated payment methods, added store gift-card support, and wrote a universal tracking solution that made later checkout work easier. A solid first lesson in e-commerce and working across cultures.

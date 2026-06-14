@@ -1,0 +1,153 @@
+---
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { SITE } from "@/constants/site";
+import { yearsSince } from "@/utils/date";
+import cv from "@/data/cv.json";
+
+const years = yearsSince(SITE.CAREER_START);
+const overview = cv.overview.replace("{years}", String(years));
+
+// Location + email + links as one separated row.
+const contactItems = [
+  { label: cv.location, href: null as string | null },
+  { label: cv.email, href: `mailto:${cv.email}` },
+  ...cv.links,
+];
+
+// Shared type tokens; keep the scale calm and consistent.
+const label = "text-xs uppercase tracking-[0.18em] text-zinc-400 dark:text-zinc-500 font-medium";
+const heading = "text-base text-black dark:text-white font-semibold";
+const meta = "text-xs text-zinc-400 dark:text-zinc-500 tabular-nums";
+const body = "text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed";
+---
+
+<BaseLayout
+  title="CV: Abdallah Othman, Senior Product Engineer"
+  description="The CV of Abdallah Othman, Senior Product Engineer in Hamburg. Experimentation infrastructure, monetisation systems, and AI-powered features across Lokalise, Postman, XING, and ABOUT YOU."
+  keywords={["Abdallah Othman", "CV", "Resume", "Senior Product Engineer", "Growth Engineer", "Hamburg", "Experimentation", "AI", "MCP"]}
+>
+  <section class="mx-auto max-w-3xl">
+    <!-- Header -->
+    <Wrapper variant="standard" class="pt-12 lg:pt-28 xl:pt-36">
+      <Text tag="h1" variant="displaySM" class="text-black dark:text-white font-medium tracking-tight">
+        {cv.name}
+      </Text>
+      <Text tag="p" variant="textBase" class="mt-1 text-zinc-500 dark:text-zinc-400">
+        {cv.role}
+      </Text>
+
+      <div class="mt-5 flex flex-wrap items-center">
+        {
+          contactItems.map((item, i) => (
+            <Fragment>
+              {i > 0 && (
+                <span class="mx-2.5 text-zinc-300 dark:text-zinc-600" aria-hidden="true">·</span>
+              )}
+              {item.href ? (
+                <a
+                  href={item.href}
+                  target={item.href.startsWith("mailto:") ? undefined : "_blank"}
+                  rel="noopener noreferrer"
+                  class="text-sm text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors"
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <span class="text-sm text-zinc-500 dark:text-zinc-400">{item.label}</span>
+              )}
+            </Fragment>
+          ))
+        }
+      </div>
+
+      <a
+        href={cv.resumePdf}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="mt-7 inline-flex items-center gap-2 rounded-lg border border-black/10 dark:border-white/15 px-4 py-2 text-sm font-medium text-black dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
+      >
+        Download PDF
+        <span aria-hidden="true">↓</span>
+      </a>
+    </Wrapper>
+
+    <!-- Overview -->
+    <Wrapper variant="standard" class="pt-14">
+      <div>
+        <h2 class={label}>Overview</h2>
+        <p class:list={[body, "mt-4 max-w-2xl"]}>{overview}</p>
+      </div>
+    </Wrapper>
+
+    <!-- Experience -->
+    <Wrapper variant="standard" class="pt-14">
+      <div>
+        <h2 class={label}>Experience</h2>
+        <div class="mt-6">
+          {
+            cv.experience.map((job, i) => (
+              <article class:list={[i > 0 ? "mt-9" : "mt-0"]}>
+                <div class="flex flex-col gap-y-0.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-x-6">
+                  <h3 class={heading}>
+                    {job.company}
+                    <span class="font-normal text-zinc-500 dark:text-zinc-400"> · {job.role}</span>
+                  </h3>
+                  <p class:list={[meta, "shrink-0"]}>{job.period} · {job.location}</p>
+                </div>
+                <ul class="mt-3.5 space-y-2.5">
+                  {job.bullets.map((bullet) => (
+                    <li class:list={[body, "relative pl-4 before:absolute before:left-0 before:top-[0.65em] before:h-[3px] before:w-[3px] before:rounded-full before:bg-zinc-300 dark:before:bg-zinc-600"]}>
+                      {bullet}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </Wrapper>
+
+    <!-- Skills -->
+    <Wrapper variant="standard" class="pt-14">
+      <div>
+        <h2 class={label}>Skills &amp; Technologies</h2>
+        <dl class="mt-6 space-y-3.5">
+          {
+            cv.skills.map((group) => (
+              <div class="flex flex-col gap-y-0.5 sm:flex-row sm:gap-x-6">
+                <dt class="sm:w-40 shrink-0 text-sm font-medium text-black dark:text-white">
+                  {group.label}
+                </dt>
+                <dd class={body}>{group.items}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </Wrapper>
+
+    <!-- Education -->
+    <Wrapper variant="standard" class="pt-14 pb-20">
+      <div>
+        <h2 class={label}>Education</h2>
+        <div class="mt-6">
+          {
+            cv.education.map((edu) => (
+              <div class="flex flex-col gap-y-0.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-x-6">
+                <h3 class={heading}>
+                  {edu.school}
+                  <span class="font-normal text-zinc-500 dark:text-zinc-400"> · {edu.detail}</span>
+                </h3>
+                <p class:list={[meta, "shrink-0"]}>{edu.period} · {edu.location}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>

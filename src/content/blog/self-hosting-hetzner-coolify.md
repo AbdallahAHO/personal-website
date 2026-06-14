@@ -6,7 +6,7 @@ seoTags: ["Abdallah Othman", "homelab", "self-hosting", "coolify", "cloudflare t
 
 # User-facing (elegant and classy)
 title: "From Cloud to Shelf: My Self-Hosting Journey with an old PC, Coolify & Cloudflare"
-description: "How I ditched cloud hosting, built a powerful home lab, and took full control of my personal projects — all on a budget."
+description: "How I ditched cloud hosting, built a powerful home lab, and took full control of my personal projects, all on a budget."
 tags: ["homelab", "self-hosting", "docker", "coolify"]
 
 pubDate: 2025-07-12

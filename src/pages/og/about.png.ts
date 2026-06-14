@@ -5,7 +5,7 @@ export const GET: APIRoute = async () => {
   const png = await generateOGImage({
     title: 'About',
     description:
-      'Software Engineer from Egypt to Hamburg — building products, leading teams, and writing about it.',
+      'Software Engineer from Egypt to Hamburg, building products, leading teams, and writing about it.',
     badge: 'ABOUT',
   })
 

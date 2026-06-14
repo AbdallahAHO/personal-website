@@ -1,0 +1,84 @@
+{
+  "name": "Abdallah Othman",
+  "role": "Senior Product Engineer",
+  "location": "Hamburg, Germany",
+  "email": "contact@abdallahaho.com",
+  "resumePdf": "/Abdallah Othman - Resume.pdf",
+  "links": [
+    { "label": "abdallahaho.com", "href": "https://www.abdallahaho.com" },
+    { "label": "LinkedIn", "href": "https://www.linkedin.com/in/AbdallahAHO" },
+    { "label": "GitHub", "href": "https://github.com/AbdallahAHO" },
+    { "label": "X", "href": "https://x.com/AbdallahAHO" }
+  ],
+  "overview": "Senior Product Engineer with {years}+ years driving growth through experimentation, product analytics, and full-stack development. I specialise in experimentation infrastructure, monetisation systems, and AI-powered features, and I tend to own initiatives from RFC and stakeholder alignment through implementation to measured impact. I do my best work on autonomous teams where engineers own outcomes.",
+  "experience": [
+    {
+      "company": "Lokalise",
+      "role": "Senior Growth Engineer",
+      "period": "Apr 2024 – Present",
+      "location": "Remote",
+      "bullets": [
+        "Built the company's experimentation platform: a vendor-agnostic analytics and experiment SDK with exposure-on-render tracking and a typed experiment registry, enabling Lokalise's first reliable A/B experiments.",
+        "Led the Pricing V2 upsell system (usage overview, in-product limit banners, and a CTA decision engine across 10+ surfaces), driving self-serve monetisation and reducing support overhead.",
+        "Owned the growth data-quality stack: audited 400+ legacy events, authored company-wide tracking conventions with CI enforcement, and restored clean data flow from client-side instrumentation into the data warehouse.",
+        "Integrated AI-powered translation workflows (OpenAI API) for Shopify merchant activation, and proposed the Lokalise MCP Server as a platform capability, prototyping and presenting to engineering leadership for company-wide adoption."
+      ]
+    },
+    {
+      "company": "Postman",
+      "role": "Senior Growth Engineer",
+      "period": "Oct 2022 – Dec 2023",
+      "location": "Remote",
+      "bullets": [
+        "Launched API Collection Templates (45,000+ imports in three months), improving new-user activation and opening a new organic acquisition channel via SEO. Built LLM-powered code-to-collection generation that measurably increased engagement.",
+        "Cut A/B-test implementation time by 30% with an experimentation SDK and standardised workflows. Mentored junior engineers through structured knowledge-sharing."
+      ]
+    },
+    {
+      "company": "XING",
+      "role": "Senior Software Engineer",
+      "period": "Mar 2020 – Sept 2022",
+      "location": "Remote",
+      "bullets": [
+        "Increased content relevance by 20%+ with an ML-powered ranking service (Node.js, GraphQL), validated with Adobe Analytics. Reduced UI regressions 30% by introducing visual regression testing and E2E automation into CI/CD.",
+        "Established a mentorship program via structured 1:1s and code reviews, contributing to multiple promotions. Led cross-functional collaboration for reliable feature delivery."
+      ]
+    },
+    {
+      "company": "XING",
+      "role": "Frontend Engineer, Growth",
+      "period": "Aug 2019 – Mar 2020",
+      "location": "Hamburg, Germany",
+      "bullets": [
+        "Redesigned onboarding with persona-driven A/B variants, lifting premium upsell 40% and user retention 20% (React, TypeScript).",
+        "Onboarded five engineers and accelerated the delivery timeline 25% through mentorship and agile improvements. Led GraphQL and Cypress adoption workshops."
+      ]
+    },
+    {
+      "company": "ABOUT YOU",
+      "role": "Frontend Engineer",
+      "period": "Sept 2018 – Aug 2019",
+      "location": "Hamburg, Germany",
+      "bullets": [
+        "Shipped localised payment flows and tracking infrastructure across four European market launches, contributing to a 15% conversion uplift through iterative UX testing.",
+        "Drove cross-functional alignment across engineering, product, and marketing. Engineered tracking solutions that eliminated code duplication."
+      ]
+    }
+  ],
+  "skills": [
+    { "label": "Core", "items": "TypeScript, JavaScript (ES6+), React, Next.js, Node.js, GraphQL, REST, PostgreSQL" },
+    { "label": "Growth & Data", "items": "A/B Testing, Experimentation Infrastructure, Feature Flags, Product Analytics, Data Visualisation, Conversion Optimisation, SEO" },
+    { "label": "AI & LLM", "items": "LLMs, AI SDK, LangChain, Prompt/Agentic Engineering, RAG, OpenAI API, MCP" },
+    { "label": "Quality & Infra", "items": "E2E Testing, Visual Regression Testing, TDD, CI/CD, Docker, Kubernetes, AWS" },
+    { "label": "Practices", "items": "Design Systems, Accessibility (WCAG), Agile (Scrum, Kanban)" },
+    { "label": "Languages", "items": "English (Fluent), German (Basic), Arabic (Native)" }
+  ],
+  "education": [
+    {
+      "school": "AASTMT",
+      "detail": "BSc Computer Science, Minor in Software Engineering",
+      "period": "2012 – 2016",
+      "location": "Alexandria, Egypt"
+    }
+  ]
+}

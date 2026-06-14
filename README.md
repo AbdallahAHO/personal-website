@@ -1,17 +1,17 @@
-# Abdallah Othman — Personal Website
+# Abdallah Othman's Personal Website
 
 My personal website and blog, live at [abdallahaho.com](https://www.abdallahaho.com).
 
 ## Tech Stack
 
-- **[Astro](https://astro.build)** 6 — static site generation with content collections (Content Layer API)
-- **[Tailwind CSS](https://tailwindcss.com)** 4 — styling, via the `@tailwindcss/vite` plugin
-- **[MDX](https://docs.astro.build/en/guides/integrations-guide/mdx/)** — authoring for blog, projects, work, and now pages
-- **[Satori](https://github.com/vercel/satori) + [resvg](https://github.com/yisibl/resvg-js)** — dynamic Open Graph image generation
-- **[astro-seo](https://github.com/jonasmerlin/astro-seo)** + **[@astrojs/sitemap](https://docs.astro.build/en/guides/integrations-guide/sitemap/)** + **[@astrojs/rss](https://docs.astro.build/en/guides/integrations-guide/rss/)** — SEO, sitemap, and feed
-- **[Biome](https://biomejs.dev)** — linting and formatting
-- **[Playwright](https://playwright.dev)** — build and smoke tests
-- **[Cloudflare Pages](https://pages.cloudflare.com)** — hosting and deployment
+- **[Astro](https://astro.build)** 6: static site generation with content collections (Content Layer API)
+- **[Tailwind CSS](https://tailwindcss.com)** 4: styling, via the `@tailwindcss/vite` plugin
+- **[MDX](https://docs.astro.build/en/guides/integrations-guide/mdx/)**: authoring for blog, projects, work, and now pages
+- **[Satori](https://github.com/vercel/satori) + [resvg](https://github.com/yisibl/resvg-js)**: dynamic Open Graph image generation
+- **[astro-seo](https://github.com/jonasmerlin/astro-seo)** + **[@astrojs/sitemap](https://docs.astro.build/en/guides/integrations-guide/sitemap/)** + **[@astrojs/rss](https://docs.astro.build/en/guides/integrations-guide/rss/)**: SEO, sitemap, and feed
+- **[Biome](https://biomejs.dev)**: linting and formatting
+- **[Playwright](https://playwright.dev)**: build and smoke tests
+- **[Cloudflare Pages](https://pages.cloudflare.com)**: hosting and deployment
 
 ## Project Structure
 
@@ -61,4 +61,4 @@ Run from the project root. Requires Node `>=22` (see `.nvmrc`) and [pnpm](https:
 
 ## Deployment
 
-CI (GitHub Actions) runs type-check, lint, format, and build, then the Playwright build tests, then deploys to Cloudflare Pages — preview on PRs, production on push to `main` — followed by smoke tests against the live site.
+CI (GitHub Actions) runs type-check, lint, format, and build, then the Playwright build tests, then deploys to Cloudflare Pages (preview on PRs, production on push to `main`), followed by smoke tests against the live site.

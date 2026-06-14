@@ -4,12 +4,10 @@ title: "Lokalise"
 subtitle: "Senior Growth Engineer"
 dateStart: "2024-04-02"
 dateEnd: "Present"
-description: "Since April 2024, I've been contributing on enhancing onboarding, activation, and billing systems, utilizing AI technologies to offer delightful experiences to our users, brand-consistent user experience."
-tags: ["growth-engineering", "ai", "onboarding", "shopify", "localization"]
+description: "Senior Growth Engineer on the systems that turn a signup into a paying, active customer: onboarding, activation, pricing, and billing, increasingly with AI agents and experimentation tooling."
+tags: ["growth-engineering", "ai", "onboarding", "pricing", "experimentation"]
 ---
 
-At Lokalise, I lead projects that significantly enhance user onboarding, activation, and billing through advanced AI integrations like OpenAI GPT. Notably, I delivered an ROI Calculator from concept to release, tackling complex user needs through effective prototyping, technical refinement, and alignment with strategic product objectives.
+I work on the Growth team, on the systems that turn a signup into a paying, active customer: onboarding, activation, pricing, and billing. I took an ROI Calculator from concept to release, and shipped billing and monetization features inside Flow, working closely with design.
 
-I've successfully implemented critical billing and monetization features within Flow, aligning closely with UX designers to ensure seamless, high-quality experiences. With strong analytical skills and a user-centric approach, I continue to improve product clarity and stability, advocating for a consistent vision focused on user-value.
-
-My goal is to deepen involvement in strategic, technically challenging projects, enhance my architectural decision-making capabilities, and expand mentorship engagements to drive impactful, company-wide initiatives.
+Lately the work has gone deeper into infrastructure and AI. I helped build company-wide experimentation and analytics tooling, worked on Pricing V2, untangled a first-party identity architecture (including a gnarly Amplitude identity bug), and prototyped an MCP server so internal tools could talk to LLM agents. I also help the team fold AI into how they work day to day.

@@ -1,39 +1,54 @@
 ---
 import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { SITE } from "@/constants/site";
+import { yearsSince } from "@/utils/date";
+
+const years = yearsSince(SITE.CAREER_START);
 
 const faqs = [
   {
     question: "Who is Abdallah Othman?",
-    answer:
-      "Abdallah Othman (AbdallahAHO) is a Software Engineer and Technical Lead with over 7 years of experience. Originally from Alexandria, Egypt, he's now based in Hamburg, Germany, specializing in Growth Engineering, TypeScript, React, and AI/LLM development."
+    answer: `Abdallah Othman (AbdallahAHO) is a product engineer based in Hamburg, Germany, originally from Alexandria, Egypt. He's currently a Senior Growth Engineer at Lokalise, with ${years}+ years building web products: onboarding, activation, pricing, and increasingly AI features like LLM agents and MCP.`
   },
   {
     question: "What does Abdallah Othman specialize in?",
     answer:
-      "Abdallah specializes in Growth Engineering, Frontend Development with TypeScript and React, Node.js backend development, AI/LLM integration, and technical leadership of multicultural teams."
+      "Product and growth engineering: the parts of a product that drive activation, conversion, retention, and monetization (onboarding, pricing and billing, experimentation). Lately, AI product work: LLM agents, MCP servers, and Claude-Code-driven workflows. Core stack: TypeScript, React, and Node."
   },
   {
     question: "Where does Abdallah Othman work?",
     answer:
-      "Abdallah currently works as a Software Engineer at Lokalise in Hamburg, Germany. He has previously worked at companies like ABOUT YOU, XING, and Postman."
+      "He's a Senior Growth Engineer at Lokalise in Hamburg, Germany. Previously ABOUT YOU, XING, and Postman, where he was Technical Lead in Growth."
   },
   {
     question: "What is Abdallah Othman's background?",
     answer:
-      "Abdallah is originally from Alexandria, Egypt and moved to Hamburg, Germany to pursue his career in tech. He brings a unique multicultural perspective to software development and team leadership."
+      "Self-taught from age 12 in Alexandria, Egypt, then a Computer Science degree and roles across German and global tech: ABOUT YOU, XING, Postman, and now Lokalise in Hamburg."
   },
   {
     question: "What technologies does Abdallah Othman use?",
     answer:
-      "Abdallah's primary tech stack includes TypeScript, React, Node.js, and various AI/LLM technologies. He's also experienced with Growth Engineering tools and practices for building scalable products."
+      "TypeScript, React, and Node day to day, plus AI/LLM tooling (MCP, agent frameworks, and Claude Code), and the usual growth stack for experimentation and analytics."
   },
   {
     question: "How can I contact Abdallah Othman?",
     answer:
-      "You can reach Abdallah through his social media profiles: Twitter @AbdallahAHO, GitHub AbdallahAHO, or LinkedIn AbdallahAHO. He's also available for professional inquiries and collaboration opportunities."
+      "Through his profiles: X/Twitter @AbdallahAHO, GitHub AbdallahAHO, and LinkedIn AbdallahAHO."
   }
 ];
+
+// Single source of truth for the FAQPage structured data, derived from `faqs`
+// so the schema can never drift from the visible copy.
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: { "@type": "Answer", text: faq.answer },
+  })),
+};
 ---
 
 <section class="hidden">
@@ -73,60 +88,5 @@ const faqs = [
   </Wrapper>
 </section>
 
-<!-- FAQ Schema -->
-<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Who is Abdallah Othman?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Abdallah Othman (AbdallahAHO) is a Software Engineer and Technical Lead with over 7 years of experience. Originally from Alexandria, Egypt, he's now based in Hamburg, Germany, specializing in Growth Engineering, TypeScript, React, and AI/LLM development."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What does Abdallah Othman specialize in?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Abdallah specializes in Growth Engineering, Frontend Development with TypeScript and React, Node.js backend development, AI/LLM integration, and technical leadership of multicultural teams."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Where does Abdallah Othman work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Abdallah currently works as a Software Engineer at Lokalise in Hamburg, Germany. He has previously worked at companies like ABOUT YOU, XING, and Postman."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is Abdallah Othman's background?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Abdallah is originally from Alexandria, Egypt and moved to Hamburg, Germany to pursue his career in tech. He brings a unique multicultural perspective to software development and team leadership."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What technologies does Abdallah Othman use?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Abdallah's primary tech stack includes TypeScript, React, Node.js, and various AI/LLM technologies. He's also experienced with Growth Engineering tools and practices for building scalable products."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How can I contact Abdallah Othman?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "You can reach Abdallah through his social media profiles: Twitter @AbdallahAHO, GitHub AbdallahAHO, or LinkedIn AbdallahAHO. He's also available for professional inquiries and collaboration opportunities."
-        }
-      }
-    ]
-  }
-</script>
+<!-- FAQ Schema (derived from `faqs` above) -->
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />

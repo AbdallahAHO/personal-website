@@ -4,7 +4,7 @@ import { generateOGImage } from '@/og/generate'
 export const GET: APIRoute = async () => {
   const png = await generateOGImage({
     title: 'Now',
-    description: "What I'm currently focused on — projects, interests, and what's keeping me busy.",
+    description: "What I'm currently focused on: projects, interests, and what's keeping me busy.",
     badge: 'NOW',
   })
 
