@@ -3,6 +3,7 @@ import BaseLayout from "./BaseLayout.astro";
 const { frontmatter, image } = Astro.props;
 import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { formatDate, toISODate } from "@/utils/date";
 ---
 
 <BaseLayout image={image}>
@@ -27,9 +28,9 @@ import Wrapper from "@/components/fundations/containers/Wrapper.astro";
     {
       frontmatter.pubDate && (
         <div class="flex flex-col text-zinc-500 dark:text-zinc-400 mt-3">
-          <time datetime={frontmatter.pubDate.toString().slice(0, 10)}>
+          <time datetime={toISODate(frontmatter.pubDate)}>
             <Text tag="span" variant="textXS" class="font-medium">
-              Written on {frontmatter.pubDate.toString().slice(0, 10)}
+              Written on {formatDate(frontmatter.pubDate)}
             </Text>
           </time>
         </div>

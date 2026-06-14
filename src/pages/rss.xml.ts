@@ -2,7 +2,9 @@ import { getCollection } from 'astro:content'
 import rss from '@astrojs/rss'
 
 export async function GET(context: { site: string }) {
-  const blog = await getCollection('blog')
+  const blog = (await getCollection('blog')).sort(
+    (a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime(),
+  )
 
   return rss({
     title: 'Abdallah Othman',
@@ -13,7 +15,7 @@ export async function GET(context: { site: string }) {
       title: post.data.title,
       pubDate: post.data.pubDate,
       description: post.data.description,
-      link: `/blog/${post.slug}/`,
+      link: `/blog/${post.id}/`,
     })),
   })
 }

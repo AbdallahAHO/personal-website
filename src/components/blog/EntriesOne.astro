@@ -1,6 +1,7 @@
 ---
 const { title, url, description, pubDate, index, image } = Astro.props;
 import Text from "@/components/fundations/elements/Text.astro";
+import { formatDate, toISODate } from "@/utils/date";
 ---
 
 <a href={url} title={title} class="group">
@@ -30,7 +31,7 @@ import Text from "@/components/fundations/elements/Text.astro";
         >
           {index < 10 ? `0${index}` : index} -
         </Text>
-        <time datetime={pubDate}>{pubDate}</time>
+        <time datetime={toISODate(pubDate)}>{formatDate(pubDate)}</time>
       </Text>
 
       <Text

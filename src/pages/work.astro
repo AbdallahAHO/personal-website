@@ -3,7 +3,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 
 const allWork = await getCollection("work");
 const sortedWork = allWork.sort(
@@ -55,7 +55,7 @@ function formatDateRange(start: string, end: string) {
         <div class="space-y-12">
           {
             sortedWork.map(async (entry) => {
-              const { Content } = await entry.render();
+              const { Content } = await render(entry);
               return (
                 <article class="space-y-4">
                   <div>

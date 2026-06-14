@@ -10,8 +10,11 @@ import FAQ from "@/components/landing/FAQ.astro";
 import LatestPosts from "@/components/blog/LatestPosts.astro";
 // Blog contet
 import { getCollection } from "astro:content";
-const allPosts = await getCollection("blog");
-const allProjects = await getCollection("projects");
+// Newest first, by publication date
+const byNewest = (a, b) =>
+  new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime();
+const allPosts = (await getCollection("blog")).sort(byNewest);
+const allProjects = (await getCollection("projects")).sort(byNewest);
 ---
 
 <BaseLayout
@@ -55,10 +58,10 @@ const allProjects = await getCollection("projects");
             .slice(0, 2)
             .map((post) => (
               <LatestPosts
-                url={"/blog/" + post.slug}
+                url={"/blog/" + post.id}
                 title={post.data.title}
                 alt={post.data.title}
-                pubDate={post.data.pubDate.toString().slice(4, 10)}
+                pubDate={post.data.pubDate}
               />
             ))
         }
@@ -101,10 +104,10 @@ const allProjects = await getCollection("projects");
             .slice(0, 2)
             .map((project) => (
               <LatestPosts
-                url={"/projects/" + project.slug}
+                url={"/projects/" + project.id}
                 title={project.data.title}
                 alt={project.data.title}
-                pubDate={project.data.pubDate.toString().slice(4, 10)}
+                pubDate={project.data.pubDate}
               />
             ))
         }

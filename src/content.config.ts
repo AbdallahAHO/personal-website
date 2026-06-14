@@ -1,6 +1,9 @@
-import { defineCollection, z } from 'astro:content'
+import { defineCollection } from 'astro:content'
+import { glob } from 'astro/loaders'
+import { z } from 'astro/zod'
 
 const projects = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
   schema: z.object({
     // SEO-optimized fields (for search engines)
     seoTitle: z.string().optional(),
@@ -24,6 +27,7 @@ const projects = defineCollection({
 })
 
 const blog = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
   schema: z.object({
     // SEO-optimized fields (for search engines)
     seoTitle: z.string(),
@@ -48,6 +52,7 @@ const blog = defineCollection({
 })
 
 const work = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/work' }),
   schema: z.object({
     pubDate: z.date(),
     title: z.string(),
@@ -60,6 +65,7 @@ const work = defineCollection({
 })
 
 const now = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/now' }),
   schema: z.object({
     title: z.string(),
     description: z.string(),

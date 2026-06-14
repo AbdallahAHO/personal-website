@@ -3,6 +3,7 @@ import BaseLayout from "./BaseLayout.astro";
 import { SITE } from "@/constants/site";
 import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { formatDate, toISODate } from "@/utils/date";
 const { frontmatter, slug } = Astro.props;
 
 // Generate SEO-optimized metadata for this project
@@ -93,8 +94,8 @@ const seoImage = `/og/projects/${slug}.png`;
             class="text-black dark:text-white font-medium"
           >
             Launched on <time
-              datetime={frontmatter.pubDate.toString().slice(0, 10)}
-              >{frontmatter.pubDate.toString().slice(4, 15)}</time
+              datetime={toISODate(frontmatter.pubDate)}
+              >{formatDate(frontmatter.pubDate)}</time
             >
           </Text>
           <Text

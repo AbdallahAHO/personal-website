@@ -9,7 +9,9 @@ import EntriesOne from "@/components/blog/EntriesOne.astro";
 // Import the collection of all blog posts
 import { getCollection } from "astro:content";
 
-const allPosts = await getCollection("blog");
+const allPosts = (await getCollection("blog")).sort(
+	(a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime(),
+);
 // Collect all unique tags
 const allTags = [...new Set(allPosts.flatMap((post) => post.data.tags || []))];
 const sortedTags = allTags.sort((a, b) => a.localeCompare(b));
@@ -38,14 +40,14 @@ const sortedTags = allTags.sort((a, b) => a.localeCompare(b));
             .slice()
             .map((post) => (
               <EntriesOne
-                url={"/blog/" + post.slug}
+                url={"/blog/" + post.id}
                 title={post.data.title}
                 description={post.data.description}
                 alt={post.data.title}
-                pubDate={post.data.pubDate.toString().slice(0, 10)}
+                pubDate={post.data.pubDate}
                 image={post.data.image?.url}
                 index={allPosts.indexOf(post) + 1}
-                key={post.slug}
+                key={post.id}
               />
             ))
         }

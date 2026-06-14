@@ -10,6 +10,7 @@ import type { BreadcrumbItem } from "@/components/fundations/elements/Breadcrumb
 
 import { getCollection } from "astro:content";
 import LatestPosts from "@/components/blog/LatestPosts.astro";
+import { formatDate, toISODate } from "@/utils/date";
 
 // Generate SEO-optimized metadata for this blog post
 const seoTitle = frontmatter.seoTitle
@@ -139,9 +140,9 @@ const allPosts = otherPostsUnsorted.sort(
         >
           <div class="flex items-center">
             <div class="flex flex-col text-zinc-500 dark:text-zinc-400">
-              <time datetime={frontmatter.pubDate.toString().slice(0, 10)}>
+              <time datetime={toISODate(frontmatter.pubDate)}>
                 <Text tag="span" variant="textXS" class="font-medium font-mono"
-                  >Written on {frontmatter.pubDate.toString().slice(0, 10)}
+                  >Written on {formatDate(frontmatter.pubDate)}
                 </Text>
               </time>
             </div>
@@ -219,10 +220,10 @@ const allPosts = otherPostsUnsorted.sort(
         {
           allPosts.map((post) => (
             <LatestPosts
-              url={"/blog/" + post.slug}
+              url={"/blog/" + post.id}
               title={post.data.title}
               alt={post.data.title}
-              pubDate={post.data.pubDate.toString().slice(4, 10)}
+              pubDate={post.data.pubDate}
             />
           ))
         }

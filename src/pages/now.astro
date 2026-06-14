@@ -1,7 +1,7 @@
 ---
 // Fundations
 import Text from "@/components/fundations/elements/Text.astro";
-import { getEntry } from "astro:content";
+import { getEntry, render } from "astro:content";
 import InfoPagesLayout from "@/layouts/InfoPagesLayout.astro";
 
 const nowEntry = await getEntry("now", "now");
@@ -10,7 +10,7 @@ if (!nowEntry) {
 		"Now entry not found. Please create a now.md file in the content/now directory.",
 	);
 }
-const { Content } = await nowEntry.render();
+const { Content } = await render(nowEntry);
 ---
 
 <InfoPagesLayout frontmatter={nowEntry.data} image="/og/now.png">
