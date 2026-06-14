@@ -5,10 +5,10 @@ const pages = [
   { url: '/about', title: 'About Abdallah Othman' },
   { url: '/work', title: 'Abdallah Othman' },
   { url: '/now', title: 'Abdallah Othman' },
-  { url: '/blog/home', title: 'Abdallah Othman' },
+  { url: '/blog', title: 'Abdallah Othman' },
   { url: '/blog/getting-started', title: 'Blog' },
   { url: '/blog/self-hosting-hetzner-coolify', title: 'Blog' },
-  { url: '/projects/home', title: 'Abdallah Othman' },
+  { url: '/projects', title: 'Projects' },
   { url: '/projects/escalay', title: 'Projects' },
   { url: '/projects/personal-website', title: 'Projects' },
   { url: '/blog/tags', title: 'Tag' },
@@ -23,7 +23,8 @@ for (const page of pages) {
     const title = await browser.title()
     expect(title).toContain(page.title)
 
+    // Exactly one h1 per page (single, meaningful heading for SEO/a11y)
     const h1Count = await browser.locator('h1').count()
-    expect(h1Count).toBeGreaterThan(0)
+    expect(h1Count).toBe(1)
   })
 }
