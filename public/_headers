@@ -1,0 +1,6 @@
+# Keep the résumé PDF out of the search index — it was ranking for junk
+# queries (e.g. "templates next.js tailwind filetype:pdf") with ~0 clicks
+# and dragging the desktop average position. The HTML /cv page is the
+# canonical, rankable, navigable version; the PDF stays as a download.
+/abdallah-othman-resume.pdf
+  X-Robots-Tag: noindex

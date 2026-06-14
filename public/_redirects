@@ -2,6 +2,9 @@
 /blog/home      /blog/      301
 /projects/home  /projects/  301
 
+# Old résumé URL (spaces) -> clean filename.
+/Abdallah%20Othman%20-%20Resume.pdf  /abdallah-othman-resume.pdf  301
+
 # Consolidate www → apex so search engines see a single canonical host.
 # The host-qualified source only matches www requests; apex traffic is untouched.
 # 301! forces the redirect even when a static file exists at the same path.
