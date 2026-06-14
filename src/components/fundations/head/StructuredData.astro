@@ -58,18 +58,11 @@ const personSchema = {
   alumniOf: "Alexandria University",
   hasOccupation: {
     "@type": "Occupation",
-    name: "Software Engineer",
-    description: "Software Engineer and Technical Lead specializing in Growth Engineering, TypeScript, React, and AI development",
+    name: SITE.POSITION,
+    description: SITE.SPECIALIZATION,
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": SITE.URL
-    },
-    estimatedSalary: {
-      "@type": "MonetaryAmountDistribution",
-      name: "Senior Software Engineer Salary",
-      currency: "EUR",
-      duration: "P1Y",
-      median: 75000
     },
     occupationLocation: [
       {
@@ -102,14 +95,6 @@ const websiteSchema = {
   author: {
     "@type": "Person",
     "@id": `${SITE.URL}#person`
-  },
-  potentialAction: {
-    "@type": "SearchAction",
-    target: {
-      "@type": "EntryPoint",
-      urlTemplate: `${SITE.URL}/blog/search?q={search_term_string}`
-    },
-    "query-input": "required name=search_term_string"
   }
 };
 
@@ -159,8 +144,6 @@ const articleSchema = {
     "@type": "WebPage",
     "@id": Astro.url.toString()
   },
-  wordCount: description?.length || 500,
-  commentCount: 0,
   isAccessibleForFree: true
 };
 
@@ -168,9 +151,8 @@ const articleSchema = {
 const professionalServiceSchema = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
-  name: "Abdallah Othman - Software Engineering Services",
-  description:
-    "Software Engineer and Technical Lead specializing in Growth Engineering, TypeScript, React, and AI development",
+  name: `${SITE.NAME} — Product & Growth Engineering`,
+  description: SITE.SPECIALIZATION,
   provider: {
     "@type": "Person",
     "@id": `${SITE.URL}#person`
@@ -181,10 +163,10 @@ const professionalServiceSchema = {
   },
   availableLanguage: ["English", "Arabic", "German"],
   serviceType: [
-    "Software Development",
-    "Technical Leadership",
+    "Product Engineering",
     "Growth Engineering",
-    "AI/LLM Integration"
+    "AI/LLM Integration",
+    "Web Development"
   ],
   url: SITE.URL
 };
@@ -220,9 +202,9 @@ switch (type) {
   )
 }
 
-<!-- Professional Service Schema (for homepage) -->
+<!-- Professional Service Schema (homepage / site-level only) -->
 {
-  type === "Person" && (
+  type === "WebSite" && (
     <script
       is:inline
       type="application/ld+json"

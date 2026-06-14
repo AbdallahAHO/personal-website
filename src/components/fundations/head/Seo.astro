@@ -14,9 +14,14 @@ const {
 	title = SITE.TITLE,
 	description = SITE.DESCRIPTION,
 	image = SITE.OG_IMAGE,
-	type = SITE.OG_TYPE,
+	type = "WebSite",
 	canonical = Astro.url.href,
 } = Astro.props;
+
+// `type` is the schema.org @type (Person/WebSite/Article/BlogPosting).
+// Open Graph uses a different vocabulary, so map articles to "article"
+// and everything else to "website".
+const ogType = type === "Article" || type === "BlogPosting" ? "article" : "website";
 ---
 
 <SEO
@@ -26,7 +31,7 @@ const {
   openGraph={{
     basic: {
       title: title,
-      type: type,
+      type: ogType,
       image: new URL(image, SITE.URL).toString(),
       url: canonical,
     },
