@@ -1,29 +1,10 @@
 ---
-import { SITE } from "@/constants/site";
-
-interface Props {
-	title?: string;
-	description?: string;
-	keywords?: string[];
-}
-
-const {
-	title = SITE.TITLE,
-	description = SITE.DESCRIPTION,
-	keywords = SITE.KEYWORDS,
-} = Astro.props;
+// Only tags NOT already emitted by astro-seo (Seo.astro) or BaseHead.
+// title, description, keywords, author, robots and charset are owned by
+// Seo.astro / BaseHead — duplicating them here shipped two <title>, two
+// descriptions, two keywords/author and a second charset on every page.
 ---
 
-<!-- Meta Tags -->
-<meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>{title}</title>
-<meta name="description" content={description} />
-<meta name="keywords" content={keywords.join(", ")} />
-<meta name="author" content={SITE.AUTHOR} />
-
-<!-- Theme Color for Mobile Browsers -->
-<meta name="theme-color" content="#fafafa" />
-
-<!-- For IE -->
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
