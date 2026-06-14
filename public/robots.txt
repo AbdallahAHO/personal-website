@@ -1,22 +1,6 @@
 User-agent: *
 Allow: /
-Sitemap: https://www.abdallahaho.com/sitemap.xml
-
-# Optimize for search engines
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-# Allow specific paths
-Allow: /blog/
-Allow: /projects/
-Allow: /about
-Allow: /work
-Allow: /now
-
-# Disallow admin or private paths (if any)
 Disallow: /admin/
-Disallow: /.well-known/
 Disallow: /api/
+
+Sitemap: https://abdallahaho.com/sitemap-index.xml

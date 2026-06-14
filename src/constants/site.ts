@@ -12,7 +12,7 @@ export const SITE = {
   TITLE: 'Abdallah Othman: Product Engineer in Hamburg',
   DESCRIPTION:
     'Abdallah Othman is a product engineer in Hamburg, currently a Senior Growth Engineer at Lokalise, working on onboarding, activation, pricing, and AI product features (LLM agents, MCP). TypeScript, React, Node. Originally from Alexandria, Egypt.',
-  URL: 'https://www.abdallahaho.com',
+  URL: 'https://abdallahaho.com',
   AUTHOR: 'Abdallah Othman',
   KEYWORDS: [
     'Abdallah Othman',

@@ -1,0 +1,4 @@
+# Consolidate www → apex so search engines see a single canonical host.
+# The host-qualified source only matches www requests; apex traffic is untouched.
+# 301! forces the redirect even when a static file exists at the same path.
+https://www.abdallahaho.com/* https://abdallahaho.com/:splat 301!
