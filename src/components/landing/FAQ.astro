@@ -51,7 +51,10 @@ const faqSchema = {
 };
 ---
 
-<section>
+<!-- Visually hidden: the FAQ copy stays in the DOM + the FAQPage JSON-LD
+     below is always emitted. Note FAQ rich results were deprecated in 2023,
+     so this is low-value but harmless to keep. -->
+<section class="hidden">
   <Wrapper variant="standard" class="py-12 lg:py-32">
     <div class="border-t dark:border-white/10 border-black/10 pt-8">
       <Text
