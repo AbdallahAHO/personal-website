@@ -28,7 +28,7 @@ You know that moment when you realize you've been solving the wrong problem? Yea
 
 Back in November, Black Friday rolled around, and I did what any self-respecting engineer does - I went bargain hunting on Amazon. And there it was: a [Lenovo ThinkCentre M720Q Tiny Mini PC](https://psref.lenovo.com/syspool/Sys/PDF/ThinkCentre/ThinkCentre_M720_Tiny/ThinkCentre_M720_Tiny_Spec.pdf) for €90. Originally priced around €150, this little beast came with:
 
-- [Intel Core i5-8500T processor](https://www.intel.com/content/www/us/en/products/sku/129941/intel-core-i58500t-processor-9m-cache-up-to-3-50-ghz/specifications.html) (6 cores!)
+- [Intel Core i5-8400T processor](https://www.intel.com/content/www/us/en/products/sku/129948/intel-core-i58400t-processor-9m-cache-up-to-3-30-ghz/specifications.html) (6 cores!)
 - 8GB RAM (officially supports up to 32GB)
 - 128GB SSD with room for another
 - Two RAM slots for future upgrades
@@ -57,7 +57,7 @@ The whole setup took me a weekend, tops. Let me break it down:
 - Cable management (just Ethernet + power): 5 minutes
 
 **Software Setup**: Around 1.5 hours
-- [Ubuntu Server installation](https://ubuntu.com/tutorials/install-ubuntu-server) via USB: 30 minutes
+- [Ubuntu Server (24.04 LTS) installation](https://ubuntu.com/tutorials/install-ubuntu-server) via USB: 30 minutes
 - Initial configuration and updates: 30 minutes
 - [Coolify](https://coolify.io/) installation with setup tunnels and all: 20 minutes
 - First containers running: 10 minutes
@@ -97,7 +97,7 @@ One fun thing I did - I installed a [smart plug](https://www.ikea.com/de/de/p/tr
 
 ## What's Actually Running After a Year?
 
-Almost a year later, here's my stack:
+Almost a year later, the box quietly runs close to 50 containers, all managed through Coolify. Here's a representative slice of what's on it:
 
 **Development Tools**:
 - **[Mailpit](https://mailpit.axllent.org/)**: Mailpit - email & SMTP testing tool with API for developers (no more console.log debugging!)
@@ -127,7 +127,7 @@ There's a fan. It makes noise. In winter, with CPU temps under 50°C, it's a sub
 Based on my calculations (10-15W idle, up to 35W under load), running 24/7 costs about €3/month in electricity. That's €36/year - still way cheaper than cloud hosting.
 
 ### No CPU Upgrades
-Once you buy it, that's your CPU forever. The i5-8500T has been more than enough for my needs (I'm running 20+ containers), but if you're planning to run AI workloads locally, look at newer models with better specs.
+Once you buy it, that's your CPU forever. The i5-8400T has been more than enough for my needs (I'm running close to 50 containers), but if you're planning to run AI workloads locally, look at newer models with better specs.
 
 ## Remote Management That Actually Works
 
@@ -153,7 +153,7 @@ Compare that to cloud hosting:
 
 I have 16x the RAM and 3x the CPU cores for basically the same annual cost. But beyond the economics:
 - No surprise shutdowns in almost a year of 24/7 operation
-- Routine reboots every 20 days (my choice, not necessity)
+- Over 100 days of uptime on the current boot — the routine reboots I used to do turned out to be unnecessary
 - Complete control over my data
 - No bandwidth limits or surprise bills
 - Learning experience that cloud abstracts away
