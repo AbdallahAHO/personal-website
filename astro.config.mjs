@@ -15,45 +15,10 @@ export default defineConfig({
   },
   vite: {
     plugins: [tailwindcss(), devtoolsJson({ uuid: '6722dc0b-b5b2-4d99-a7bf-0733ae915756' })],
-    build: {
-      rollupOptions: {
-        output: {
-          // Configure cache-friendly file names with content hashes
-          assetFileNames: (assetInfo) => {
-            if (assetInfo.name && /\.(css|js)$/.test(assetInfo.name)) {
-              return '_astro/[name].[hash][extname]'
-            }
-            return 'assets/[name].[hash][extname]'
-          },
-          chunkFileNames: '_astro/[name].[hash].js',
-          entryFileNames: '_astro/[name].[hash].js',
-        },
-      },
-    },
-    preview: {
-      cors: {
-        origin: 'https://abdallahaho.com',
-        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-        allowedHeaders: ['Content-Type'],
-        credentials: true,
-        preflightContinue: false,
-        optionsSuccessStatus: 204,
-        maxAge: 3600,
-      },
-      allowedHosts: ['abdallahaho.com'],
-    },
   },
   site: 'https://abdallahaho.com',
   integrations: [
     sitemap({
-      customPages: [
-        'https://abdallahaho.com/',
-        'https://abdallahaho.com/about/',
-        'https://abdallahaho.com/work/',
-        'https://abdallahaho.com/blog/',
-        'https://abdallahaho.com/projects/',
-        'https://abdallahaho.com/now/',
-      ],
       serialize(item) {
         // Set priorities based on page importance
         if (item.url === 'https://abdallahaho.com/') {
