@@ -4,7 +4,7 @@ My personal website and blog, live at [abdallahaho.com](https://www.abdallahaho.
 
 ## Tech Stack
 
-- **[Astro](https://astro.build)** 6: static site generation with content collections (Content Layer API)
+- **[Astro](https://astro.build)** 7: static site generation with content collections (Content Layer API)
 - **[Tailwind CSS](https://tailwindcss.com)** 4: styling, via the `@tailwindcss/vite` plugin
 - **[MDX](https://docs.astro.build/en/guides/integrations-guide/mdx/)**: authoring for blog, projects, work, and now pages
 - **[Satori](https://github.com/vercel/satori) + [resvg](https://github.com/yisibl/resvg-js)**: dynamic Open Graph image generation
@@ -42,7 +42,7 @@ Content lives in `src/content/<collection>/` as Markdown. Each route under `src/
 
 ## Commands
 
-Run from the project root. Requires Node `>=22` (see `.nvmrc`) and [pnpm](https://pnpm.io).
+Run from the project root. Requires Node 26 (see `.nvmrc`) and [pnpm](https://pnpm.io) 12 (pinned in `packageManager`).
 
 | Command           | Action                                            |
 | :---------------- | :------------------------------------------------ |
@@ -50,15 +50,30 @@ Run from the project root. Requires Node `>=22` (see `.nvmrc`) and [pnpm](https:
 | `pnpm dev`        | Start the dev server at `localhost:4321`          |
 | `pnpm build`      | Build the production site to `./dist/`            |
 | `pnpm preview`    | Preview the production build locally              |
-| `pnpm typecheck`  | Type-check with `tsc`                             |
+| `pnpm typecheck`  | Type-check `.astro` and TS (`astro check` + `tsc`) |
 | `pnpm lint`       | Lint with Biome                                   |
+| `pnpm lint:ci`    | Lint + format check, no writes (what CI runs)     |
 | `pnpm check`      | Lint, format, and organize imports (writes fixes) |
 | `pnpm test`       | Run build tests (Playwright)                      |
 | `pnpm test:smoke` | Run smoke tests against `SMOKE_URL`               |
-| `pnpm deploy`     | Build and deploy to Cloudflare Pages              |
+| `pnpm run deploy` | Build and deploy (needs Cloudflare creds, below)  |
 
 > First test run only: `pnpm exec playwright install chromium` to download the browser.
 
 ## Deployment
 
-CI (GitHub Actions) runs type-check, lint, format, and build, then the Playwright build tests, then deploys to Cloudflare Pages (preview on PRs, production on push to `main`), followed by smoke tests against the live site.
+GitHub Actions (`.github/workflows/ci.yml`):
+
+1. **Verify**: `astro check` + `tsc`, `biome ci`, build, Playwright build tests.
+2. **Deploy** to Cloudflare Pages: a preview per PR, production on push to `main`.
+3. **Smoke**: Playwright smoke tests against the deployed URL.
+
+Dependabot opens one grouped minor/patch PR a week. `dependabot-automerge.yml` squash-merges it once CI is green and dispatches CI on `main` to deploy it. Majors open as separate PRs for review.
+
+Local deploy uses the project token in Infisical (`personal-website/prod/deploy`), never the global `wrangler login`:
+
+```sh
+infisical run --projectId 42132f2e-dfee-4553-ab40-ee465bac79a2 --env prod --path /deploy -- pnpm run deploy
+```
+
+From a feature branch this publishes a preview; from `main` it publishes production.
