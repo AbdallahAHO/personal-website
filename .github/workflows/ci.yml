@@ -5,24 +5,34 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  # Lets the Dependabot auto-merge workflow trigger the production deploy:
+  # merges made with GITHUB_TOKEN don't fire `push`.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
-  quality:
+  verify:
+    name: Verify
     runs-on: ubuntu-latest
-    name: Code Quality & Build
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v6
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
-          node-version: '22'
-          cache: 'pnpm'
+          node-version-file: .nvmrc
+          cache: pnpm
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -30,130 +40,96 @@ jobs:
       - name: Type check
         run: pnpm typecheck
 
-      - name: Lint
-        run: pnpm lint
-
-      - name: Format check
-        run: pnpm format
+      - name: Lint and format check
+        run: pnpm exec biome ci .
 
       - name: Build
         run: pnpm build
 
-      - name: Check build output
-        run: |
-          if [ ! -d "dist" ]; then
-            echo "Build failed: dist directory not found"
-            exit 1
-          fi
-          if [ ! -f "dist/index.html" ]; then
-            echo "Build failed: index.html not found"
-            exit 1
-          fi
-          echo "Build successful: dist directory contains expected files"
-          ls -la dist/
+      - name: Install Playwright Chromium
+        run: pnpm exec playwright install --with-deps chromium
 
-      - name: Upload build artifacts
+      - name: Build tests
+        run: pnpm test
+
+      - name: Upload test report
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: build-test-report
+          path: playwright-report/
+          retention-days: 7
+
+      - name: Upload build
         uses: actions/upload-artifact@v7
         with:
           name: dist
           path: dist/
           retention-days: 1
 
-  test:
-    runs-on: ubuntu-latest
-    name: Build Tests
-    needs: quality
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v6
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: '22'
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps chromium
-
-      - name: Download build artifacts
-        uses: actions/download-artifact@v8
-        with:
-          name: dist
-          path: dist/
-
-      - name: Run build tests
-        run: pnpm test
-
-      - name: Upload test results
-        uses: actions/upload-artifact@v7
-        if: always()
-        with:
-          name: build-test-report
-          path: playwright-report/
-          retention-days: 7
-
-  # Deploys to Cloudflare Pages — preview on PRs, production on push to main.
+  # Preview deploy on PRs, production on main. Dependabot PRs can't read
+  # Actions secrets, so they stop after verify.
   deploy:
-    runs-on: ubuntu-latest
     name: Deploy to Cloudflare Pages
-    needs: [quality, test]
-    if: github.event_name == 'push' || github.event_name == 'pull_request'
+    needs: verify
+    if: github.actor != 'dependabot[bot]'
+    runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
       deployments: write
-
     outputs:
       url: ${{ steps.url.outputs.url }}
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v6
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
-          node-version: '22'
+          node-version-file: .nvmrc
+          cache: pnpm
 
-      - name: Download build artifacts
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Download build
         uses: actions/download-artifact@v8
         with:
           name: dist
           path: dist/
 
-      - name: Deploy to Cloudflare Pages
+      - name: Deploy
         id: deploy
         uses: cloudflare/wrangler-action@v4
         with:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          command: pages deploy dist/ --project-name=personal-website
+          packageManager: pnpm
+          command: pages deploy dist/ --project-name=personal-website --branch=${{ github.head_ref || github.ref_name }}
 
-      - name: Set deployment URL
+      - name: Resolve URL
         id: url
+        env:
+          PREVIEW_URL: ${{ steps.deploy.outputs.deployment-url }}
         run: |
-          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+          if [ "$GITHUB_REF" = "refs/heads/main" ]; then
             echo "url=https://abdallahaho.com" >> "$GITHUB_OUTPUT"
           else
-            echo "url=${{ steps.deploy.outputs.deployment-url }}" >> "$GITHUB_OUTPUT"
+            echo "url=$PREVIEW_URL" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Create GitHub deployment
+      - name: Record GitHub deployment
         uses: actions/github-script@v9
+        env:
+          DEPLOY_URL: ${{ steps.url.outputs.url }}
         with:
           script: |
-            const isProduction = context.ref === 'refs/heads/main';
-            const deployment = await github.rest.repos.createDeployment({
+            const isProduction = context.ref === 'refs/heads/main'
+            const { data } = await github.rest.repos.createDeployment({
               ...context.repo,
               ref: context.sha,
               environment: isProduction ? 'production' : 'preview',
@@ -161,60 +137,44 @@ jobs:
               required_contexts: [],
               transient_environment: !isProduction,
               production_environment: isProduction,
-            });
-            if (deployment.data.id) {
-              await github.rest.repos.createDeploymentStatus({
-                ...context.repo,
-                deployment_id: deployment.data.id,
-                state: 'success',
-                environment_url: isProduction
-                  ? 'https://abdallahaho.com'
-                  : '${{ steps.deploy.outputs.deployment-url }}',
-                log_url: `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
-              });
-            }
-
-      # Production deploys get a release tag for audit trail
-      - name: Create release tag
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          TAG="v1.0.0-deploy.$(date +%Y%m%d).${GITHUB_SHA::7}"
-          gh release create "$TAG" \
-            --title "Deploy $TAG" \
-            --generate-notes \
-            --latest
+            })
+            await github.rest.repos.createDeploymentStatus({
+              ...context.repo,
+              deployment_id: data.id,
+              state: 'success',
+              environment_url: process.env.DEPLOY_URL,
+              log_url: `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
+            })
 
   smoke:
-    runs-on: ubuntu-latest
-    name: Smoke Tests
+    name: Smoke tests
     needs: deploy
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v6
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
-          node-version: '22'
-          cache: 'pnpm'
+          node-version-file: .nvmrc
+          cache: pnpm
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Run smoke tests against deployed site
+      - name: Run smoke tests against the deployed site
         env:
           SMOKE_URL: ${{ needs.deploy.outputs.url }}
         run: pnpm test:smoke
 
-      - name: Upload smoke test results
+      - name: Upload smoke report
+        if: failure()
         uses: actions/upload-artifact@v7
-        if: always()
         with:
           name: smoke-test-report
           path: playwright-report/
