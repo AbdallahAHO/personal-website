@@ -56,6 +56,7 @@ export async function generateOGImage({ title, description, date, badge }: OGIma
         style: {
           width: '100%',
           height: '100%',
+          boxSizing: 'border-box',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
