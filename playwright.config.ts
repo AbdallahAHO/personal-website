@@ -1,5 +1,8 @@
 import { defineConfig, devices } from '@playwright/test'
 
+// Own port so a dev server from another project on 4321 never answers the build tests.
+const previewPort = 4391
+
 export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
@@ -8,7 +11,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
   use: {
-    baseURL: 'http://localhost:4321',
+    baseURL: `http://localhost:${previewPort}`,
     trace: 'on-first-retry',
   },
   projects: [
@@ -21,8 +24,8 @@ export default defineConfig({
   webServer: process.env.SMOKE_URL
     ? undefined
     : {
-        command: 'pnpm preview',
-        port: 4321,
+        command: `pnpm preview --port ${previewPort}`,
+        port: previewPort,
         reuseExistingServer: !process.env.CI,
       },
 })
