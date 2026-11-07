@@ -70,7 +70,7 @@ const now = defineCollection({
     title: z.string(),
     description: z.string(),
     pubDate: z.date(),
-    lastUpdated: z.string(),
+    lastUpdated: z.coerce.date().optional(),
   }),
 })
 
