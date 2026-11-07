@@ -1,6 +1,6 @@
 ---
 pubDate: 2018-09-01
-title: "ABOUT YOU GmbH"
+title: "ABOUT YOU"
 subtitle: "Frontend Engineer"
 dateStart: "2018-09-01"
 dateEnd: "2019-08-31"
