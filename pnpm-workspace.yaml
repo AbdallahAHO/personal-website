@@ -1,7 +1,11 @@
 packages:
-  - '.'
-onlyBuiltDependencies:
-  - "@biomejs/biome"
-  - "@tailwindcss/oxide"
-  - esbuild
-  - sharp
+  - "."
+allowBuilds:
+  "@biomejs/biome": true
+  "@tailwindcss/oxide": true
+  esbuild: true
+  sharp: true
+  workerd: true
+overrides:
+  # astro2tsx (astro check) bundles @emnapi/core 1.x; the auto-installed 2.0 beta runtime crashes it.
+  "@emnapi/runtime": ^1.11.1
