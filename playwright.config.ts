@@ -1,6 +1,7 @@
 import { defineConfig, devices } from '@playwright/test'
 
-// Own port so a dev server from another project on 4321 never answers the build tests.
+// Own port so another project's dev server on 4321 never answers; --ignore-lock keeps
+// Astro from auto-backgrounding the preview server when an agent runs the tests.
 const previewPort = 4391
 
 export default defineConfig({
@@ -24,7 +25,7 @@ export default defineConfig({
   webServer: process.env.SMOKE_URL
     ? undefined
     : {
-        command: `pnpm preview --port ${previewPort}`,
+        command: `pnpm preview --port ${previewPort} --ignore-lock`,
         port: previewPort,
         reuseExistingServer: !process.env.CI,
       },
