@@ -55,7 +55,7 @@ Run from the project root. Requires Node `>=22` (see `.nvmrc`) and [pnpm](https:
 | `pnpm check`      | Lint, format, and organize imports (writes fixes) |
 | `pnpm test`       | Run build tests (Playwright)                      |
 | `pnpm test:smoke` | Run smoke tests against `SMOKE_URL`               |
-| `pnpm deploy`     | Build and deploy to Cloudflare Pages             |
+| `pnpm deploy`     | Build and deploy to Cloudflare Pages              |
 
 > First test run only: `pnpm exec playwright install chromium` to download the browser.
 

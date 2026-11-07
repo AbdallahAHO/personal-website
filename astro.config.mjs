@@ -5,6 +5,8 @@ import { defineConfig } from 'astro/config'
 import devtoolsJson from 'vite-plugin-devtools-json'
 
 export default defineConfig({
+  // Keep HTML-aware whitespace; Astro 7's 'jsx' default glues inline text together.
+  compressHTML: true,
   markdown: {
     shikiConfig: {
       theme: 'css-variables',
