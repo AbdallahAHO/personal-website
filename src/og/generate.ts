@@ -1,5 +1,5 @@
-import satori from 'satori'
 import { Resvg } from '@resvg/resvg-js'
+import satori from 'satori'
 
 interface FontData {
   name: string

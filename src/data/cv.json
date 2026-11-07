@@ -66,11 +66,26 @@
     }
   ],
   "skills": [
-    { "label": "Core", "items": "TypeScript, JavaScript (ES6+), React, Next.js, Node.js, GraphQL, REST, PostgreSQL" },
-    { "label": "Growth & Data", "items": "A/B Testing, Experimentation Infrastructure, Feature Flags, Product Analytics, Data Visualisation, Conversion Optimisation, SEO" },
-    { "label": "AI & LLM", "items": "LLMs, AI SDK, LangChain, Prompt/Agentic Engineering, RAG, OpenAI API, MCP" },
-    { "label": "Quality & Infra", "items": "E2E Testing, Visual Regression Testing, TDD, CI/CD, Docker, Kubernetes, AWS" },
-    { "label": "Practices", "items": "Design Systems, Accessibility (WCAG), Agile (Scrum, Kanban)" },
+    {
+      "label": "Core",
+      "items": "TypeScript, JavaScript (ES6+), React, Next.js, Node.js, GraphQL, REST, PostgreSQL"
+    },
+    {
+      "label": "Growth & Data",
+      "items": "A/B Testing, Experimentation Infrastructure, Feature Flags, Product Analytics, Data Visualisation, Conversion Optimisation, SEO"
+    },
+    {
+      "label": "AI & LLM",
+      "items": "LLMs, AI SDK, LangChain, Prompt/Agentic Engineering, RAG, OpenAI API, MCP"
+    },
+    {
+      "label": "Quality & Infra",
+      "items": "E2E Testing, Visual Regression Testing, TDD, CI/CD, Docker, Kubernetes, AWS"
+    },
+    {
+      "label": "Practices",
+      "items": "Design Systems, Accessibility (WCAG), Agile (Scrum, Kanban)"
+    },
     { "label": "Languages", "items": "English (Fluent), German (Basic), Arabic (Native)" }
   ],
   "education": [

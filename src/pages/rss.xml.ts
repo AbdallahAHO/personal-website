@@ -3,7 +3,7 @@ import rss from '@astrojs/rss'
 
 export async function GET(context: { site: string }) {
   const blog = (await getCollection('blog')).sort(
-    (a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime(),
+    (a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
   )
 
   return rss({
