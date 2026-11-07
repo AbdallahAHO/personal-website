@@ -26,8 +26,8 @@ const body = "text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed";
 
 <BaseLayout
   title="CV: Abdallah Othman, Senior Product Engineer"
-  description="The CV of Abdallah Othman, Senior Product Engineer in Hamburg. Experimentation infrastructure, monetisation systems, and AI-powered features across Lokalise, Postman, XING, and ABOUT YOU."
-  keywords={["Abdallah Othman", "CV", "Resume", "Senior Product Engineer", "Growth Engineer", "Hamburg", "Experimentation", "AI", "MCP"]}
+  description="The CV of Abdallah Othman, Product Engineer, Growth at Langfuse (part of ClickHouse). Experimentation infrastructure, monetisation systems, and AI-powered features across Lokalise, Postman, XING, and ABOUT YOU."
+  keywords={["Abdallah Othman", "CV", "Resume", "Product Engineer", "Growth Engineer", "Langfuse", "Hamburg", "Experimentation", "AI", "MCP"]}
 >
   <section class="mx-auto max-w-3xl">
     <!-- Header -->
@@ -97,6 +97,7 @@ const body = "text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed";
                   </h3>
                   <p class:list={[meta, "shrink-0"]}>{job.period} · {job.location}</p>
                 </div>
+                {job.bullets.length > 0 && (
                 <ul class="mt-3.5 space-y-2.5">
                   {job.bullets.map((bullet) => (
                     <li class:list={[body, "relative pl-4 before:absolute before:left-0 before:top-[0.65em] before:h-[3px] before:w-[3px] before:rounded-full before:bg-zinc-300 dark:before:bg-zinc-600"]}>
@@ -104,6 +105,7 @@ const body = "text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed";
                     </li>
                   ))}
                 </ul>
+                )}
               </article>
             ))
           }

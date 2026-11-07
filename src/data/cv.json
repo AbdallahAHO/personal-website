@@ -13,9 +13,16 @@
   "overview": "Senior Product Engineer with {years}+ years driving growth through experimentation, product analytics, and full-stack development. I specialise in experimentation infrastructure, monetisation systems, and AI-powered features, and I tend to own initiatives from RFC and stakeholder alignment through implementation to measured impact. I do my best work on autonomous teams where engineers own outcomes.",
   "experience": [
     {
+      "company": "Langfuse (part of ClickHouse)",
+      "role": "Product Engineer, Growth",
+      "period": "Oct 2026 – Present",
+      "location": "Remote",
+      "bullets": []
+    },
+    {
       "company": "Lokalise",
       "role": "Senior Growth Engineer",
-      "period": "Apr 2024 – Present",
+      "period": "Apr 2024 – Sept 2026",
       "location": "Remote",
       "bullets": [
         "Built the company's experimentation platform: a vendor-agnostic analytics and experiment SDK with exposure-on-render tracking and a typed experiment registry, enabling Lokalise's first reliable A/B experiments.",

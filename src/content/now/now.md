@@ -1,17 +1,15 @@
 ---
 title: "Now"
-description: "What Abdallah Othman is focused on right now: shipping an AI product end to end, growth engineering at Lokalise, self-hosting, and settling into life in Hamburg."
+description: "What Abdallah Othman is focused on right now: a new growth role at Langfuse, agents in day-to-day work, and settling into life in Hamburg."
 pubDate: 2026-06-14
-lastUpdated: "2026-06-14"
+lastUpdated: "2026-11-07"
 ---
 
 Still in Winterhude, Hamburg. Six years in and still loyal to the rhythm of Hayns Park walks and slow evenings by Stadtpark. It's home, and this year more than ever I'm working on making it officially home.
 
-I'm still at Lokalise, remote, on the Growth Engineering side. These days that means a lot of pricing, paywall, and self-serve plumbing, and increasingly the question of what growth engineering even looks like once agents are doing a chunk of the building.
+In October I moved to Langfuse, the open-source LLM engineering platform and now part of ClickHouse, as a Product Engineer on Growth. Still remote. The question I keep coming back to hasn't changed: what growth engineering even looks like once agents are doing a chunk of the building.
 
-Most of my building energy is going into something I'm not ready to talk about yet. One thing keeps proving true: the model was never the hard part. It's the data, the retrieval, and getting someone to trust the output enough to act on it.
-
-That's the big shift this year: from "LLMs are fun" (they still are; the image-gen rabbit holes get me) to actually shipping agentic systems and using them every day. I went far enough down that road to build my own meeting-intelligence system that turns every call into a searchable archive. Running my own life on agents has taught me more than anything else.
+The big shift this year: from "LLMs are fun" (they still are; the image-gen rabbit holes get me) to actually shipping agentic systems and using them every day. I've wired up a fair bit of my own day-to-day with little agents, and running my own work through them has taught me more than anything else.
 
 Still curious about practical AI for Arabic-speaking markets and family-oriented workflows. That thread hasn't gone anywhere; it's just waiting its turn.
 
@@ -27,7 +25,7 @@ On the music front, attended a couple of great concerts lately, especially [Ibra
 
 #### Current Focus
 
-Less ideation, more shipping. I've traded "one micro SaaS a month" for going deep on one thing that matters: building an AI product end to end, and finding out where agents actually hold up and where they fall apart.
+Less ideation, more shipping. I've traded "one micro SaaS a month" for going deep: settling into a new role, and finding out where agents actually hold up and where they fall apart.
 
 And outside the screen, a lot of energy is going into the stuff you can't ship: settling roots, paperwork, building a life and not just products.
 
