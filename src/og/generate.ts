@@ -36,14 +36,18 @@ function loadFonts(): Promise<FontData[]> {
   return fontsPromise
 }
 
-interface OGImageOptions {
+export interface OGImageOptions {
   title: string
   description?: string
-  date?: string
+  date?: Date
   badge?: string
 }
 
-export async function generateOGImage({ title, description, date, badge }: OGImageOptions) {
+const formatCardDate = (date: Date) =>
+  date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+
+/** Renders a 1200×630 social card and returns it as a PNG response. */
+export async function ogImageResponse({ title, description, date, badge }: OGImageOptions) {
   const fonts = await loadFonts()
 
   const truncatedDescription =
@@ -185,7 +189,7 @@ export async function generateOGImage({ title, description, date, badge }: OGIma
                         type: 'span',
                         props: {
                           style: { fontSize: 18, fontWeight: 400, color: '#a1a1aa' },
-                          children: date,
+                          children: formatCardDate(date),
                         },
                       },
                     ]
@@ -203,7 +207,6 @@ export async function generateOGImage({ title, description, date, badge }: OGIma
     }
   )
 
-  const resvg = new Resvg(svg, { fitTo: { mode: 'width', value: 1200 } })
-  const pngBuffer = resvg.render().asPng()
-  return new Uint8Array(pngBuffer)
+  const png = new Resvg(svg, { fitTo: { mode: 'width', value: 1200 } }).render().asPng()
+  return new Response(new Uint8Array(png), { headers: { 'Content-Type': 'image/png' } })
 }

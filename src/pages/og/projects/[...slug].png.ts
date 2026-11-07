@@ -1,30 +1,18 @@
 import { type CollectionEntry, getCollection } from 'astro:content'
 import type { APIRoute, GetStaticPaths } from 'astro'
-import { generateOGImage } from '@/og/generate'
+import { ogImageResponse } from '@/og/generate'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const projects = await getCollection('projects')
-  return projects.map((project) => ({
-    params: { slug: project.id },
-    props: { project },
-  }))
+  return projects.map((project) => ({ params: { slug: project.id }, props: { project } }))
 }
 
-export const GET: APIRoute = async ({ props }) => {
+export const GET: APIRoute = ({ props }) => {
   const { project } = props as { project: CollectionEntry<'projects'> }
-
-  const png = await generateOGImage({
+  return ogImageResponse({
     title: project.data.title,
     description: project.data.subtitle,
-    date: project.data.pubDate.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-    }),
+    date: project.data.pubDate,
     badge: 'PROJECT',
-  })
-
-  return new Response(png, {
-    headers: { 'Content-Type': 'image/png' },
   })
 }
