@@ -1,6 +1,6 @@
-import { expect, test } from '@playwright/test'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
+import { expect, test } from '@playwright/test'
 
 const distDir = join(process.cwd(), 'dist')
 
