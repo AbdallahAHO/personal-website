@@ -1,8 +1,19 @@
+import { execSync } from 'node:child_process'
 import { yearsSince } from '@/utils/date'
 
-// Git commit hash will be set at build time
-const COMMIT_HASH =
-  process.env.GITHUB_SHA?.substring(0, 7) || process.env.SOURCE_COMMIT?.substring(0, 7) || 'unknown'
+/** Short hash of the commit being built: CI env first, then local git. */
+const readCommitHash = (): string => {
+  const fromCi = process.env.GITHUB_SHA ?? process.env.SOURCE_COMMIT
+  if (fromCi) return fromCi.slice(0, 7)
+  try {
+    return execSync('git rev-parse --short=7 HEAD', { encoding: 'utf8' }).trim()
+  } catch {
+    return 'unknown'
+  }
+}
+
+const COMMIT_HASH = readCommitHash()
+const REPO_URL = 'https://github.com/AbdallahAHO/personal-website'
 
 // First professional role, Nov 2016 (Egypt). Drives EXPERIENCE_YEARS at build time.
 const CAREER_START = '2016-11-01'
@@ -84,5 +95,5 @@ export const SITE = {
 
   // Git info
   COMMIT_HASH,
-  REPO_NAME: 'personal-website',
+  COMMIT_URL: COMMIT_HASH === 'unknown' ? REPO_URL : `${REPO_URL}/commit/${COMMIT_HASH}`,
 }
