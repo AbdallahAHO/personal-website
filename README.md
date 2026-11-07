@@ -31,14 +31,14 @@ src/
 ├── og/               # OG image generation logic
 ├── pages/            # File-based routes (incl. /og/*.png endpoints)
 ├── styles/           # Global CSS
-└── utils/            # Helpers (git info)
+└── utils/            # Date helpers
 
 tests/
 ├── build/            # Tests against the local build (start a preview server)
 └── smoke/            # Post-deploy tests against production
 ```
 
-Content lives in `src/content/<collection>/` as Markdown. Each route under `src/pages/` maps to a URL; `src/pages/og/` generates social card images at build time.
+Content lives in `src/content/<collection>/` as Markdown. Each route under `src/pages/` maps to a URL; `src/pages/og/` generates social card images at build time: fixed pages from the map in `[...page].png.ts`, posts, projects and tags from their collections.
 
 ## Commands
 
