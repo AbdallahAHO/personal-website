@@ -1,27 +1,18 @@
 import { getCollection } from 'astro:content'
-import type { APIRoute } from 'astro'
-import { generateOGImage } from '@/og/generate'
+import type { APIRoute, GetStaticPaths } from 'astro'
+import { ogImageResponse } from '@/og/generate'
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await getCollection('blog')
-  const tags = [...new Set(posts.flatMap((post) => post.data.tags || []))]
-  return tags.map((tag: string) => ({
-    params: { tag },
-    props: { tag },
-  }))
+  const tags = [...new Set(posts.flatMap((post) => post.data.tags ?? []))]
+  return tags.map((tag) => ({ params: { tag }, props: { tag } }))
 }
 
-export const GET: APIRoute = async ({ props }) => {
+export const GET: APIRoute = ({ props }) => {
   const { tag } = props as { tag: string }
-  const label = tag.charAt(0).toUpperCase() + tag.slice(1)
-
-  const png = await generateOGImage({
-    title: label,
+  return ogImageResponse({
+    title: tag.charAt(0).toUpperCase() + tag.slice(1),
     description: `Articles tagged with ${tag}.`,
     badge: 'TAG',
-  })
-
-  return new Response(png, {
-    headers: { 'Content-Type': 'image/png' },
   })
 }
