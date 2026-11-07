@@ -1,4 +1,12 @@
 ---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"a"> {
+	size?: "small" | "medium";
+	variant?: "primary" | "secondary" | "link";
+	gapSize?: "small" | "medium";
+}
+
 const { size, variant, gapSize, class: className, href, ...rest } = Astro.props;
 
 // Variant styles
@@ -42,7 +50,7 @@ const gapClasses = {
 	small: "gap-2",
 	medium: "gap-4",
 };
-const gapClass = gapClasses[gapSize] || "";
+const gapClass = gapSize ? gapClasses[gapSize] : "";
 
 // Additional user-provided classes
 const additionalClasses = className ? className.split(" ") : [];
