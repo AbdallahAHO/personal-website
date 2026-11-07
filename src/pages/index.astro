@@ -11,7 +11,8 @@ import LatestPosts from "@/components/blog/LatestPosts.astro";
 // Blog contet
 import { getCollection } from "astro:content";
 // Newest first, by publication date
-const byNewest = (a, b) =>
+type Dated = { data: { pubDate: Date | string } };
+const byNewest = (a: Dated, b: Dated) =>
   new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime();
 const allPosts = (await getCollection("blog")).sort(byNewest);
 const allProjects = (await getCollection("projects")).sort(byNewest);
