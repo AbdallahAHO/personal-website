@@ -6,7 +6,7 @@ const seoPages = [
   { url: '/', ogImageContains: '/og/default.png', ogType: 'website' },
   { url: '/about', ogImageContains: '/og/about.png', ogType: 'website' },
   { url: '/work', ogImageContains: '/og/work.png', ogType: 'website' },
-  { url: '/blog/getting-started', ogImageContains: '/og/blog/', ogType: 'blogposting' },
+  { url: '/blog/getting-started', ogImageContains: '/og/blog/', ogType: 'article' },
   { url: '/projects/escalay', ogImageContains: '/og/projects/', ogType: 'article' },
 ]
 
