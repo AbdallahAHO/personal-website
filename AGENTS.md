@@ -24,4 +24,5 @@ Static Astro 7 site for abdallahaho.com, deployed to Cloudflare Pages (project `
 - `@emnapi/runtime` is overridden to 1.x in `pnpm-workspace.yaml`; the 2.0 beta crashes `astro check`.
 - Biome skips `*.md`/`*.mdx` because its formatter flattens nested YAML frontmatter.
 - OG cards (`src/og/generate.ts`) need `boxSizing: 'border-box'` on the root under satori ≥0.63.
+- Under an agent, Astro 7 auto-backgrounds `astro preview` (one shared daemon). Pass `--ignore-lock` for a foreground run, or `pnpm exec astro preview stop` afterwards.
 - Blog and project pages emit `og:type` `article`; the schema.org type (`BlogPosting`) is separate.
