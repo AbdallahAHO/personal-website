@@ -20,7 +20,7 @@ src/
 ├── components/       # UI components, grouped by domain
 │   ├── assets/       # Logo, theme toggle
 │   ├── blog/         # Blog listing components
-│   ├── fundations/   # Base elements, <head> tags, scripts
+│   ├── foundations/   # Base elements, <head> tags, scripts
 │   ├── global/       # Footer, navigation
 │   ├── landing/      # Hero, FAQ
 │   └── projects/     # Project listing components
