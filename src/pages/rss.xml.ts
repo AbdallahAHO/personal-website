@@ -9,7 +9,7 @@ export async function GET(context: { site: string }) {
   return rss({
     title: 'Abdallah Othman',
     description:
-      'Personal website of Abdallah Othman - Senior Frontend Engineer and Technical Lead. Thoughts, projects, and insights on web development, Growth Engineering, and AI.',
+      'Personal website of Abdallah Othman, product engineer in Hamburg. Thoughts, projects, and insights on web development, Growth Engineering, and AI.',
     site: context.site,
     items: blog.map((post) => ({
       title: post.data.title,

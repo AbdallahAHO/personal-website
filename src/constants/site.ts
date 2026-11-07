@@ -22,7 +22,7 @@ export const SITE = {
   NAME: 'Abdallah Othman',
   TITLE: 'Abdallah Othman: Product Engineer in Hamburg',
   DESCRIPTION:
-    'Abdallah Othman is a product engineer in Hamburg, currently a Senior Growth Engineer at Lokalise, working on onboarding, activation, pricing, and AI product features (LLM agents, MCP). TypeScript, React, Node. Originally from Alexandria, Egypt.',
+    'Abdallah Othman is a product engineer in Hamburg, working on growth at Langfuse (part of ClickHouse), the open-source LLM engineering platform. Previously Lokalise, Postman, XING, and ABOUT YOU. TypeScript, React, Node. Originally from Alexandria, Egypt.',
   URL: 'https://abdallahaho.com',
   AUTHOR: 'Abdallah Othman',
   KEYWORDS: [
@@ -40,6 +40,8 @@ export const SITE = {
     'React',
     'Node.js Developer',
     'Egyptian Engineer Germany',
+    'Langfuse',
+    'ClickHouse',
     'Lokalise',
     'Hamburg Tech Scene',
     'Alexandria Egypt',
@@ -69,8 +71,8 @@ export const SITE = {
   TIMEZONE: 'Europe/Berlin',
 
   // Professional
-  CURRENT_COMPANY: 'Lokalise',
-  POSITION: 'Senior Growth Engineer',
+  CURRENT_COMPANY: 'Langfuse',
+  POSITION: 'Product Engineer, Growth',
   CAREER_START,
   EXPERIENCE_YEARS: `${yearsSince(CAREER_START)}+`,
   SPECIALIZATION: 'Product & Growth Engineering, AI/LLM (agents, MCP), TypeScript & React',
