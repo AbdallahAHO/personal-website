@@ -9,3 +9,6 @@ allowBuilds:
 overrides:
   # astro2tsx (astro check) bundles @emnapi/core 1.x; the auto-installed 2.0 beta runtime crashes it.
   "@emnapi/runtime": ^1.11.1
+  # Security floors for exact-pinned transitive deps (Dependabot alerts #86, #43).
+  postcss-selector-parser@6: ^6.1.5
+  fflate@0.7: ^0.7.5
