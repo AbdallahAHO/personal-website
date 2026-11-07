@@ -15,14 +15,15 @@
     "format": "biome format --write .",
     "lint": "biome lint .",
     "check": "biome check --write .",
-    "check:unsafe": "biome check --apply-unsafe .",
+    "check:unsafe": "biome check --write --unsafe .",
     "clean": "rm -rf node_modules dist .astro",
     "reinstall": "pnpm clean && pnpm install",
-    "typecheck": "astro sync && tsc --noEmit",
+    "typecheck": "astro sync && astro check && tsc --noEmit",
     "test": "playwright test tests/build/",
     "test:smoke": "playwright test tests/smoke/",
     "test:all": "playwright test",
-    "deploy": "pnpm build && wrangler pages deploy dist/"
+    "deploy": "pnpm build && wrangler pages deploy dist/",
+    "lint:ci": "biome ci ."
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",
