@@ -1,27 +1,29 @@
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/"
+  # Minor/patch land as one weekly PR that auto-merges when CI is green
+  # (.github/workflows/dependabot-automerge.yml). Majors open on their own.
+  - package-ecosystem: npm
+    directory: /
     schedule:
-      interval: "weekly"
-      day: "monday"
+      interval: weekly
+      day: monday
+    cooldown:
+      default-days: 3
+    open-pull-requests-limit: 5
     groups:
-      astro:
-        patterns:
-          - "astro"
-          - "@astrojs/*"
-          - "astro-seo"
-      tailwind:
-        patterns:
-          - "tailwindcss"
-          - "@tailwindcss/*"
-      playwright:
-        patterns:
-          - "@playwright/*"
-    open-pull-requests-limit: 10
+      minor-and-patch:
+        update-types: [minor, patch]
+      astro-major:
+        patterns: [astro, '@astrojs/*', astro-seo]
+        update-types: [major]
 
-  - package-ecosystem: "github-actions"
-    directory: "/"
+  - package-ecosystem: github-actions
+    directory: /
     schedule:
-      interval: "weekly"
-      day: "monday"
+      interval: weekly
+      day: monday
+    cooldown:
+      default-days: 3
+    groups:
+      minor-and-patch:
+        update-types: [minor, patch]
