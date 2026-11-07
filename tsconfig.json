@@ -1,23 +1,11 @@
 {
-  "extends": "astro/tsconfigs/base",
+  "extends": "astro/tsconfigs/strict",
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist", "node_modules"],
   "compilerOptions": {
-    "strictNullChecks": true,
-    "target": "ESNext",
-    "module": "ESNext",
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
     "paths": {
       "@/*": ["./src/*"]
-    },
-    // skip checking all of your dependencies’ d.ts files
-    "skipLibCheck": true
-  },
-  "include": [
-    "src/**/*",
-    "astro.config.ts",
-    // explicitly include your generated content types
-    ".astro/content.d.ts"
-  ],
-  "exclude": ["node_modules"]
+    }
+  }
 }
