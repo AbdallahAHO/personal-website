@@ -41,7 +41,7 @@ jobs:
         run: pnpm typecheck
 
       - name: Lint and format check
-        run: pnpm exec biome ci .
+        run: pnpm lint:ci
 
       - name: Build
         run: pnpm build

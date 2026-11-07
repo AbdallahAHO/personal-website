@@ -22,3 +22,6 @@ test-results/
 *.log
 .vscode/
 .idea/
+
+# local agent settings
+.claude/settings.local.json
