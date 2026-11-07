@@ -2,7 +2,6 @@
 import Text from "@/components/foundations/elements/Text.astro";
 import Wrapper from "@/components/foundations/containers/Wrapper.astro";
 import { SITE } from "@/constants/site";
-import { getGitCommitUrl } from "@/utils/git";
 
 const siteLinks = [
   {
@@ -69,11 +68,6 @@ const resourceLinks = [
   }
 ];
 
-const commitUrl = getGitCommitUrl(
-  SITE.COMMIT_HASH,
-  SITE.GITHUB_USERNAME,
-  SITE.REPO_NAME
-);
 ---
 
 <footer class="border-t border-zinc-200 dark:border-zinc-700 mt-auto">
@@ -198,7 +192,7 @@ const commitUrl = getGitCommitUrl(
             </Text>
             <Text
               tag="a"
-              href={commitUrl}
+              href={SITE.COMMIT_URL}
               target="_blank"
               variant="textXS"
               rel="noopener noreferrer"
